@@ -1,0 +1,12 @@
+<div class="container-fluid" id="site-container">
+  <div class="row justify-content-end">
+    <div class="col-lg-10">
+        <app-header class="row"></app-header>
+        <div class="row" id="content-row">
+          <app-sidebar class="col-2"></app-sidebar>
+          <ng-content class="col"></ng-content>
+        </div>
+      <app-footer></app-footer>
+    </div>
+  </div>
+</div>
