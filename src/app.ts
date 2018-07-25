@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as path from 'path';
+import * as bodyParser from 'body-parser';
 import apiRoutes from './routes/api';
 import indexRoutes from './routes';
 
@@ -9,7 +10,13 @@ class App {
     constructor() {
         this.express = express();
         this.staticContent();
+        this.middleware();
         this.routes();
+    }
+
+    private middleware(): void {
+        this.express.use(bodyParser.urlencoded({ extended: true }));
+        
     }
 
     private staticContent(): void {
