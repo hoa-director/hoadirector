@@ -4,4 +4,9 @@
 #sidebar {
     background-color: #3A617E;
     height: 100%;
+    color: #fff;
+}
+
+.home-info {
+    margin-top: 42px;
 }

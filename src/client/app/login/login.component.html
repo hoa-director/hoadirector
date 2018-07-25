@@ -1,3 +1,28 @@
-<p>
-  login works!
-</p>
+<div class="row">
+  <div class="col">
+    <div class="row">
+      <div class="col-6 welcome-images">
+        <img src="assets/images/welcomehoadirector.jpg" alt="">
+        <img src="assets/images/hoaaplacetocalhome.jpg" class="call-home">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <form #loginForm="ngForm" (ngSubmit)="login(user)">
+          <input type="text" placeholder="username" class="form-control" name="username" required [(ngModel)]="user.username" #username="ngModel">
+          <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+            Username is required
+          </div>
+          <input type="password" placeholder="password" class="form-control" name="password" required [(ngModel)]="user.password" #password="ngModel">
+          <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+            Password is required
+          </div>
+          <button class="btn btn-primary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
+        </form>
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+  </div>
+</div>

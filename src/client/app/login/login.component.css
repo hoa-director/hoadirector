@@ -1,0 +1,17 @@
+form.form-control {
+    background-color: transparent;
+    border: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+.call-home {
+    max-width: 50%;
+}
+
+.welcome-images {
+    text-align: center;
+    margin-top: -30px;
+}

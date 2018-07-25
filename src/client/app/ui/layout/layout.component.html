@@ -4,7 +4,9 @@
         <app-header class="row"></app-header>
         <div class="row" id="content-row">
           <app-sidebar class="col-2"></app-sidebar>
-          <ng-content class="col"></ng-content>
+          <div class="col-10">
+            <ng-content></ng-content>
+          </div>
         </div>
       <app-footer></app-footer>
     </div>
