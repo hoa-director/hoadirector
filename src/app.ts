@@ -2,7 +2,8 @@ import * as express from 'express';
 import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import apiRoutes from './routes/api';
-import indexRoutes from './routes';
+import indexRoutes from './routes/index';
+import userRoutes from './routes/user';
 
 class App {
     public express: express.Application;
@@ -16,7 +17,6 @@ class App {
 
     private middleware(): void {
         this.express.use(bodyParser.urlencoded({ extended: true }));
-        
     }
 
     private staticContent(): void {
@@ -29,8 +29,10 @@ class App {
 
     private routes(): void {
         this.express.use('/api/', apiRoutes);
+        this.express.use('/user/', userRoutes);
         this.express.use('/*', indexRoutes);
     }
+
 }
 
 export default new App().express;
