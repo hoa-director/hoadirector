@@ -2,8 +2,6 @@ require('dotenv').config();
 import * as http from 'http';
 
 import App from './app';
-// const database = require('./config/database');
-import Users from './schema/user';
 
 const port = normalizePort(process.env.PORT || 3000);
 App.set('port', port);

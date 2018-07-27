@@ -1,6 +1,8 @@
 import * as Sequelize from 'sequelize';
 
-const connectionOptions = {
+const logging = process.env.NODE_ENV === 'development'? true : false;
+
+const connectionOptions: Sequelize.Options = {
     host: process.env.DATABASE_HOST,
     dialect: 'mysql',
     pool: {
@@ -10,14 +12,17 @@ const connectionOptions = {
     define: {
         createdAt: false,
         updatedAt: false,
-    }
+        underscored: true,
+    },
+    operatorsAliases: false,
+    logging: logging,
 };
 
 class DatabaseConnection {
     sequelize: Sequelize.Sequelize;
 
     constructor() {
-        this.sequelize = new Sequelize(process.env.DATABASE_DB, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, connectionOptions);
+        this.sequelize = new Sequelize.Sequelize(process.env.DATABASE_DB, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, connectionOptions);
         this.testConnection();
     }
 
