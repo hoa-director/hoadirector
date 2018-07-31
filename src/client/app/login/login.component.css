@@ -15,3 +15,7 @@ img {
     text-align: center;
     margin-top: -30px;
 }
+
+.incorrect {
+    color: #af0c26;
+}

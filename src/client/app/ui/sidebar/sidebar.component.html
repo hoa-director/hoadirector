@@ -1,9 +1,22 @@
 <div id="sidebar" class="row">
     <div class="col">
-        <div class="home-info">
+        <div class="home-info" *ngIf="!userService.user">
             <p>Everyday in your association will be pleasant.</p>
             <p>Timely answers to questions and concerns.</p>
             <p>You have problem resolution at your fingertips.</p>
         </div>
+        <!-- <div *ngIf="userService.user" class="nav flex-column nav-pills"> -->
+        <ul class="nav flex-column nav-pills">
+            <div class="menu-title">
+                <h3>
+                    Menu
+                </h3>
+            </div>
+            <li class="nav-item" *ngFor="let link of links">
+                <a routerLink={{link.path}} class="nav-link">
+                    {{link.label}}
+                </a>
+            </li>
+        </ul>
     </div>
 </div>

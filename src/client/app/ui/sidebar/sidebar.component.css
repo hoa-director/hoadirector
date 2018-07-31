@@ -10,3 +10,20 @@
 .home-info {
     margin-top: 42px;
 }
+.nav-item {
+    background-color: #b4ccd6;
+    color: #3a607e;
+    margin: 5px 0 5px 0;
+    text-align: center;
+}
+
+.menu-title {
+    margin: 15px 0 15px 0;
+    width: 100%;
+    text-decoration: underline;
+    text-align: center;
+}
+
+a.nav-link {
+    color: inherit;
+}

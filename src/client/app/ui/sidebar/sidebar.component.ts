@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +8,52 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  links: { path: string, label: string }[] = [
+    {
+      path: '/directory',
+      label: 'Neighborhood Directory',
+    },
+    {
+      path: '/rules',
+      label: 'Rules & Regulations',
+    },
+    {
+      path: '/resolutions',
+      label: 'Resolution Center',
+    },
+    {
+      path: '/financials',
+      label: 'Financials',
+    },
+    {
+      path: 'documents',
+      label: 'Association Documents',
+    },
+    {
+      path: '/exterior',
+      label: 'Exterior Maintenance',
+    },
+    {
+      path: '/interior',
+      label: 'Interior Mainenance',
+    },
+    {
+      path: '/board',
+      label: 'Board of Directors',
+    },
+    {
+      path: '/notes',
+      label: 'Meeting Notes',
+    },
+    {
+      path: '/profile',
+      label: 'Edit Profile',
+    },
+  ]
+
+  constructor(
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
   }

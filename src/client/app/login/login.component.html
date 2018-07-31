@@ -6,11 +6,16 @@
         <img src="assets/images/hoaaplacetocalhome.jpg" class="call-home">
       </div>
     </div>
+    <div class="incorrect" *ngIf="message">
+      <p>
+        {{message}}
+      </p>
+    </div>
     <div class="row">
       <div class="col-4">
         <form #loginForm="ngForm" (ngSubmit)="login(user)">
-          <input type="text" placeholder="username" class="form-control" name="username" required [(ngModel)]="user.username" #username="ngModel">
-          <div [hidden]="username.valid || username.pristine" class="alert alert-danger">
+          <input type="email" placeholder="email" class="form-control" name="email" required [(ngModel)]="user.email" #email="ngModel">
+          <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
             Username is required
           </div>
           <input type="password" placeholder="password" class="form-control" name="password" required [(ngModel)]="user.password" #password="ngModel">
