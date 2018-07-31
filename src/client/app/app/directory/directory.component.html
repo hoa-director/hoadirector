@@ -7,5 +7,28 @@
         </h3>
       </div>
     </div>
+    <div class="row">
+      <div class="col-sm col-md-6 col-lg-4 d-flex justify-content-center" *ngFor="let person of people">
+        <div class="person">
+          <h5>
+            {{person.name}}
+          </h5>
+          <div class="person-content">
+            <div class="address-line-1">
+              {{person.addressLine1}}
+            </div>
+            <div class="address-line-2">
+              {{person.city}}, {{person.state}} {{person.zip}}
+            </div>
+            <div class="email">
+              {{person.email}}
+            </div>
+            <div class="phone">
+              {{person.phone}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
