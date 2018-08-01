@@ -111,4 +111,5 @@ User.beforeCreate((user, options) => {
     // },
 // });
 
-export default User
+export const userSchema = User;
+export default User;

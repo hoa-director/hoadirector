@@ -1,13 +1,13 @@
 import * as Sequelize from 'sequelize';
 
-const logging = process.env.NODE_ENV === 'development'? true : false;
+const logging = process.env.NODE_ENV === 'development'? console.log : false;
 
 const connectionOptions: Sequelize.Options = {
     host: process.env.DATABASE_HOST,
     dialect: 'mysql',
     pool: {
         max: 10,
-        min: 0
+        min: 0,
     },
     define: {
         createdAt: false,
@@ -15,7 +15,7 @@ const connectionOptions: Sequelize.Options = {
         underscored: true,
     },
     operatorsAliases: false,
-    logging: logging,
+    logging,
 };
 
 class DatabaseConnection {

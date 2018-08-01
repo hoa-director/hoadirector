@@ -6,7 +6,7 @@
             <p>You have problem resolution at your fingertips.</p>
         </div>
         <!-- <div *ngIf="userService.user" class="nav flex-column nav-pills"> -->
-        <ul class="nav flex-column nav-pills">
+        <ul *ngIf="userService.user" class="nav flex-column nav-pills">
             <div class="menu-title">
                 <h3>
                     Menu

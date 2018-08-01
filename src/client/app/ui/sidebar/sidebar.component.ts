@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit {
       label: 'Rules & Regulations',
     },
     {
-      path: '/resolutions',
+      path: '/messages',
       label: 'Resolution Center',
     },
     {

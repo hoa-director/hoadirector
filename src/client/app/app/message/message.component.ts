@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
+  complaint: { against: string; message: string; };
+
   constructor() { }
 
   ngOnInit() {
+    this.complaint = {against: '', message: ''};
   }
 
 }
