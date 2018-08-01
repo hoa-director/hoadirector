@@ -93,5 +93,5 @@ User.beforeCreate((user, options) => {
     user.password = encryptedPassword;
 });
 
-export const userSchema = User;
+export const UserSchema = User;
 export default User;

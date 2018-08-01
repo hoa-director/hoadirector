@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import * as passport from 'passport';
-import { userSchema } from '../schema/user';
+import { UserSchema } from '../schema/user';
 
 const passportRedirect: passport.AuthenticateOptions = {
 
@@ -19,7 +19,7 @@ export class UserRouter {
   }
 
   public register(req: Request, res: Response, next: NextFunction) {
-      let newUser = new userSchema(req.body);
+      let newUser = new UserSchema(req.body);
       newUser.save().then(data => {
         console.log(data);
         res.send(newUser);
