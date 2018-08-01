@@ -5,7 +5,6 @@ import * as bcrypt from 'bcrypt';
 const saltWorkFactor = 10;
 
 export class User extends Sequelize.Model {
-
     id: number;
     email: string;
     password: string;

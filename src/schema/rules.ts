@@ -2,9 +2,8 @@ import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
 export class Rules extends Sequelize.Model {
-
     id: number;
-    ruleListId: string;
+    ruleListId: number;
     description: string;
     createdAt: Date;
     updatedAt: Date;
@@ -22,7 +21,7 @@ Rules.init(
         },
         ruleListId: {
             type: Sequelize.INTEGER({ length: 10 }),
-            field: 'association_id',
+            field: 'rule_list_id',
         },
         description: {
             type: Sequelize.STRING(500),

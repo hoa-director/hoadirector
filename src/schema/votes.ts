@@ -2,7 +2,6 @@ import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
 export class Votes extends Sequelize.Model {
-
     id: number;
     userId: number;
     objectionId: number;

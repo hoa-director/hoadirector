@@ -2,9 +2,8 @@ import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
 export class Documents extends Sequelize.Model {
-
     id: number;
-    associationId: string;
+    associationId: number;
     path: string;
     name: string;
     createdAt: Date;
@@ -21,17 +20,17 @@ Documents.init(
             autoIncrement: true,
             field: 'id',
         },
-        name: {
-            type: Sequelize.STRING(45),
-            field: 'name',
+        associationId: {
+            type: Sequelize.INTEGER({ length: 10 }),
+            field: 'association_id',
         },
         path: {
             type: Sequelize.STRING(100),
             field: 'path',
         },
-        association_id: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'association_id',
+        name: {
+            type: Sequelize.STRING(45),
+            field: 'name',
         },
     },
     { sequelize: connection }

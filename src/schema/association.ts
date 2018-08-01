@@ -2,7 +2,6 @@ import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
 export class Association extends Sequelize.Model {
-
     id: number;
     name: string;
     createdAt: Date;

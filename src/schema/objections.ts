@@ -2,12 +2,11 @@ import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
 export class Objections extends Sequelize.Model {
-
     id: number;
-    associationId: string;
+    associationId: number;
     comment: string;
-    submittedBy: string;
-    submittedAgainst: string;
+    submittedBy: number;
+    submittedAgainst: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
@@ -22,6 +21,10 @@ Objections.init(
             autoIncrement: true,
             field: 'id',
         },
+        associationId: {
+            type: Sequelize.INTEGER({ length: 10 }),
+            field: 'association_id',
+        },
         comment: {
             type: Sequelize.STRING(500),
             field: 'comment',
@@ -33,10 +36,6 @@ Objections.init(
         submittedAgainst: {
             type: Sequelize.INTEGER({ length: 10 }),
             field: 'submitted_against',
-        },
-        association_id: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'association_id',
         },
     },
     { sequelize: connection }
