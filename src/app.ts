@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as session from 'express-session';
 import apiRoutes from './routes/api';
-import indexRoutes from './routes/index';
+import indexRoutes from './routes';
 import userRoutes from './routes/user';
 import passport from './config/passport';
 

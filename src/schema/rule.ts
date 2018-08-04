@@ -1,17 +1,16 @@
 import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
-export class Documents extends Sequelize.Model {
+export class Rule extends Sequelize.Model {
     id: number;
-    associationId: number;
-    path: string;
-    name: string;
+    ruleListId: number;
+    description: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
 }
 
-Documents.init(
+Rule.init(
     {
         id: {
             type: Sequelize.INTEGER({ length: 10}),
@@ -20,21 +19,17 @@ Documents.init(
             autoIncrement: true,
             field: 'id',
         },
-        associationId: {
+        ruleListId: {
             type: Sequelize.INTEGER({ length: 10 }),
-            field: 'association_id',
+            field: 'rule_list_id',
         },
-        path: {
-            type: Sequelize.STRING(100),
-            field: 'path',
-        },
-        name: {
-            type: Sequelize.STRING(45),
-            field: 'name',
+        description: {
+            type: Sequelize.STRING(500),
+            field: 'description',
         },
     },
     { sequelize: connection }
 );
 
-export const DocumentsSchema = Documents;
-export default DocumentsSchema;
+export const RuleSchema = Rule;
+export default RuleSchema;

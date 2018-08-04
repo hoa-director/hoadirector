@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
-export class Votes extends Sequelize.Model {
+export class Vote extends Sequelize.Model {
     id: number;
     userId: number;
     objectionId: number;
@@ -11,7 +11,7 @@ export class Votes extends Sequelize.Model {
     deletedAt: Date;
 }
 
-Votes.init(
+Vote.init(
     {
         id: {
             type: Sequelize.INTEGER({ length: 10}),
@@ -36,5 +36,5 @@ Votes.init(
     { sequelize: connection }
 );
 
-export const VotesSchema = Votes;
-export default VotesSchema;
+export const VoteSchema = Vote;
+export default VoteSchema;

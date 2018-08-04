@@ -1,18 +1,17 @@
 import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
-export class Objections extends Sequelize.Model {
+export class Document extends Sequelize.Model {
     id: number;
     associationId: number;
-    comment: string;
-    submittedBy: number;
-    submittedAgainst: number;
+    path: string;
+    name: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
 }
 
-Objections.init(
+Document.init(
     {
         id: {
             type: Sequelize.INTEGER({ length: 10}),
@@ -25,21 +24,17 @@ Objections.init(
             type: Sequelize.INTEGER({ length: 10 }),
             field: 'association_id',
         },
-        comment: {
-            type: Sequelize.STRING(500),
-            field: 'comment',
+        path: {
+            type: Sequelize.STRING(100),
+            field: 'path',
         },
-        submittedBy: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'submitted_by',
-        },
-        submittedAgainst: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'submitted_against',
+        name: {
+            type: Sequelize.STRING(45),
+            field: 'name',
         },
     },
     { sequelize: connection }
 );
 
-export const ObjectionsSchema = Objections;
-export default ObjectionsSchema;
+export const DocumentSchema = Document;
+export default DocumentSchema;

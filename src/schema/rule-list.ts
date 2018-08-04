@@ -1,7 +1,7 @@
 import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 
-export class RuleLists extends Sequelize.Model {
+export class RuleList extends Sequelize.Model {
     id: number;
     associationId: number;
     title: string;
@@ -11,7 +11,7 @@ export class RuleLists extends Sequelize.Model {
     deletedAt: Date;
 }
 
-RuleLists.init(
+RuleList.init(
     {
         id: {
             type: Sequelize.INTEGER({ length: 10}),
@@ -36,5 +36,5 @@ RuleLists.init(
     { sequelize: connection }
 );
 
-export const RuleListsSchema = RuleLists;
-export default RuleListsSchema;
+export const RuleListSchema = RuleList;
+export default RuleListSchema;
