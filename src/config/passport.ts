@@ -1,8 +1,9 @@
 import * as passport from 'passport';
 import * as passportLocal from 'passport-local';
-import User from '../schema/user';
+import { User } from '../schema/schemas';
+import userClass from '../schema/user';
 
-passport.serializeUser((user: User , done) => {
+passport.serializeUser((user: userClass, done) => {
     done(null, user.id);
 });
 

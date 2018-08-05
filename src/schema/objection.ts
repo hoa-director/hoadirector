@@ -1,5 +1,8 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
+
+import { User } from './user';
+import { Vote } from './vote';
+import { Association } from './association';
 
 export class Objection extends Sequelize.Model {
     id: number;
@@ -10,36 +13,30 @@ export class Objection extends Sequelize.Model {
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
-}
 
-Objection.init(
-    {
-        id: {
-            type: Sequelize.INTEGER({ length: 10}),
-            primaryKey: true,
-            unique: true,
-            autoIncrement: true,
-            field: 'id',
-        },
-        associationId: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'association_id',
-        },
-        comment: {
-            type: Sequelize.STRING(500),
-            field: 'comment',
-        },
-        submittedBy: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'submitted_by',
-        },
-        submittedAgainst: {
-            type: Sequelize.INTEGER({ length: 10 }),
-            field: 'submitted_against',
-        },
-    },
-    { sequelize: connection }
-);
+    public static init(sequelize) {
+        super.init(
+            {
+                id: {
+                    type: Sequelize.INTEGER({ length: 10}),
+                    primaryKey: true,
+                    unique: true,
+                    autoIncrement: true,
+                    field: 'id',
+                },
+                associationId: {
+                    type: Sequelize.INTEGER({ length: 10 }),
+                    field: 'association_id',
+                },
+                comment: {
+                    type: Sequelize.STRING(500),
+                    field: 'comment',
+                },
+            },
+            { sequelize }
+        );
+    };
+};
 
 export const ObjectionSchema = Objection;
 export default ObjectionSchema;

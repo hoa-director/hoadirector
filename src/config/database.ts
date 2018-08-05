@@ -10,9 +10,8 @@ const connectionOptions: Sequelize.Options = {
         min: 0,
     },
     define: {
-        createdAt: false,
-        updatedAt: false,
         underscored: true,
+        paranoid: true,
     },
     operatorsAliases: false,
     logging,
@@ -35,4 +34,6 @@ class DatabaseConnection {
         });
     }
 }
-export default new DatabaseConnection().sequelize;
+
+export const connection = new DatabaseConnection().sequelize
+export default connection;
