@@ -1,5 +1,7 @@
 import * as Sequelize from 'sequelize';
 
+import { Rule } from './rule';
+
 export class RuleList extends Sequelize.Model {
     id: number;
     associationId: number;
@@ -8,6 +10,16 @@ export class RuleList extends Sequelize.Model {
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
+
+    public static getRulesByAssociation(associationId) {
+        return new Promise((resolve, reject) => {
+            RuleList.find( { where: { associationId }, include: [{model: Rule, as: 'rules'}] } ).then(list => {
+                resolve(list);
+            }).catch(error => {
+                reject(error);
+            })
+        });
+    }
 
     public static init(sequelize) {
         super.init(
@@ -32,7 +44,7 @@ export class RuleList extends Sequelize.Model {
                     field: 'description',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'rule_lists' },
         );
     };
 };

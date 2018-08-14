@@ -3,13 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "build-server": "tsc -p tsconfig.server.json",
-    "build-server-watch": "tsc-watch -p tsconfig.server.json",
+    "build-server-watch": "tsc-watch -p tsconfig.server.json --onSuccess \"npm run copy-static-assets\"",
     "build-client": "ng build --prod",
     "build-client-dev": "ng build",
     "build-client-watch": "ng build --watch",
     "build-dev": "npm run clean && npm run build-server && npm run build-client-dev",
     "build": "npm run clean && npm run build-server && npm run build-client",
     "clean": "rm -fR dist/",
+    "copy-static-assets": "npx ts-node copyStaticAssets.ts",
     "lint-server": "npx tslint -c tslint.json -p tsconfig.server.json",
     "lint-client": "npx tslint -c tslint.json -p src/client/tsconfig.app.json",
     "lint": "npm run lint-server && npm run lint-client",
@@ -45,6 +46,7 @@
     "passport-local": "^1.0.0",
     "rxjs": "^6.0.0",
     "sequelize": "^4.38.0",
+    "shelljs": "^0.8.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

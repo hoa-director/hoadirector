@@ -25,7 +25,7 @@ export class User extends Sequelize.Model {
         return bcrypt.compareSync(password, this.password);
     }
 
-    public static findByEmail(email: string, include?): Promise<User> {
+    public static findByEmail(email: string): Promise<User> {
         return new Promise((resolve, reject) => {
             User.findOne({ where: { email }}).then((user) => {
                 resolve(user);
