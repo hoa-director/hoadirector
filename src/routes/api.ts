@@ -1,5 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 
+import { Document } from '../schema/schemas';
+
 export class ApiRouter {
   router: Router;
 
@@ -13,8 +15,20 @@ export class ApiRouter {
   }
 
   init() {
+    this.router.get('/documents', (req: Request, res: Response, next: NextFunction) => {
+      const associationId = req.session.associationId;
+      Document.getDocumentsByAssociation(associationId).then(documents => {
+        res.send(documents);
+      }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+    });
+    this.router.get('associations', (req: Request, res: Response, next: NextFunction) => {
+      
+    })
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
-      res.send(200);
+      res.sendStatus(200);
     });
   }
 }

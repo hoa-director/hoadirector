@@ -33,5 +33,7 @@ export class Association extends Sequelize.Model {
     };
 };
 
+Association.init(connection);
+
 export const AssociationSchema = Association;
 export default AssociationSchema;

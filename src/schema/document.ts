@@ -12,6 +12,16 @@ export class Document extends Sequelize.Model {
     updatedAt: Date;
     deletedAt: Date;
 
+    public static getDocumentsByAssociation(associationId) {
+        return new Promise((resolve, reject) => {
+            Document.find( { where: { associationId } } ).then(document => {
+                resolve(document);
+            }).catch(error => {
+                reject(error);
+            })
+        });
+    }
+
     public static init(sequelize) {
         super.init(
             {

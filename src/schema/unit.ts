@@ -61,5 +61,7 @@ export class Unit extends Sequelize.Model {
     };
 };
 
+Unit.init(connection);
+
 export const UnitSchema = Unit;
 export default UnitSchema;

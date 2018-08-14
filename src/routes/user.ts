@@ -15,7 +15,10 @@ export class UserRouter {
   }
 
   public login(req: Request, res: Response, next: NextFunction) {
-    res.send(req.user);
+    req.user.getAssociations().then(associations => {
+      req.session.associationId = associations[0].dataValues.id;
+      res.send(req.user);
+    })
   }
 
   public register(req: Request, res: Response, next: NextFunction) {

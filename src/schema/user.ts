@@ -2,10 +2,6 @@ import * as Sequelize from 'sequelize';
 import connection from '../config/database';
 import * as bcrypt from 'bcrypt';
 
-import { Unit } from './unit';
-import { Objection } from './objection';
-import { Vote } from './vote';
-
 const saltWorkFactor = 10;
 
 export class User extends Sequelize.Model {
@@ -30,9 +26,9 @@ export class User extends Sequelize.Model {
         return bcrypt.compareSync(password, this.password);
     }
 
-    public static findByEmail(email: string): Promise<User> {
+    public static findByEmail(email: string, include?): Promise<User> {
         return new Promise((resolve, reject) => {
-            User.findOne({ where: { email } }).then( (user) => {
+            User.findOne({ where: { email }}).then((user) => {
                 resolve(user);
             }).catch(error => {
                 reject(error);

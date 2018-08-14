@@ -20,7 +20,7 @@ class App {
     private middleware(): void {
         this.express.use(bodyParser.urlencoded({ extended: true }));
         this.express.use(bodyParser.json());
-        this.express.use(session({ secret: process.env.SESSION_SECRET }));
+        this.express.use(session({ secret: process.env.SESSION_SECRET, resave: false }));
         this.express.use(passport.initialize());
         this.express.use(passport.session());
     }

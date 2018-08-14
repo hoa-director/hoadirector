@@ -113,6 +113,11 @@ UserSchema.hasMany(ObjectionSchema, {
     foreignKey: 'submitted_against',
 });
 
+UserSchema.belongsToMany(AssociationSchema, {
+    through: UnitSchema,
+    as: 'associations',
+});
+
 VoteSchema.belongsTo(UserSchema, {
     as: 'user',
     foreignKey: 'user_id',
@@ -126,7 +131,7 @@ VoteSchema.belongsTo(ObjectionSchema, {
 export const Association = AssociationSchema;
 export const Document = DocumentSchema;
 export const Objection = ObjectionSchema;
-export const  RuleList = RuleListSchema;
+export const RuleList = RuleListSchema;
 export const Rule = RuleSchema;
 export const Unit = UnitSchema;
 export const User = UserSchema;
