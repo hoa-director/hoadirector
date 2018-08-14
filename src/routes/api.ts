@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { Document, RuleList } from '../schema/schemas';
+import { Association, Document, RuleList } from '../schema/schemas';
 
 export class ApiRouter {
   router: Router;
@@ -15,6 +15,7 @@ export class ApiRouter {
   init() {
     this.router.get('/documents', this.getDocumnets);
     this.router.get('/documents/:id', this.viewDocument);
+    this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
       res.sendStatus(200);
@@ -29,6 +30,15 @@ export class ApiRouter {
     const associationId = req.session.associationId;
     Document.getDocumentsByAssociation(associationId).then(documents => {
       res.send(documents);
+    }).catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+  }
+  private getDirectory = (req: Request, res: Response, next: NextFunction) => {
+    const associationId = req.session.associationId;
+    Association.getDirectoryByAssociationId(associationId).then(association => {
+      res.send(association);
     }).catch(error => {
       console.log(error);
       res.sendStatus(500);
