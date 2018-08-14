@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-documents',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DocumentsComponent implements OnInit {
 
-  constructor() { }
+  documents: {name: string, id: number}[];
+
+  constructor(
+    private dataService: DataService,
+  ) { }
 
   ngOnInit() {
+    this.dataService.getDocuments().subscribe((response: any) => {
+      this.documents = response;
+    });
   }
 
 }

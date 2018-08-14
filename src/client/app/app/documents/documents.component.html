@@ -1,3 +1,20 @@
-<p>
-  documents works!
-</p>
+<div class="row">
+    <div class="col">
+      <div class="row">
+        <div class="col">
+          <h3 class="directory-header">
+            Association Documents
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="row" *ngFor="let document of documents">
+            <div class="col">
+              <a href="/api/documents/{{document.id}}" target="_blank" class="document">{{document.name}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

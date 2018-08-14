@@ -11,7 +11,7 @@ export class Document extends Sequelize.Model {
 
     public static getDocumentsByAssociation(associationId) {
         return new Promise((resolve, reject) => {
-            Document.find( { where: { associationId } } ).then(document => {
+            Document.findAll( { where: { associationId } } ).then(document => {
                 resolve(document);
             }).catch(error => {
                 reject(error);

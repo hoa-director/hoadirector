@@ -13,4 +13,8 @@ export class DataService {
   public getDirectory() {
     return this.http.get('/api/directory');
   }
+
+  public getDocuments() {
+    return this.http.get('api/documents');
+  }
 }
