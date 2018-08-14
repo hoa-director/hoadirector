@@ -1,5 +1,4 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
 import * as bcrypt from 'bcrypt';
 
 const saltWorkFactor = 10;

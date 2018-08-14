@@ -1,7 +1,4 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
-
-import { RuleList } from './rule-list';
 
 export class Rule extends Sequelize.Model {
     id: number;
@@ -30,7 +27,7 @@ export class Rule extends Sequelize.Model {
                     field: 'description',
                 },
             },
-            { sequelize: connection }
+            { sequelize }
         );
     };
 };

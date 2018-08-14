@@ -1,7 +1,4 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
-
-import { Association } from './association';
 
 export class Document extends Sequelize.Model {
     id: number;

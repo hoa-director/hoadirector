@@ -1,8 +1,4 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
-
-import { User } from './user';
-import { Objection } from './objection';
 
 export class Vote extends Sequelize.Model {
     id: number;
@@ -36,7 +32,7 @@ export class Vote extends Sequelize.Model {
                     field: 'annonymous',
                 },
             },
-            { sequelize: connection }
+            { sequelize }
         );
     };
 };

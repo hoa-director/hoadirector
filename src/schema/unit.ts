@@ -1,8 +1,4 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
-
-import { User } from './user';
-import { Association } from './association';
 
 export class Unit extends Sequelize.Model {
     id: number;
@@ -56,12 +52,10 @@ export class Unit extends Sequelize.Model {
                     field: 'zip',
                 },
             },
-            { sequelize: connection }
+            { sequelize }
         );
     };
 };
-
-Unit.init(connection);
 
 export const UnitSchema = Unit;
 export default UnitSchema;

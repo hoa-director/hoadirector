@@ -1,9 +1,5 @@
 import * as Sequelize from 'sequelize';
 
-import { User } from './user';
-import { Vote } from './vote';
-import { Association } from './association';
-
 export class Objection extends Sequelize.Model {
     id: number;
     associationId: number;

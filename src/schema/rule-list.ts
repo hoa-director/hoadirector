@@ -1,8 +1,4 @@
 import * as Sequelize from 'sequelize';
-import connection from '../config/database';
-
-import { Rule } from './rule';
-import { Association } from './association';
 
 export class RuleList extends Sequelize.Model {
     id: number;
