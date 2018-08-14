@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit {
   ]
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
   ) { }
 
   ngOnInit() {

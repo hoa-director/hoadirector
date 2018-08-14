@@ -19,7 +19,7 @@
           <div class="row">
             <div class="col">
               <div class="file-complaint row">
-                <form #complaintForm="ngForm" (ngSubmit)="submit(user)" class="col">
+                <form #complaintForm="ngForm" (ngSubmit)="submit()" class="col">
                   <div class="form-group">
                     <label for="against">Against
                       <select name="against" id="against" [(ngModel)]="complaint.against" #against="ngModel" required>

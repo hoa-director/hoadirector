@@ -15,4 +15,8 @@ export class MessageComponent implements OnInit {
     this.complaint = {against: '', message: ''};
   }
 
+  public submit() {
+    return false;
+  }
+
 }
