@@ -8,23 +8,23 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm col-md-6 col-lg-4 d-flex justify-content-center" *ngFor="let person of people">
+      <div class="col-sm col-md-6 col-lg-4 d-flex justify-content-center" *ngFor="let unit of units">
         <div class="person">
           <h5>
-            {{person.name}}
+            {{unit.user.fullName}}
           </h5>
           <div class="person-content">
             <div class="address-line-1">
-              {{person.addressLine1}}
+              {{unit.addressLineOne}}
             </div>
             <div class="address-line-2">
-              {{person.city}}, {{person.state}} {{person.zip}}
+              {{unit.city}}, {{unit.state}} {{unit.zip}}
             </div>
             <div class="email">
-              {{person.email}}
+              {{unit.user.email}}
             </div>
             <div class="phone">
-              {{person.phone}}
+              {{unit.user.number}}
             </div>
           </div>
         </div>
