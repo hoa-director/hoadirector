@@ -29,7 +29,7 @@ export class Objection extends Sequelize.Model {
                     field: 'comment',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'objections' }
         );
     };
 };

@@ -32,7 +32,7 @@ export class Vote extends Sequelize.Model {
                     field: 'annonymous',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'votes' }
         );
     };
 };

@@ -52,7 +52,7 @@ export class Document extends Sequelize.Model {
                     field: 'name',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'documents' }
         );
     };
 };

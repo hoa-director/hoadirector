@@ -81,7 +81,7 @@ export class User extends Sequelize.Model {
                     type: Sequelize.STRING(91),
                     field: 'full_name',
                 }
-            }, { sequelize }
+            }, { sequelize, tableName: 'users' }
         );
         User.beforeCreate((user, options) => {
             console.log(user);

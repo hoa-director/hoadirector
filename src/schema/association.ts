@@ -52,7 +52,7 @@ export class Association extends Sequelize.Model {
                     field: 'name',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'associations' }
         );
     };
 };

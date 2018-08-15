@@ -52,7 +52,7 @@ export class Unit extends Sequelize.Model {
                     field: 'zip',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'units' }
         );
     };
 };

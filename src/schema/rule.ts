@@ -27,7 +27,7 @@ export class Rule extends Sequelize.Model {
                     field: 'description',
                 },
             },
-            { sequelize }
+            { sequelize, tableName: 'rules' }
         );
     };
 };
