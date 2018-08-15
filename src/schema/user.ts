@@ -62,7 +62,7 @@ export class User extends Sequelize.Model {
                     field: 'password',
                 },
                 number: {
-                    type: Sequelize.INTEGER({ length: 11 }),
+                    type: Sequelize.STRING(12),
                     field: 'number',
                 },
                 role: {
