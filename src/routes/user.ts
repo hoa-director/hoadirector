@@ -21,6 +21,14 @@ export class UserRouter {
     })
   }
 
+  public loggedin(req: Request, res: Response, next: NextFunction) {
+    if(req.isAuthenticated()) {
+      res.send(req.user);
+    } else {
+      res.sendStatus(403);
+    }
+  }
+
   public register(req: Request, res: Response, next: NextFunction) {
       let newUser = new UserSchema(req.body);
       newUser.save().then(data => {
@@ -33,8 +41,9 @@ export class UserRouter {
   }
 
   init() {
-    this.router.post('/login', passport.authenticate('local', passportRedirect), this.login);
+    this.router.post('/login/', passport.authenticate('local', passportRedirect), this.login);
     this.router.post('/register/', this.register);
+    this.router.get('/', this.loggedin);
   }
 }
 

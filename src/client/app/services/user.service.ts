@@ -15,7 +15,6 @@ export class UserService {
   ) { }
 
   login(user) {
-    console.log("loging in the following user: ", user);
     return this.http.post('/user/login', user).pipe(
       tap(
         user => {
@@ -25,11 +24,25 @@ export class UserService {
       )
     )
   }
-  
-  isLoggedIn() {
+
+  getUser() {
     if (!this.user) {
-      return false;
+      this.http.get('/user').subscribe(
+        user => {
+          console.log(user);
+          this.user = user;
+          return true;
+        },
+        error => {
+          console.log(error);
+          return false;
+        }
+      )
     }
-    return true;
+    return this.user;
+  }
+  
+  isLoggedIn(): boolean {
+    return this.getUser();
   }
 }

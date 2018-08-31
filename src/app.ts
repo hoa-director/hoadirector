@@ -6,6 +6,7 @@ import apiRoutes from './routes/api';
 import indexRoutes from './routes';
 import userRoutes from './routes/user';
 import passport from './config/passport';
+import { Request, Response, NextFunction } from 'express';
 
 class App {
     public express: express.Application;
@@ -33,8 +34,15 @@ class App {
         );
     }
 
+    private isLoggedIn(req: Request, res: Response, next: NextFunction) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        res.sendStatus(403);
+    }
+
     private routes(): void {
-        this.express.use('/api/', apiRoutes);
+        this.express.use('/api/', this.isLoggedIn, apiRoutes);
         this.express.use('/user/', userRoutes);
         this.express.use('/*', indexRoutes);
     }
