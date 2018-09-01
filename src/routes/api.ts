@@ -22,25 +22,21 @@ export class ApiRouter {
     });
   }
 
-  private getHome(req: Request, res: Response, next: NextFunction) {
-    res.send(200);
-  }
-
   private getDocumnets = (req: Request, res: Response, next: NextFunction) => {
     const associationId = req.session.associationId;
     Document.getDocumentsByAssociation(associationId).then(documents => {
       res.send(documents);
     }).catch(error => {
-      console.log(error);
+      console.error(error);
       res.sendStatus(500);
     });
   }
   private getDirectory = (req: Request, res: Response, next: NextFunction) => {
     const associationId = req.session.associationId;
-    Association.getDirectoryByAssociationId(associationId).then(association => {
-      res.send(association);
+    Association.getDirectoryByAssociationId(associationId).then(directory => {
+      res.send(directory);
     }).catch(error => {
-      console.log(error);
+      console.error(error);
       res.sendStatus(500);
     });
   }
@@ -52,18 +48,19 @@ export class ApiRouter {
       res.contentType("application/pdf");
       res.send(data);
     }).catch(error => {
-      console.log(error);
+      console.error(error);
       res.sendStatus(500);
     });
   }
   private getRules = (req: Request, res: Response, next: NextFunction) => {
     const associationId = req.session.associationId;
-    RuleList.getRulesByAssociation(associationId).then(documents => {
-      res.send(documents);
+    Association.getRuleListsByAssociationId(associationId).then(association => {
+      console.log(association);
+      res.send(association);
     }).catch(error => {
-      console.log(error);
+      console.error(error);
       res.sendStatus(500);
-    });
+    })
   }
 }
 

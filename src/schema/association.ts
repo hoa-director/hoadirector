@@ -2,6 +2,8 @@ import * as Sequelize from 'sequelize';
 
 import { Unit } from './unit';
 import { User } from './user';
+import { RuleList } from './rule-list';
+import { Rule } from './rule';
 
 export class Association extends Sequelize.Model {
     id: number;
@@ -9,6 +11,7 @@ export class Association extends Sequelize.Model {
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
+    ruleLists: RuleList[];
 
     public static getDirectoryByAssociationId(associationId: number) {
         return new Promise((resolve, reject) => {
@@ -35,6 +38,33 @@ export class Association extends Sequelize.Model {
                 reject(error);
             });
         })
+    }
+
+    public static getRuleListsByAssociationId(associationId: number) {
+        return new Promise((resolve, reject) => {
+            Association.find({
+                where: {id: associationId},
+                attributes: ['name'],
+                include: [
+                    {
+                        model: RuleList,
+                        as: 'ruleLists',
+                        attributes: ['title', 'description'],
+                        include: [
+                            {
+                                model: Rule,
+                                as: 'rules',
+                                attributes: ['description']
+                            }
+                        ]
+                    }
+                ]
+            }).then(association => {
+                resolve(association.ruleLists);
+            }).catch(error => {
+                reject(error);
+            })
+        });
     }
 
     public static init(sequelize) {

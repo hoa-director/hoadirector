@@ -11,16 +11,6 @@ export class RuleList extends Sequelize.Model {
     updatedAt: Date;
     deletedAt: Date;
 
-    public static getRulesByAssociation(associationId) {
-        return new Promise((resolve, reject) => {
-            RuleList.find( { where: { associationId }, include: [{model: Rule, as: 'rules'}] } ).then(list => {
-                resolve(list);
-            }).catch(error => {
-                reject(error);
-            })
-        });
-    }
-
     public static init(sequelize) {
         super.init(
             {

@@ -17,4 +17,8 @@ export class DataService {
   public getDocuments() {
     return this.http.get('api/documents');
   }
+
+  public getRules() {
+    return this.http.get('api/rules');
+  }
 }

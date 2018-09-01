@@ -17,7 +17,7 @@ export class DirectoryComponent implements OnInit {
   ngOnInit() {
     this.dataService.getDirectory().subscribe((response: any) => {
       this.units = response.units;
-    })
+    });
   }
 
 }
