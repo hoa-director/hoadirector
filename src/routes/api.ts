@@ -59,7 +59,7 @@ export class ApiRouter {
     }).catch(error => {
       console.error(error);
       res.sendStatus(500);
-    })
+    });
   }
 }
 
