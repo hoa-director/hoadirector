@@ -8,7 +8,8 @@ import { DataService } from '../../services/data.service';
 })
 export class RulesComponent implements OnInit {
   
-  rules:any;
+  rules: any = [];
+  currentRuleList: any;
 
   constructor(
     private dataService: DataService,
@@ -16,8 +17,12 @@ export class RulesComponent implements OnInit {
 
   ngOnInit() {
     this.dataService.getRules().subscribe(response => {
-      console.log(response);
+      this.rules = response;
     });
+  }
+
+  selectRuleList(ruleList) {
+    this.currentRuleList = ruleList;
   }
 
 }

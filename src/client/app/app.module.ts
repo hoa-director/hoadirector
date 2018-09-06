@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalModule } from 'angular-custom-modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -19,6 +20,7 @@ import { BoardComponent } from './app/board/board.component';
 import { NotesComponent } from './app/notes/notes.component';
 import { ProfileComponent } from './app/profile/profile.component';
 import { MessageComponent } from './app/message/message.component';
+import { ModalComponent } from './app/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { MessageComponent } from './app/message/message.component';
     BoardComponent,
     NotesComponent,
     ProfileComponent,
-    MessageComponent
+    MessageComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +45,7 @@ import { MessageComponent } from './app/message/message.component';
     UiModule,
     FormsModule,
     HttpClientModule,
+    ModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

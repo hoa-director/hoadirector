@@ -1,3 +1,77 @@
-<p>
-  rules works!
-</p>
+<div class="row">
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h3 class="directory-header">
+          Association Rules and Regulations
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="row" *ngFor="let ruleList of rules">
+          <div class="col">
+            <a (click)="selectRuleList(ruleList); htmlInsideModal.open();" class="rule-list-title">{{ruleList.title}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal #htmlInsideModal>
+  <ng-template #modalHeader><h2>{{currentRuleList.title}}</h2></ng-template>
+  <ng-template #modalBody>
+    <div class="row">
+      <div class="col">
+        <p>
+          {{currentRuleList.description}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul>
+          <li *ngFor="let rule of currentRuleList.rules">
+            {{rule.description}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" (click)="htmlInsideModal.close()">Close</button>
+      </div>
+    </div>
+  </ng-template>
+</app-modal>
+<!-- <app-modal #htmlInsideModal>
+  <ng-template #modalHeader><h2>{{currentRuleList.title}}</h2></ng-template>
+  <ng-template #modalBody>
+    <div class="row">
+      <div class="col">
+        <p>
+          {{currentRuleList.description}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul>
+          <li *ngFor="let rule of currentRuleList.rules">
+            {{rule.description}}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template #modalFooter>
+    <div class="row">
+      <div class="col">
+        <button (click)="htmlInsideModal.close()"></button>
+      </div>
+    </div>
+  </ng-template>
+</app-modal> -->
