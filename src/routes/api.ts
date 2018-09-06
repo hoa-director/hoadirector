@@ -54,9 +54,8 @@ export class ApiRouter {
   }
   private getRules = (req: Request, res: Response, next: NextFunction) => {
     const associationId = req.session.associationId;
-    Association.getRuleListsByAssociationId(associationId).then(association => {
-      console.log(association);
-      res.send(association);
+    Association.getRuleListsByAssociationId(associationId).then(ruleLists => {
+      res.send(ruleLists);
     }).catch(error => {
       console.error(error);
       res.sendStatus(500);
