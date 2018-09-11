@@ -37,6 +37,10 @@ export class RuleList extends Sequelize.Model {
             { sequelize, tableName: 'rule_lists' },
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const RuleListSchema = RuleList;

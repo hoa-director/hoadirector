@@ -30,6 +30,10 @@ export class Rule extends Sequelize.Model {
             { sequelize, tableName: 'rules' }
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const RuleSchema = Rule;

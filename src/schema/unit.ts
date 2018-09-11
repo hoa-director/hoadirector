@@ -55,6 +55,10 @@ export class Unit extends Sequelize.Model {
             { sequelize, tableName: 'units' }
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const UnitSchema = Unit;

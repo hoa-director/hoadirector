@@ -89,6 +89,10 @@ export class User extends Sequelize.Model {
             user.password = encryptedPassword;
         });
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const UserSchema = User;

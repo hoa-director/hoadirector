@@ -35,6 +35,10 @@ export class Vote extends Sequelize.Model {
             { sequelize, tableName: 'votes' }
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const VoteSchema = Vote;

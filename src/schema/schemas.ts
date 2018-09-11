@@ -46,13 +46,13 @@ DocumentSchema.belongsTo(AssociationSchema, {
 
 ObjectionSchema.belongsTo(UserSchema, {
     as: 'submittedBy',
-    foreignKey: 'submitted_by',
+    foreignKey: 'submitted_by_user_id',
     targetKey: 'id',
 });
 
 ObjectionSchema.belongsTo(UserSchema, {
     as: 'submittedAgainst',
-    foreignKey: 'submitted_against',
+    foreignKey: 'submitted_against_user_id',
     targetKey: 'id',
 });
 

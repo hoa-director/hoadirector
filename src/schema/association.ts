@@ -85,6 +85,10 @@ export class Association extends Sequelize.Model {
             { sequelize, tableName: 'associations' }
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const AssociationSchema = Association;

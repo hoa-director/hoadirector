@@ -55,6 +55,10 @@ export class Document extends Sequelize.Model {
             { sequelize, tableName: 'documents' }
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const DocumentSchema = Document;

@@ -32,6 +32,10 @@ export class Objection extends Sequelize.Model {
             { sequelize, tableName: 'objections' }
         );
     };
+
+    public static asscociate(model) {
+        
+    }
 };
 
 export const ObjectionSchema = Objection;
