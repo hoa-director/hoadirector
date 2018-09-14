@@ -1,6 +1,6 @@
-import * as Sequelize from 'sequelize';
+import { Model, DataTypes } from 'sequelize'
 
-export class Vote extends Sequelize.Model {
+export class Vote extends Model {
     id: number;
     userId: number;
     objectionId: number;
@@ -13,23 +13,27 @@ export class Vote extends Sequelize.Model {
         super.init(
             {
                 id: {
-                    type: Sequelize.INTEGER({ length: 10}),
+                    type: DataTypes.INTEGER({ length: 10}),
                     primaryKey: true,
                     unique: true,
                     autoIncrement: true,
                     field: 'id',
                 },
                 userId: {
-                    type: Sequelize.INTEGER({ length: 10 }),
+                    type: DataTypes.INTEGER({ length: 10 }),
                     field: 'user_id',
                 },
                 objectionId: {
-                    type: Sequelize.INTEGER({ length: 10 }),
+                    type: DataTypes.INTEGER({ length: 10 }),
                     field: 'objection_id',
                 },
                 annonymous: {
-                    type: Sequelize.BOOLEAN,
+                    type: DataTypes.BOOLEAN,
                     field: 'annonymous',
+                },
+                approved: {
+                    type: DataTypes.BOOLEAN,
+                    field: 'approved',
                 },
             },
             { sequelize, tableName: 'votes' }

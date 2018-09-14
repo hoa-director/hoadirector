@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { Association, Document, Objection, User } from '../schema/schemas';
+import { Association, Document, Objection, User, Vote } from '../schema/schemas';
 
 export class ApiRouter {
   router: Router;
@@ -18,6 +18,7 @@ export class ApiRouter {
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
     this.router.post('/objection', this.fileObjection);
+    this.router.post('/vote', this.submitVote);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
       res.sendStatus(200);
     });
@@ -78,7 +79,28 @@ export class ApiRouter {
     }).catch(error => {
       console.log(error);
       res.sendStatus(500);
-    })
+    });
+  }
+  private submitVote = (req: Request, res: Response, next: NextFunction) => {
+    const objectionId: number = parseInt(req.body.objectionId);
+    const approved: number = parseInt(req.body.approved);
+    const annonymous: number = req.body.annonymous ? parseInt(req.body.annonymous) : 0;
+    const userId: number = parseInt(req.user.id);
+    Vote.create({
+      objectionId,
+      approved,
+      annonymous,
+      userId,
+    }).then(vote => {
+      console.log(vote);
+      res.sendStatus(200);
+    }).catch(error => {
+      console.error(error);
+      res.sendStatus(200);
+    });
+  }
+  private getObjections = (req: Request, res: Response, next: NextFunction) => {
+    const associationId: number = parseInt(req.session.associationId);
   }
 }
 
