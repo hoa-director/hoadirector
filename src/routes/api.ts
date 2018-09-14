@@ -2,7 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import * as path from 'path';
 import * as fs from 'fs';
 
-import { Association, Document, RuleList } from '../schema/schemas';
+import { Association, Document, Objection, User } from '../schema/schemas';
 
 export class ApiRouter {
   router: Router;
@@ -17,6 +17,7 @@ export class ApiRouter {
     this.router.get('/documents/:id', this.viewDocument);
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
+    this.router.post('/objection', this.fileObjection);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
       res.sendStatus(200);
     });
@@ -60,6 +61,24 @@ export class ApiRouter {
       console.error(error);
       res.sendStatus(500);
     });
+  }
+  private fileObjection = (req: Request, res: Response, next: NextFunction) => {
+    const against = req.body.against;
+    const by = req.user.id;
+    const message = req.body.message;
+    const associationId = req.session.associationId;
+    console.log(message);
+    Objection.create({
+      associationId,
+      comment: message,
+      submittedByUserId: by,
+      submittedAgainstUserId: against
+    }).then((objection) => {
+      res.sendStatus(200);
+    }).catch(error => {
+      console.log(error);
+      res.sendStatus(500);
+    })
   }
 }
 
