@@ -11,7 +11,7 @@ export class ResolutionCenterService {
     private http: HttpClient,
   ) { }
 
-  public getObjections(): Observable<{}> {
-    return this.http.get('/api/objections');
+  public getObjections(): Observable<{objections: []}> {
+    return this.http.get<{objections: []}>('/api/objections');
   }
 }
