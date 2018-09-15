@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { UiModule } from './ui/ui.module';
+import { ResolutionCenterModule } from './resolution-center/resolution-center.module';
+
 import { HomeComponent } from './home/home.component';
 import { DirectoryComponent } from './app/directory/directory.component';
 import { RulesComponent } from './app/rules/rules.component';
@@ -37,15 +39,16 @@ import { ModalComponent } from './app/modal/modal.component';
     NotesComponent,
     ProfileComponent,
     MessageComponent,
-    ModalComponent
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     UiModule,
     FormsModule,
     HttpClientModule,
     ModalModule,
+    ResolutionCenterModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

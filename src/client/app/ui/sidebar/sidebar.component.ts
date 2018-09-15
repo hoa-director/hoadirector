@@ -10,19 +10,19 @@ export class SidebarComponent implements OnInit {
 
   links: { path: string, label: string }[] = [
     {
-      path: '/directory',
+      path: 'directory',
       label: 'Neighborhood Directory',
     },
     {
-      path: '/rules',
+      path: 'rules',
       label: 'Rules & Regulations',
     },
     {
-      path: '/messages',
+      path: 'resolution-center',
       label: 'Resolution Center',
     },
     {
-      path: '/financials',
+      path: 'financials',
       label: 'Financials',
     },
     {
@@ -30,23 +30,23 @@ export class SidebarComponent implements OnInit {
       label: 'Association Documents',
     },
     {
-      path: '/exterior',
+      path: 'exterior',
       label: 'Exterior Maintenance',
     },
     {
-      path: '/interior',
+      path: 'interior',
       label: 'Interior Mainenance',
     },
     {
-      path: '/board',
+      path: 'board',
       label: 'Board of Directors',
     },
     {
-      path: '/notes',
+      path: 'notes',
       label: 'Meeting Notes',
     },
     {
-      path: '/profile',
+      path: 'profile',
       label: 'Edit Profile',
     },
   ]
