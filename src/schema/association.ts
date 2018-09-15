@@ -35,7 +35,21 @@ export class Association extends Model {
      */
     public getActiveObjections(): Bluebird<Objection[]> {
         const createdAfter: Date = moment().subtract({milliseconds: this.objectionVoteTime}).toDate();
-        return this.getObjections({ where: {createdAt: {[Op.gt]: createdAfter} } }).then(active => {
+        return this.getObjections({
+            where: {createdAt: {[Op.gt]: createdAfter} },
+            include: [
+                {
+                    model: User,
+                    as: 'submittedBy',
+                    attributes: ['fullName'],
+                },
+                {
+                    model: User,
+                    as: 'submittedAgainst',
+                    attributes: ['fullName'],
+                },
+            ],
+        }).then(active => {
             console.log(active);
             return active;
         });
@@ -46,7 +60,22 @@ export class Association extends Model {
      */
     public getExpiredObjections(): Bluebird<Objection[]> {
         const createdBefore: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
-        return this.getObjections({ where: {createdAt: {[Op.lt]: createdBefore} } }).then(expired => {
+        return this.getObjections({
+            where: {createdAt: {[Op.lt]: createdBefore} },
+            attributes: ['id', 'comment'],
+            include: [
+                {
+                    model: User,
+                    as: 'submittedBy',
+                    attributes: ['fullName'],
+                },
+                {
+                    model: User,
+                    as: 'submittedAgainst',
+                    attributes: ['fullName'],
+                },
+            ],
+        }).then(expired => {
             console.log(expired);
             return expired;
         });
