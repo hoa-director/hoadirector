@@ -37,6 +37,7 @@ export class Association extends Model {
         const createdAfter: Date = moment().subtract({milliseconds: this.objectionVoteTime}).toDate();
         return this.getObjections({
             where: {createdAt: {[Op.gt]: createdAfter} },
+            attributes: ['id', 'comment', 'createdAt'],
             include: [
                 {
                     model: User,
@@ -62,7 +63,7 @@ export class Association extends Model {
         const createdBefore: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
         return this.getObjections({
             where: {createdAt: {[Op.lt]: createdBefore} },
-            attributes: ['id', 'comment'],
+            attributes: ['id', 'comment', 'createdAt'],
             include: [
                 {
                     model: User,
