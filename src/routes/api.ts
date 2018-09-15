@@ -115,8 +115,8 @@ export class ApiRouter {
   private getObjections = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
     Association.findById(associationId).then(association => {
-      association.getActiveObjections().then(active => {
-        res.send(active);
+      association.getActiveObjections().then(objections => {
+        res.send({ objections });
       }).catch(error => {
         console.log(error);
         res.sendStatus(500);
@@ -133,8 +133,8 @@ export class ApiRouter {
   private getExpiredObjections = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
     Association.findById(associationId).then(association => {
-      association.getExpiredObjections().then(expired => {
-        res.send(expired);
+      association.getExpiredObjections().then(objections => {
+        res.send({ objections });
       }).catch(error => {
         console.log(error);
         res.sendStatus(500);
@@ -152,7 +152,7 @@ export class ApiRouter {
     const associationId: number = parseInt(req.session.associationId);
     const objectionId: number = parseInt(req.params.id);
     Objection.findById(objectionId).then(objection => {
-      res.send(objection);
+      res.send({ objection });
     }).catch(error => {
       res.sendStatus(500);
     })
