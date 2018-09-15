@@ -34,7 +34,7 @@ export class Association extends Model {
      * @returns {Bluebird<Objection[]>} activeObjections
      */
     public getActiveObjections(): Bluebird<Objection[]> {
-        const createdAfter: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
+        const createdAfter: Date = moment().subtract({milliseconds: this.objectionVoteTime}).toDate();
         return this.getObjections({ where: {createdAt: {[Op.gt]: createdAfter} } }).then(active => {
             console.log(active);
             return active;

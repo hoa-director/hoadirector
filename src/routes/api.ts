@@ -17,10 +17,10 @@ export class ApiRouter {
     this.router.get('/documents/:id', this.viewDocument);
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
-    this.router.get('/objection', this.getObjections);
-    this.router.get('/objection/expired', this.getExpiredObjections);
-    this.router.get('/objection/:id', this.getObjection);
-    this.router.post('/objection', this.fileObjection);
+    this.router.get('/objections', this.getObjections);
+    this.router.get('/objections/expired', this.getExpiredObjections);
+    this.router.get('/objections/:id', this.getObjection);
+    this.router.post('/objections', this.fileObjection);
     this.router.post('/vote', this.submitVote);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
       res.sendStatus(200);
@@ -51,6 +51,7 @@ export class ApiRouter {
     Document.getDocumentByAssociationAndId(associationId, documentId).then((document: any) => {
       var data =fs.readFileSync(path.join(__dirname, '..', document.dataValues.path));
       res.contentType("application/pdf");
+      res.header('Content-Disposition', 'inline; name=' + document.name);
       res.send(data);
     }).catch(error => {
       console.error(error);
