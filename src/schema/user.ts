@@ -80,7 +80,19 @@ export class User extends Sequelize.Model {
                 fullName: {
                     type: Sequelize.STRING(91),
                     field: 'full_name',
-                }
+                },
+                createdAt: {
+                    type: Sequelize.DATE,
+                    field: 'created_at',
+                },
+                updatedAt: {
+                    type: Sequelize.DATE,
+                    field: 'updated_at'
+                },
+                deletedAt: {
+                    type: Sequelize.DATE,
+                    field: 'deleted_at',
+                },
             }, { sequelize, tableName: 'users' }
         );
         User.beforeCreate((user, options) => {

@@ -1,21 +1,45 @@
-import * as Sequelize from 'sequelize';
+import {
+    Model,
+    DataTypes,
+    HasManyAddAssociationMixin,
+    HasManyGetAssociationsMixin,
+    Op,
+    HasManyCreateAssociationMixin,
+} from 'sequelize';
+import * as moment from 'moment';
+import * as Bluebird from 'bluebird'
 
 import { Unit } from './unit';
 import { User } from './user';
 import { RuleList } from './rule-list';
 import { Rule } from './rule';
+import { Objection } from './objection';
 
-export class Association extends Sequelize.Model {
+export class Association extends Model {
     id: number;
     name: string;
+    objectionVoteTime: number;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
     ruleLists: RuleList[];
 
-    public getObjections() {
-        this.
-    }
+    objectionId: number;
+    objections: Objection[];
+    getObjections: HasManyGetAssociationsMixin<Objection>;
+    addObjection: HasManyAddAssociationMixin<Objection, number>;
+    createObjection: HasManyCreateAssociationMixin<Objection>;
+
+    /**
+     * @returns {Promise<Objection[]>} activeObjections
+     */
+    public getActiveObjections(): Bluebird<Objection[]> {
+        const createdBefore: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
+        return this.getObjections({ where: {createdAt: {[Op.lt]: createdBefore} } }).then(active => {
+            console.log(active);
+            return active;
+        });
+    };
 
     public static getDirectoryByAssociationId(associationId: number) {
         return new Promise((resolve, reject) => {
@@ -41,8 +65,8 @@ export class Association extends Sequelize.Model {
             }).catch(error => {
                 reject(error);
             });
-        })
-    }
+        });
+    };
 
     public static getRuleListsByAssociationId(associationId: number) {
         return new Promise((resolve, reject) => {
@@ -67,23 +91,27 @@ export class Association extends Sequelize.Model {
                 resolve(association.ruleLists);
             }).catch(error => {
                 reject(error);
-            })
+            });
         });
-    }
+    };
 
     public static init(sequelize) {
         super.init(
             {
                 id: {
-                    type: Sequelize.INTEGER({ length: 10}),
+                    type: DataTypes.INTEGER({ length: 10}),
                     primaryKey: true,
                     unique: true,
                     autoIncrement: true,
                     field: 'id',
                 },
                 name: {
-                    type: Sequelize.STRING(45),
+                    type: DataTypes.STRING(45),
                     field: 'name',
+                },
+                objectionVoteTime: {
+                    type: DataTypes.INTEGER({ length: 15 }),
+                    field: 'objection_vote_time',
                 },
             },
             { sequelize, tableName: 'associations' }
@@ -92,7 +120,7 @@ export class Association extends Sequelize.Model {
 
     public static asscociate(model) {
         
-    }
+    };
 };
 
 export const AssociationSchema = Association;

@@ -17,6 +17,7 @@ export class ApiRouter {
     this.router.get('/documents/:id', this.viewDocument);
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
+    this.router.get('/objection', this.getObjections);
     this.router.post('/objection', this.fileObjection);
     this.router.post('/vote', this.submitVote);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
@@ -101,14 +102,25 @@ export class ApiRouter {
       console.error(error);
       res.sendStatus(500);
     });
-  }
+  };
+  /**
+   * Get objections for the users asscoiation
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   */
   private getObjections = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
-    Objection.getOpenByAssociationId(associationId).then(objections => {
-      
-    })
-  }
-}
+    Association.findById(associationId).then(association => {
+      association.getActiveObjections().then(active => {
+        res.send(active);
+      }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+    });
+  };
+};
 
 const apiRoutes = new ApiRouter().router;
 
