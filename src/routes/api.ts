@@ -18,6 +18,7 @@ export class ApiRouter {
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
     this.router.get('/objection', this.getObjections);
+    this.router.get('/objection/expired', this.getExpiredObjections);
     this.router.post('/objection', this.fileObjection);
     this.router.post('/vote', this.submitVote);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
@@ -114,6 +115,24 @@ export class ApiRouter {
     Association.findById(associationId).then(association => {
       association.getActiveObjections().then(active => {
         res.send(active);
+      }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+    });
+  };
+
+  /**
+   * Get expired for the users asscoiation
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   */
+  private getExpiredObjections = (req: Request, res: Response, next: NextFunction) => {
+    const associationId: number = parseInt(req.session.associationId);
+    Association.findById(associationId).then(association => {
+      association.getExpiredObjections().then(expired => {
+        res.send(expired);
       }).catch(error => {
         console.log(error);
         res.sendStatus(500);

@@ -31,19 +31,26 @@ export class Association extends Model {
     createObjection: HasManyCreateAssociationMixin<Objection>;
 
     /**
-     * @returns {Promise<Objection[]>} activeObjections
+     * @returns {Bluebird<Objection[]>} activeObjections
      */
     public getActiveObjections(): Bluebird<Objection[]> {
-        const createdBefore: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
-        return this.getObjections({ where: {createdAt: {[Op.gt]: createdBefore} } }).then(active => {
+        const createdAfter: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
+        return this.getObjections({ where: {createdAt: {[Op.gt]: createdAfter} } }).then(active => {
             console.log(active);
             return active;
         });
     };
 
-    // public getInactiveObjections(): Bluebird<Objection[]> {
-
-    // }
+    /**
+     * @returns {Bluebird<Objection[]>}
+     */
+    public getExpiredObjections(): Bluebird<Objection[]> {
+        const createdBefore: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
+        return this.getObjections({ where: {createdAt: {[Op.lt]: createdBefore} } }).then(expired => {
+            console.log(expired);
+            return expired;
+        });
+    }
 
     public static getDirectoryByAssociationId(associationId: number) {
         return new Promise((resolve, reject) => {
