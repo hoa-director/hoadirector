@@ -19,6 +19,7 @@ export class ApiRouter {
     this.router.get('/rules', this.getRules);
     this.router.get('/objection', this.getObjections);
     this.router.get('/objection/expired', this.getExpiredObjections);
+    this.router.get('/objection/:id', this.getObjection);
     this.router.post('/objection', this.fileObjection);
     this.router.post('/vote', this.submitVote);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
@@ -139,6 +140,22 @@ export class ApiRouter {
       });
     });
   };
+
+  /**
+   * Get specific for the users asscoiation
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   */
+  private getObjection(req: Request, res: Response, next: NextFunction) {
+    const associationId: number = parseInt(req.session.associationId);
+    const objectionId: number = parseInt(req.params.id);
+    Objection.findById(objectionId).then(objection => {
+      res.send(objection);
+    }).catch(error => {
+      res.sendStatus(500);
+    })
+  }
 };
 
 const apiRoutes = new ApiRouter().router;
