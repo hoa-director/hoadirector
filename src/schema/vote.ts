@@ -1,4 +1,4 @@
-import { Model, DataTypes } from 'sequelize'
+import { Model, DataTypes } from 'sequelize';
 import { DuplicateError } from '../classes/duplicate-error';
 
 export class Vote extends Model {
@@ -46,19 +46,18 @@ export class Vote extends Model {
                     if (votes.length) {
                         return Promise.reject(new DuplicateError('Duplicate entry'))
                     };
-                })
-            })
+                });
+            });
         });
     };
 
     public static asscociate(model) {
         
-    }
+    };
 };
 
 import { Objection } from './objection';
 import { Association } from './association';
-import { async } from '@angular/core/testing';
 
 
 export const VoteSchema = Vote;

@@ -13,6 +13,10 @@ export class Association extends Sequelize.Model {
     deletedAt: Date;
     ruleLists: RuleList[];
 
+    public getObjections() {
+        this.
+    }
+
     public static getDirectoryByAssociationId(associationId: number) {
         return new Promise((resolve, reject) => {
             Association.find({
