@@ -35,11 +35,15 @@ export class Association extends Model {
      */
     public getActiveObjections(): Bluebird<Objection[]> {
         const createdBefore: number = moment().subtract({milliseconds: this.objectionVoteTime}).valueOf();
-        return this.getObjections({ where: {createdAt: {[Op.lt]: createdBefore} } }).then(active => {
+        return this.getObjections({ where: {createdAt: {[Op.gt]: createdBefore} } }).then(active => {
             console.log(active);
             return active;
         });
     };
+
+    // public getInactiveObjections(): Bluebird<Objection[]> {
+
+    // }
 
     public static getDirectoryByAssociationId(associationId: number) {
         return new Promise((resolve, reject) => {
