@@ -6,7 +6,10 @@ import {
     BelongsToGetAssociationMixin,
     BelongsToSetAssociationMixin,
     BelongsToCreateAssociationMixin,
+    HasManyAddAssociationMixin,
+    HasManyGetAssociationsMixin
 } from 'sequelize'
+import * as Bluebird from 'bluebird';
 
 export class Objection extends Model {
     id: number;
@@ -24,6 +27,8 @@ export class Objection extends Model {
     getSubmittedBy: BelongsToGetAssociationMixin<User>
     setSubmittedBy: BelongsToSetAssociationMixin<User, number>
     createSubmittedBy: BelongsToCreateAssociationMixin<User>
+    
+    getVotes: HasManyGetAssociationsMixin<Vote>
 
     public static init(sequelize) {
         super.init(
@@ -60,9 +65,30 @@ export class Objection extends Model {
     public static asscociate(model) {
 
     }
+
+    public static getOpenByAssociationId(associationId): Bluebird<Objection[]> {
+        return Association.findById(associationId).then(association => {
+            return Objection.findAll({
+                where: {
+                    associationId
+                }
+            }).then(objections => {
+                console.log(objections);
+                return objections;
+            })
+        })
+    }
+
+    public hasUserVoted(userId) {
+        this.getVotes({ where: { userId } }).then(votes => {
+            console.log(votes);
+        })
+    }
 };
 
-import User from './user';
+import { User } from './user';
+import { Association } from './association';
+import { Vote } from './vote';
 
 export const ObjectionSchema = Objection;
 export default ObjectionSchema;

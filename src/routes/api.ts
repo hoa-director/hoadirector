@@ -92,15 +92,21 @@ export class ApiRouter {
       annonymous,
       userId,
     }).then(vote => {
-      console.log(vote);
       res.sendStatus(200);
     }).catch(error => {
+      if (error.id === 100) {
+        res.status(400).send({message: error.message});
+        return;
+      }
       console.error(error);
-      res.sendStatus(200);
+      res.sendStatus(500);
     });
   }
   private getObjections = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
+    Objection.getOpenByAssociationId(associationId).then(objections => {
+      
+    })
   }
 }
 

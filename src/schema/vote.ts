@@ -1,4 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
+import { DuplicateError } from '../classes/duplicate-error';
 
 export class Vote extends Model {
     id: number;
@@ -38,12 +39,27 @@ export class Vote extends Model {
             },
             { sequelize, tableName: 'votes' }
         );
+        Vote.beforeValidate(async (vote, options) => {
+            return await Objection.find({ where: { id: vote.objectionId }, include: [ { model: Association, as: 'association' } ] }).then(async objection => {
+                await objection.getVotes().then(async votes => {
+                    // User has already voted. Cancel creation
+                    if (votes.length) {
+                        return Promise.reject(new DuplicateError('Duplicate entry'))
+                    };
+                })
+            })
+        });
     };
 
     public static asscociate(model) {
         
     }
 };
+
+import { Objection } from './objection';
+import { Association } from './association';
+import { async } from '@angular/core/testing';
+
 
 export const VoteSchema = Vote;
 export default VoteSchema;

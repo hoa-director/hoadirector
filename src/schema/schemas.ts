@@ -105,12 +105,12 @@ UserSchema.hasMany(VoteSchema, {
 
 UserSchema.hasMany(ObjectionSchema, {
     as: 'objetionsSubmitted',
-    foreignKey: 'submitted_by',
+    foreignKey: 'submitted_by_user_id',
 });
 
 UserSchema.hasMany(ObjectionSchema, {
     as: 'objectionsAgainst',
-    foreignKey: 'submitted_against',
+    foreignKey: 'submitted_against_user_id',
 });
 
 UserSchema.belongsToMany(AssociationSchema, {
