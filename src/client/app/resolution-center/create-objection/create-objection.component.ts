@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ResolutionCenterService } from '../resolution-center.service';
 
 @Component({
   selector: 'app-create-objection',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateObjectionComponent implements OnInit {
 
-  constructor() { }
+  objection: {
+    against: number;
+    comment: string;
+  };
+  units: any;
+
+  constructor(
+    private resolutionCenterService: ResolutionCenterService,
+  ) { };
 
   ngOnInit() {
-  }
+    this.objection = {
+      against: 0,
+      comment: '',
+    }
+    this.resolutionCenterService.getUnits().subscribe(response => {
+      this.units = response.units;
+    });
+  };
 
-}
+  public submit() {
+    return false;
+  };
+
+};

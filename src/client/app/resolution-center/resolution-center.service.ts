@@ -9,9 +9,13 @@ export class ResolutionCenterService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+  ) { };
 
-  public getObjections(): Observable<{objections: []}> {
-    return this.http.get<{objections: []}>('/api/objections');
-  }
-}
+  public getObjections(): Observable<{objections: any[]}> {
+    return this.http.get<{objections: any[]}>('/api/objections');
+  };
+
+  public getUnits(): Observable<{units: any[]}> {
+    return this.http.get<{units: any[]}>('/api/units');
+  };
+};

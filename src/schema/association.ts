@@ -30,6 +30,8 @@ export class Association extends Model {
     addObjection: HasManyAddAssociationMixin<Objection, number>;
     createObjection: HasManyCreateAssociationMixin<Objection>;
 
+    units: Unit[];
+
     /**
      * @returns {Bluebird<Objection[]>} activeObjections
      */

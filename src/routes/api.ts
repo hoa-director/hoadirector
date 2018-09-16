@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 import { Association, Document, Objection, User, Vote } from '../schema/schemas';
+import { Unit } from '../schema/unit';
 
 export class ApiRouter {
   router: Router;
@@ -17,6 +18,7 @@ export class ApiRouter {
     this.router.get('/documents/:id', this.viewDocument);
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
+    this.router.get('/units', this.getUnits);
     this.router.get('/objections', this.getObjections);
     this.router.get('/objections/expired', this.getExpiredObjections);
     this.router.get('/objections/:id', this.getObjection);
@@ -155,7 +157,39 @@ export class ApiRouter {
       res.send({ objection });
     }).catch(error => {
       res.sendStatus(500);
+    });
+  };
+
+  /**
+   * Get specific for the users asscoiation
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   */
+  private getUnits(req: Request, res: Response, next: NextFunction) {
+    const associationId: number = parseInt(req.session.associationId);
+    Association.findById(
+      associationId,
+      {
+        include: [
+          {
+            model: Unit,
+            as: 'units',
+            attributes: ['addressLineOne']
+          }
+        ]
+    }).then(association => {
+      console.log(association);
+      res.send(association.units);
+    }).catch(error => {
+      console.error(error);
+      res.sendStatus(500);
     })
+    // Objection.findById(objectionId).then(objection => {
+    //   res.send({ objection });
+    // }).catch(error => {
+    //   res.sendStatus(500);
+    // })
   }
 };
 
