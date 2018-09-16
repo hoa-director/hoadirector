@@ -12,7 +12,7 @@ export class CreateObjectionComponent implements OnInit {
     against: number;
     comment: string;
   };
-  units: any;
+  units: any[];
 
   constructor(
     private resolutionCenterService: ResolutionCenterService,
@@ -24,12 +24,16 @@ export class CreateObjectionComponent implements OnInit {
       comment: '',
     }
     this.resolutionCenterService.getUnits().subscribe(response => {
+      console.log(response);
       this.units = response.units;
     });
   };
 
-  public submit() {
-    return false;
+  public submit(objection) {
+    // console.log(objection);
+    this.resolutionCenterService.submitObjection(objection).subscribe(response => {
+      console.log(response);
+    })
   };
 
 };

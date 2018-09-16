@@ -19,23 +19,18 @@
           <div class="row">
             <div class="col">
               <div class="file-complaint row">
-                <form #complaintForm="ngForm" (ngSubmit)="submit()" class="col">
+                <form #complaintForm="ngForm" (ngSubmit)="submit(objection)" class="col">
                   <div class="form-group">
                     <label for="against">Against
-                      <select name="against" id="against" [(ngModel)]="complaint.against" #against="ngModel" required>
+                      <select name="against" id="against" [(ngModel)]="objection.against" #against="ngModel" required>
                         <option value=""></option>
-                        <option value="12345 Fake Dr N">12345 Fake Dr N</option>
-                        <option value="12346 Fake Dr N">12346 Fake Dr N</option>
-                        <option value="12347 Fake Dr N">12347 Fake Dr N</option>
-                        <option value="12348 Fake Dr N">12348 Fake Dr N</option>
-                        <option value="12349 Fake Dr N">12349 Fake Dr N</option>
-                        <option value="12350 Fake Dr N">12350 Fake Dr N</option>
+                        <option *ngFor="let unit of units" value="{{unit.userId}}">{{unit.addressLineOne}}</option>
                       </select>
                     </label>
                   </div>
                   <div class="form-group">
                     <label for="message">Comments
-                      <textarea placeholder="" class="form-control" name="message" required [(ngModel)]="complaint.message" #message="ngModel"></textarea>
+                      <textarea placeholder="" class="form-control" name="message" required [(ngModel)]="objection.comment" #message="ngModel"></textarea>
                     </label>
                   </div>
                   <div class="form-group">

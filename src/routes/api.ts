@@ -71,16 +71,14 @@ export class ApiRouter {
     });
   }
   private fileObjection = (req: Request, res: Response, next: NextFunction) => {
-    const against = req.body.against;
+    const objection = req.body.objection;
     const by = req.user.id;
-    const message = req.body.message;
     const associationId = req.session.associationId;
-    console.log(message);
     Objection.create({
       associationId,
-      comment: message,
+      comment: objection.comment,
       submittedByUserId: by,
-      submittedAgainstUserId: against
+      submittedAgainstUserId: objection.against
     }).then((objection) => {
       res.sendStatus(200);
     }).catch(error => {
@@ -190,25 +188,20 @@ export class ApiRouter {
     Association.findById(
       associationId,
       {
+        attributes: [],
         include: [
           {
             model: Unit,
             as: 'units',
-            attributes: ['addressLineOne']
+            attributes: ['userId', 'addressLineOne']
           }
         ]
     }).then(association => {
-      console.log(association);
-      res.send(association.units);
+      res.send({units: association.units});
     }).catch(error => {
       console.error(error);
       res.sendStatus(500);
-    })
-    // Objection.findById(objectionId).then(objection => {
-    //   res.send({ objection });
-    // }).catch(error => {
-    //   res.sendStatus(500);
-    // })
+    });
   }
 };
 

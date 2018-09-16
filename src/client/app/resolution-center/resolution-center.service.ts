@@ -22,4 +22,7 @@ export class ResolutionCenterService {
   public getUnits(): Observable<{units: any[]}> {
     return this.http.get<{units: any[]}>('/api/units');
   };
+  public submitObjection(objection) {
+    return this.http.post('/api/objections', {objection});
+  }
 };
