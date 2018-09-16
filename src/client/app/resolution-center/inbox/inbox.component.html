@@ -5,6 +5,7 @@
             <th scope="col">Submitted Against</th>
             <th scope="col">Submitted On</th>
             <th scope="col">Objection</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,41 @@
                 {{objection.createdAt | date:'short'}}
             </td>
             <td>{{objection.comment}}</td>
+            <td (click)="selectObjection(objection); htmlInsideModal.open()">
+                <button class="btn">
+                    View
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>
+
+<app-modal #htmlInsideModal>
+    <ng-template #modalBody>
+        <div class="row">
+            <div class="col">
+                <p>
+                {{currentObjection.comment}}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        How would you like to vote on this
+                    </div>
+                </div>
+                <button class="btn" (click)="vote(0)">Disapprove</button>
+                <button class="btn" (click)="vote(1)">Approve</button>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #modalFooter>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary" (click)="htmlInsideModal.close()">Close</button>
+            </div>
+        </div>
+    </ng-template>
+</app-modal>

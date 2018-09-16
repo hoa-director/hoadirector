@@ -7,6 +7,7 @@ import { ResolutionCenterComponent } from './resolution-center.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { ObjectionComponent } from './objection/objection.component';
 import { CreateObjectionComponent } from './create-objection/create-objection.component';
+import { ModalComponent } from '../app/modal/modal.component';
 
 import { ResolutionCenterRoutingModule } from './resolution-center-routing.module';
 import { ResolutionCenterService } from './resolution-center.service';
@@ -22,10 +23,14 @@ import { ResolutionCenterService } from './resolution-center.service';
     ResolutionCenterComponent, 
     InboxComponent, 
     ObjectionComponent, 
-    CreateObjectionComponent
+    CreateObjectionComponent,
+    ModalComponent,
   ],
   providers: [
     ResolutionCenterService,
+  ],
+  exports: [
+    ModalComponent,
   ]
 })
 export class ResolutionCenterModule { }

@@ -22,7 +22,7 @@ import { BoardComponent } from './app/board/board.component';
 import { NotesComponent } from './app/notes/notes.component';
 import { ProfileComponent } from './app/profile/profile.component';
 import { MessageComponent } from './app/message/message.component';
-import { ModalComponent } from './app/modal/modal.component';
+// import { ModalComponent } from './app/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { ModalComponent } from './app/modal/modal.component';
     NotesComponent,
     ProfileComponent,
     MessageComponent,
-    ModalComponent,
+    // ModalComponent,
   ],
   imports: [
     BrowserModule,

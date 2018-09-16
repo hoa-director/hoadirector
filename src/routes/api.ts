@@ -87,8 +87,8 @@ export class ApiRouter {
     });
   }
   private submitVote = (req: Request, res: Response, next: NextFunction) => {
-    const objectionId: number = parseInt(req.body.objectionId);
-    const approved: number = parseInt(req.body.approved);
+    const objectionId: number = parseInt(req.body.vote.objectionId);
+    const approved: number = parseInt(req.body.vote.approved);
     const annonymous: number = req.body.annonymous ? parseInt(req.body.annonymous) : 0;
     const userId: number = parseInt(req.user.id);
     Vote.create({

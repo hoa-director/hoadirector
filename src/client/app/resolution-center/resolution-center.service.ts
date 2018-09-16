@@ -25,4 +25,8 @@ export class ResolutionCenterService {
   public submitObjection(objection) {
     return this.http.post('/api/objections', {objection});
   }
+
+  public submitVote(vote) {
+    return this.http.post('/api/vote', {vote});
+  }
 };
