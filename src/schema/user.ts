@@ -1,9 +1,15 @@
-import * as Sequelize from 'sequelize';
+import {
+    Model,
+    DataTypes,
+    Op,
+} from 'sequelize';
 import * as bcrypt from 'bcrypt';
+import { Objection } from './objection';
+import * as Bluebird from 'bluebird';
 
 const saltWorkFactor = 10;
 
-export class User extends Sequelize.Model {
+export class User extends Model {
     id: number;
     email: string;
     private password: string;
@@ -39,14 +45,14 @@ export class User extends Sequelize.Model {
         super.init(
             {
                 id: {
-                    type: Sequelize.INTEGER({ length: 10}),
+                    type: DataTypes.INTEGER({ length: 10}),
                     primaryKey: true,
                     unique: true,
                     autoIncrement: true,
                     field: 'id',
                 },
                 email: {
-                    type: Sequelize.STRING(100),
+                    type: DataTypes.STRING(100),
                     validate: {
                         max: 100,
                         isEmail: true
@@ -55,42 +61,42 @@ export class User extends Sequelize.Model {
                     field: 'email',
                 },
                 password: {
-                    type: Sequelize.STRING(45),
+                    type: DataTypes.STRING(45),
                     validate: {
                         max: 45
                     },
                     field: 'password',
                 },
                 number: {
-                    type: Sequelize.STRING(12),
+                    type: DataTypes.STRING(12),
                     field: 'number',
                 },
                 role: {
-                    type: Sequelize.INTEGER({ length: 2 }),
+                    type: DataTypes.INTEGER({ length: 2 }),
                     field: 'role',
                 },
                 firstName: {
-                    type: Sequelize.STRING(45),
+                    type: DataTypes.STRING(45),
                     field: 'first_name',
                 },
                 lastName: {
-                    type: Sequelize.STRING(45),
+                    type: DataTypes.STRING(45),
                     field: 'last_name',
                 },
                 fullName: {
-                    type: Sequelize.STRING(91),
+                    type: DataTypes.STRING(91),
                     field: 'full_name',
                 },
                 createdAt: {
-                    type: Sequelize.DATE,
+                    type: DataTypes.DATE,
                     field: 'created_at',
                 },
                 updatedAt: {
-                    type: Sequelize.DATE,
+                    type: DataTypes.DATE,
                     field: 'updated_at'
                 },
                 deletedAt: {
-                    type: Sequelize.DATE,
+                    type: DataTypes.DATE,
                     field: 'deleted_at',
                 },
             }, { sequelize, tableName: 'users' }

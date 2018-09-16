@@ -57,6 +57,34 @@ export class Association extends Model {
             return active;
         });
     };
+    /**
+     * @returns {Bluebird<Objection[]>} activeObjections
+     */
+    public getUserInbox(userId: number): Bluebird<Objection[]> {
+        const createdAfter: Date = moment().subtract({milliseconds: this.objectionVoteTime}).toDate();
+        return this.getObjections({
+            where: {createdAt: {[Op.gt]: createdAfter} },
+            attributes: ['id', 'comment', 'createdAt'],
+            include: [
+                {
+                    model: User,
+                    as: 'submittedBy',
+                    attributes: ['fullName'],
+                    where: {
+                        id: {[Op.not]: userId},
+                    },
+                },
+                {
+                    model: User,
+                    as: 'submittedAgainst',
+                    attributes: ['fullName'],
+                },
+            ],
+        }).then(active => {
+            console.log(active);
+            return active;
+        });
+    };
 
     /**
      * @returns {Bluebird<Objection[]>}

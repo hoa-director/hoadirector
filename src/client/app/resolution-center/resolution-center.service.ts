@@ -15,6 +15,10 @@ export class ResolutionCenterService {
     return this.http.get<{objections: any[]}>('/api/objections');
   };
 
+  public getInbox(): Observable<{objections: any[]}> {
+    return this.http.get<{objections: any[]}>('/api/inbox');
+  };
+
   public getUnits(): Observable<{units: any[]}> {
     return this.http.get<{units: any[]}>('/api/units');
   };

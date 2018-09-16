@@ -15,7 +15,7 @@ export class InboxComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.resolutionCenterService.getObjections().subscribe(response => {
+    this.resolutionCenterService.getInbox().subscribe(response => {
       this.objections = response.objections;
     });
   }
