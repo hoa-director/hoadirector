@@ -5,3 +5,7 @@
 #content-row {
     min-height: 100%;
 }
+
+.app-container {
+    height: 100%;
+}
