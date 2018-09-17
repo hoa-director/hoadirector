@@ -29,7 +29,9 @@ export class LoginComponent implements OnInit {
       console.log(error);
       if(error.status === 401) {
         this.message = 'Username or password in incorrect.';
+        return;
       }
+      this.message = 'There was an error on the server. Please try again later';
     });
   }
 }

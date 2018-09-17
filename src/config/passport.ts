@@ -22,7 +22,7 @@ passport.use(new passportLocal.Strategy({
   (email, password, done) => {
     console.log('in local strategy');
     User.findByEmail(email).then(user => {
-        if(!user.comparePassword(password)) {
+        if(!user || !user.comparePassword(password)) {
             return done(null, false, { message: 'Incorrect username or password' })
         }
         return done(null, user);
