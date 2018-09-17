@@ -74,7 +74,7 @@ export class Association extends Model {
                         id: {[Op.not]: userId},
                     },
                 },
-                {
+                {g
                     model: User,
                     as: 'submittedAgainst',
                     attributes: ['fullName'],
