@@ -5,6 +5,7 @@ import { ObjectionComponent } from './objection/objection.component';
 import { CreateObjectionComponent } from './create-objection/create-objection.component';
 import { ResolutionCenterComponent } from './resolution-center.component';
 import { AuthGuardService } from '../services/auth-guard.service';
+import { OutboxComponent } from './outbox/outbox.component';
 
 const routes: Routes = [
   { path: 'resolution-center',
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/resolution-center/inbox', pathMatch: 'full' },
       { path: 'inbox', component: InboxComponent },
+      { path: 'outbox', component: OutboxComponent },
       { path: 'objection/view/:id', component: ObjectionComponent },
       { path: 'objection/create', component: CreateObjectionComponent },
     ]

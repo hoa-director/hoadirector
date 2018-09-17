@@ -11,6 +11,7 @@ import { ModalComponent } from '../app/modal/modal.component';
 
 import { ResolutionCenterRoutingModule } from './resolution-center-routing.module';
 import { ResolutionCenterService } from './resolution-center.service';
+import { OutboxComponent } from './outbox/outbox.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ResolutionCenterService } from './resolution-center.service';
     ObjectionComponent, 
     CreateObjectionComponent,
     ModalComponent,
+    OutboxComponent,
   ],
   providers: [
     ResolutionCenterService,

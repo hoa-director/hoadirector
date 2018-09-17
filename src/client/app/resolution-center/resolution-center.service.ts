@@ -29,4 +29,8 @@ export class ResolutionCenterService {
   public submitVote(vote) {
     return this.http.post('/api/vote', {vote});
   }
+
+  public getOutbox(): Observable<{objections: any[]}> {
+    return this.http.get<{objections: any[]}>('/api/outbox');
+  }
 };

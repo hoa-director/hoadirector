@@ -23,6 +23,7 @@ export class ApiRouter {
     this.router.get('/objections/expired', this.getExpiredObjections);
     this.router.get('/objections/:id', this.getObjection);
     this.router.get('/inbox', this.getInbox);
+    this.router.get('/outbox', this.getOutbox);
     this.router.post('/objections', this.fileObjection);
     this.router.post('/vote', this.submitVote);
     this.router.get('/', (req: Request, res: Response, next: NextFunction) => {
@@ -135,6 +136,24 @@ export class ApiRouter {
     const userId: number = parseInt(req.user.id);
     Association.findById(associationId).then(association => {
       association.getUserInbox(userId).then(objections => {
+        res.send({ objections });
+      }).catch(error => {
+        console.log(error);
+        res.sendStatus(500);
+      });
+    });
+  };
+  /**
+   * Get objections for the users asscoiation
+   * @param {Request} req
+   * @param {Response} res
+   * @param {NextFunction} next
+   */
+  private getOutbox = (req: Request, res: Response, next: NextFunction) => {
+    const associationId: number = parseInt(req.session.associationId);
+    const userId: number = parseInt(req.user.id);
+    Association.findById(associationId).then(association => {
+      association.getUserOutbox(userId).then(objections => {
         res.send({ objections });
       }).catch(error => {
         console.log(error);
