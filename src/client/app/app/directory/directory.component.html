@@ -11,7 +11,7 @@
       <div class="col-sm col-md-6 col-lg-4 d-flex" *ngFor="let unit of units">
         <div class="person">
           <h5>
-            {{unit.user.fullName}}
+            {{unit.user.firstName + ' ' + unit.user.lastName}}
           </h5>
           <div class="person-content">
             <div class="address-line-1">

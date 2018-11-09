@@ -44,12 +44,12 @@ export class Association extends Model {
                 {
                     model: User,
                     as: 'submittedBy',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                 },
                 {
                     model: User,
                     as: 'submittedAgainst',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                 },
             ],
         }).then(active => {
@@ -69,7 +69,7 @@ export class Association extends Model {
                 {
                     model: User,
                     as: 'submittedBy',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                     where: {
                         id: {[Op.not]: userId},
                     },
@@ -77,7 +77,7 @@ export class Association extends Model {
                 {
                     model: User,
                     as: 'submittedAgainst',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                 },
             ],
         }).then(active => {
@@ -95,7 +95,7 @@ export class Association extends Model {
                 {
                     model: User,
                     as: 'submittedBy',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                     where: {
                         id: userId,
                     },
@@ -103,7 +103,7 @@ export class Association extends Model {
                 {
                     model: User,
                     as: 'submittedAgainst',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                 },
             ],
         }).then(active => {
@@ -124,12 +124,12 @@ export class Association extends Model {
                 {
                     model: User,
                     as: 'submittedBy',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                 },
                 {
                     model: User,
                     as: 'submittedAgainst',
-                    attributes: ['fullName'],
+                    attributes: ['firstName', 'lastName'],
                 },
             ],
         }).then(expired => {
@@ -152,7 +152,7 @@ export class Association extends Model {
                             {
                                 model: User,
                                 as: 'user',
-                                attributes: ['fullName', 'email', 'number']
+                                attributes: ['firstName', 'lastName', 'email', 'number']
                             }
                         ]
                     }

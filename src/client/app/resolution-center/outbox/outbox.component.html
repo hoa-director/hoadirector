@@ -9,8 +9,8 @@
     </thead>
     <tbody>
         <tr *ngFor="let objection of objections">
-            <td>{{objection.submittedBy.fullName}}</td>
-            <td>{{objection.submittedAgainst.fullName}}</td>
+            <td>{{objection.submittedBy.firstName + ' ' + objection.submittedBy.lastName}}</td>
+            <td>{{objection.submittedAgainst.firstName + ' ' + objection.submittedAgainst.lastName}}</td>
             <td>
                 {{objection.createdAt | date:'short'}}
             </td>

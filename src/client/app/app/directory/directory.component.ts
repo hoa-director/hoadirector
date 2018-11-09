@@ -8,7 +8,7 @@ import { DataService } from '../../services/data.service';
 })
 export class DirectoryComponent implements OnInit {
 
-  units: { addressLineOne: string; addressLineTwo?: string; city: string; state: string; zip: number; user: {email: string; phone: string; fullName: string;} }[];
+  units: { addressLineOne: string; addressLineTwo?: string; city: string; state: string; zip: number; user: {email: string; phone: string; fullName: string; firstName: string; lastName: string;} }[];
 
   constructor(
     private dataService: DataService,

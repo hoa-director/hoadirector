@@ -17,7 +17,7 @@ export class User extends Model {
     role: number;
     firstName: string;
     lastName: string;
-    fullName: string;
+    // fullName: string;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
@@ -83,10 +83,10 @@ export class User extends Model {
                     type: DataTypes.STRING(45),
                     field: 'last_name',
                 },
-                fullName: {
-                    type: DataTypes.STRING(91),
-                    field: 'full_name',
-                },
+                // fullName: {
+                //     type: DataTypes.STRING(91),
+                //     field: 'full_name',
+                // },
                 createdAt: {
                     type: DataTypes.DATE,
                     field: 'created_at',
