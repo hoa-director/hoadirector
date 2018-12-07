@@ -1,4 +1,5 @@
 import * as Sequelize from 'sequelize';
+import User from './user';
 
 export class Unit extends Sequelize.Model {
     id: number;
@@ -12,6 +13,8 @@ export class Unit extends Sequelize.Model {
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
+
+    user: User
 
     public static init(sequelize) {
         super.init(

@@ -4,6 +4,8 @@ import * as fs from 'fs';
 
 import { Association, Document, Objection, User, Vote } from '../schema/schemas';
 import { Unit } from '../schema/unit';
+import { Emailer } from '../classes/emailer';
+import { Transporter, createTransport } from 'nodemailer';
 
 export class ApiRouter {
   router: Router;
@@ -81,6 +83,36 @@ export class ApiRouter {
       submittedByUserId: by,
       submittedAgainstUserId: objection.against
     }).then((objection) => {
+      const transporter: Transporter = createTransport({
+        host: process.env.SMTP_HOST,
+        port: parseInt(process.env.SMTP_PORT, 10),
+        secure: true, // upgrade later with STARTTLS
+        auth: {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASSWORD
+        }
+      });
+      const emailer = new Emailer(transporter);
+      console.log(emailer);
+      Association.getUsersByAssociationId(associationId).then(users => {
+        const emails = users.map(user => user.email);
+        const emailList = emails.join(', ');
+        emailer.sendMail({
+          from: process.env.EMAIL_FROM,
+          to: emailList,
+          subject: 'A new objection has been submitted on HOA director',
+          text: 
+            `
+              A new objection has been submitted by ${req.user.name}
+              To view the objection please use the following link: hoadirector.com/objection/view/${objection.id}
+            `,
+          html: 
+            `
+              <p>A new objection has been submitted by ${req.user.name}</p>
+              <p>To view the objection click <a href="hoadirector.com/objection/view/${objection.id}">here</a></p>
+            `
+        });
+      });
       res.sendStatus(200);
     }).catch(error => {
       console.log(error);
