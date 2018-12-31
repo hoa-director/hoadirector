@@ -55,8 +55,8 @@ export class ApiRouter {
     const associationId = req.session.associationId || 1;
     const documentId = req.params.id;
     Document.getDocumentByAssociationAndId(associationId, documentId).then((document: any) => {
-      var data =fs.readFileSync(path.join(__dirname, '..', document.dataValues.path));
-      res.contentType("application/pdf");
+      const data = fs.readFileSync(path.join(__dirname, '..', document.dataValues.path));
+      res.contentType('application/pdf');
       res.header('Content-Disposition', 'inline; name=' + document.name);
       res.send(data);
     }).catch(error => {
@@ -74,47 +74,49 @@ export class ApiRouter {
     });
   }
   private fileObjection = (req: Request, res: Response, next: NextFunction) => {
-    const objection = req.body.objection;
-    const by = req.user.id;
     const associationId = req.session.associationId;
-    Objection.create({
-      associationId,
-      comment: objection.comment,
-      submittedByUserId: by,
-      submittedAgainstUserId: objection.against
-    }).then((objection) => {
+    const objection = req.body.objection;
+    const byId = req.user.id;
+    Unit.getUsersUnit(byId, associationId).then((unit) => {
+      return Objection.create({
+        associationId,
+        comment: objection.comment,
+        submittedByUnitId: unit.id,
+        submittedAgainstUnitId: objection.against,
+      });
+    })
+    .then((filedObjection) => {
+      res.sendStatus(200);
       const transporter: Transporter = createTransport({
         host: process.env.SMTP_HOST,
         port: parseInt(process.env.SMTP_PORT, 10),
         secure: true, // upgrade later with STARTTLS
         auth: {
             user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASSWORD
-        }
+            pass: process.env.SMTP_PASSWORD,
+        },
       });
       const emailer = new Emailer(transporter);
-      console.log(emailer);
-      Association.getUsersByAssociationId(associationId).then(users => {
-        const emails = users.map(user => user.email);
+      return Association.getUsersByAssociationId(associationId).then((users) => {
+        const emails = users.map((user) => user.email);
         const emailList = emails.join(', ');
-        emailer.sendMail({
+        return emailer.sendMail({
           from: process.env.EMAIL_FROM,
           to: emailList,
           subject: 'A new objection has been submitted on HOA director',
-          text: 
+          text:
             `
               A new objection has been submitted by ${req.user.name}
-              To view the objection please use the following link: hoadirector.com/objection/view/${objection.id}
+              To view the objection please use the following link: hoadirector.com/objection/view/${filedObjection.id}
             `,
-          html: 
+          html:
             `
               <p>A new objection has been submitted by ${req.user.name}</p>
-              <p>To view the objection click <a href="hoadirector.com/objection/view/${objection.id}">here</a></p>
-            `
+              <p>To view the objection click <a href="hoadirector.com/objection/view/${filedObjection.id}">here</a></p>
+            `,
         });
       });
-      res.sendStatus(200);
-    }).catch(error => {
+    }).catch((error) => {
       console.log(error);
       res.sendStatus(500);
     });
@@ -226,7 +228,7 @@ export class ApiRouter {
     }).catch(error => {
       res.sendStatus(500);
     });
-  };
+  }
 
   /**
    * Get specific for the users asscoiation
@@ -244,7 +246,7 @@ export class ApiRouter {
           {
             model: Unit,
             as: 'units',
-            attributes: ['userId', 'addressLineOne']
+            attributes: ['id', 'addressLineOne']
           }
         ]
     }).then(association => {
@@ -254,7 +256,7 @@ export class ApiRouter {
       res.sendStatus(500);
     });
   }
-};
+}
 
 const apiRoutes = new ApiRouter().router;
 

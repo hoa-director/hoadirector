@@ -7,7 +7,7 @@ import {
     HasManyGetAssociationsMixin
 } from 'sequelize';
 import * as Bluebird from 'bluebird';
-import { User } from './user';
+import { Unit } from './unit';
 import { Association } from './association';
 import { Vote } from './vote';
 
@@ -24,11 +24,11 @@ export class Objection extends Model {
 
     // mixins for association (optional)
     submittedById: number;
-    submittedBy: User;
-    getSubmittedBy: BelongsToGetAssociationMixin<User>;
-    setSubmittedBy: BelongsToSetAssociationMixin<User, number>;
-    createSubmittedBy: BelongsToCreateAssociationMixin<User>;
-    
+    submittedBy: Unit;
+    getSubmittedBy: BelongsToGetAssociationMixin<Unit>;
+    setSubmittedBy: BelongsToSetAssociationMixin<Unit, number>;
+    createSubmittedBy: BelongsToCreateAssociationMixin<Unit>;
+
     getVotes: HasManyGetAssociationsMixin<Vote>;
 
     public static init(sequelize) {
@@ -49,13 +49,13 @@ export class Objection extends Model {
                     type: DataTypes.STRING(500),
                     field: 'comment',
                 },
-                submittedByUserId: {
+                submittedByUnitId: {
                     type: DataTypes.INTEGER({ length: 10 }),
-                    field: 'submitted_by_user_id'
+                    field: 'submitted_by_unit_id'
                 },
-                submittedAgainstUserId: {
+                submittedAgainstUnitId: {
                     type: DataTypes.INTEGER({ length: 10 }),
-                    field: 'submitted_against_user_id',
+                    field: 'submitted_against_unit_id',
                 },
                 createdAt: {
                     type: DataTypes.DATE,

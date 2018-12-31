@@ -184,19 +184,43 @@ export class Association extends Model {
       where: { createdAt: { [Op.gt]: createdAfter } },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
+        // {
+        //   model: User,
+        //   as: 'submittedBy',
+        //   attributes: ['firstName', 'lastName'],
+        //   where: {
+        //     id: { [Op.not]: userId }
+        //   },
+        //   include: [
+        //     {
+        //       model: Unit,
+        //       attributes: ['addressLineOne'],
+        //       as: 'units',
+        //     },
+        //   ]
+        // },
+        // {
+        //   model: User,
+        //   as: 'submittedAgainst',
+        //   attributes: ['firstName', 'lastName'],
+        //   include: [
+        //     {
+        //       model: Unit,
+        //       attributes: ['addressLineOne'],
+        //       as: 'units',
+        //     },
+        //   ],
+        // },
         {
-          model: User,
+          model: Unit,
+          attributes: ['addressLineOne'],
           as: 'submittedBy',
-          attributes: ['firstName', 'lastName'],
-          where: {
-            id: { [Op.not]: userId }
-          }
         },
         {
-          model: User,
+          model: Unit,
+          attributes: ['addressLineOne'],
           as: 'submittedAgainst',
-          attributes: ['firstName', 'lastName']
-        }
+        },
       ]
     }).then(active => {
       console.log(active);
@@ -210,19 +234,43 @@ export class Association extends Model {
     return this.getObjections({
       attributes: ['id', 'comment', 'createdAt'],
       include: [
+        // {
+        //   model: User,
+        //   as: 'submittedBy',
+        //   attributes: ['firstName', 'lastName'],
+        //   where: {
+        //     id: userId
+        //   },
+        //   include: [
+        //     {
+        //       model: Unit,
+        //       attributes: ['addressLineOne'],
+        //       as: 'units',
+        //     },
+        //   ]
+        // },
+        // {
+        //   model: User,
+        //   as: 'submittedAgainst',
+        //   attributes: ['firstName', 'lastName'],
+        //   include: [
+        //     {
+        //       model: Unit,
+        //       attributes: ['addressLineOne'],
+        //       as: 'units',
+        //     },
+        //   ]
+        // }
         {
-          model: User,
+          model: Unit,
+          attributes: ['addressLineOne'],
           as: 'submittedBy',
-          attributes: ['firstName', 'lastName'],
-          where: {
-            id: userId
-          }
         },
         {
-          model: User,
+          model: Unit,
+          attributes: ['addressLineOne'],
           as: 'submittedAgainst',
-          attributes: ['firstName', 'lastName']
-        }
+        },
       ]
     }).then(active => {
       console.log(active);

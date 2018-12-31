@@ -44,15 +44,29 @@ DocumentSchema.belongsTo(AssociationSchema, {
     targetKey: 'id',
 });
 
-ObjectionSchema.belongsTo(UserSchema, {
+// ObjectionSchema.belongsTo(UserSchema, {
+//     as: 'submittedBy',
+//     foreignKey: 'submitted_by_user_id',
+//     targetKey: 'id',
+// });
+
+// ObjectionSchema.belongsTo(UserSchema, {
+//     as: 'submittedAgainst',
+//     foreignKey: 'submitted_against_user_id',
+//     targetKey: 'id',
+// });
+
+ObjectionSchema.belongsTo(UnitSchema, {
     as: 'submittedBy',
-    foreignKey: 'submitted_by_user_id',
+    // through: UserSchema,
+    foreignKey: 'submitted_by_unit_id',
     targetKey: 'id',
 });
 
-ObjectionSchema.belongsTo(UserSchema, {
+ObjectionSchema.belongsTo(UnitSchema, {
     as: 'submittedAgainst',
-    foreignKey: 'submitted_against_user_id',
+    // through: UserSchema,
+    foreignKey: 'submitted_against_unit_id',
     targetKey: 'id',
 });
 

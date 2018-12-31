@@ -1,29 +1,29 @@
 <div class="row">
-    <div class="col">
-        <div class="row">
-            <div class="col">
-                <h1>Welcome to the Resolution Center</h1>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="./inbox">Inbox</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="./outbox">Outbox</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="./objection/create">New</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
+  <div class="col">
+    <div class="row">
+      <div class="col">
+        <h1>Welcome to the Resolution Center</h1>
+      </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="./inbox">Inbox</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="./outbox">Outbox</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="./objection/create">File Objection</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
 </div>

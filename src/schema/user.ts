@@ -31,14 +31,8 @@ export class User extends Model {
         return bcrypt.compareSync(password, this.password);
     }
 
-    public static findByEmail(email: string): Promise<User> {
-        return new Promise((resolve, reject) => {
-            User.findOne({ where: { email }}).then((user) => {
-                resolve(user);
-            }).catch(error => {
-                reject(error);
-            })
-        });
+    public static findByEmail(email: string): Bluebird<User> {
+            return User.findOne({ where: { email }});
     }
 
     public static init(sequelize) {
@@ -109,7 +103,7 @@ export class User extends Model {
     };
 
     public static asscociate(model) {
-        
+
     }
 };
 

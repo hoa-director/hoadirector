@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "tslint:recommended"
+  ],
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
@@ -93,7 +96,8 @@
     "radix": false,
     "semicolon": [
       true,
-      "always"
+      "always",
+      "ignore-bound-class-methods"
     ],
     "triple-equals": [
       true,
@@ -129,6 +133,6 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true,
+    "directive-class-suffix": true
   }
 }
