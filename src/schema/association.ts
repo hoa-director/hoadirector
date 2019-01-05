@@ -14,6 +14,7 @@ import { Rule } from './rule';
 import { RuleList } from './rule-list';
 import { Unit } from './unit';
 import { User } from './user';
+import { Vote } from './vote';
 
 export class Association extends Model {
   id: number;
@@ -209,7 +210,10 @@ export class Association extends Model {
       .subtract({ milliseconds: this.objectionVoteTime })
       .toDate();
     return this.getObjections({
-      where: { createdAt: { [Op.gt]: createdAfter } },
+      where: {
+        createdAt: { [Op.gt]: createdAfter },
+        submittedByUserId: { [Op.ne]: userId },
+      },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
@@ -222,6 +226,15 @@ export class Association extends Model {
           attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
         },
+        {
+          model: Vote,
+          where: {
+            userId,
+          },
+          as: 'votes',
+          attributes: ['approved'],
+          required: false,
+        },
       ],
     });
   }
@@ -230,6 +243,9 @@ export class Association extends Model {
    */
   public getUserOutbox(userId: number): Bluebird<Objection[]> {
     return this.getObjections({
+      where: {
+        submittedByUserId: userId,
+      },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
