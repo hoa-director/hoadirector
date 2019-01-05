@@ -1,10 +1,8 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
 import * as passport from 'passport';
 import { UserSchema } from '../schema/user';
 
-const passportRedirect: passport.AuthenticateOptions = {
-
-};
+const passportRedirect: passport.AuthenticateOptions = {};
 
 export class UserRouter {
   router: Router;
@@ -15,14 +13,14 @@ export class UserRouter {
   }
 
   public login(req: Request, res: Response, next: NextFunction) {
-    req.user.getAssociations().then(associations => {
+    req.user.getAssociations().then((associations) => {
       req.session.associationId = associations[0].dataValues.id;
       res.send(req.user);
-    })
+    });
   }
 
   public loggedin(req: Request, res: Response, next: NextFunction) {
-    if(req.isAuthenticated()) {
+    if (req.isAuthenticated()) {
       res.send(req.user);
     } else {
       res.sendStatus(403);
@@ -30,18 +28,25 @@ export class UserRouter {
   }
 
   public register(req: Request, res: Response, next: NextFunction) {
-      let newUser = new UserSchema(req.body);
-      newUser.save().then(data => {
+    const newUser = new UserSchema(req.body);
+    newUser
+      .save()
+      .then((data) => {
         console.log(data);
         res.send(newUser);
-      }).catch(error => {
+      })
+      .catch((error) => {
         console.log(error);
         res.sendStatus(500);
       });
   }
 
   init() {
-    this.router.post('/login/', passport.authenticate('local', passportRedirect), this.login);
+    this.router.post(
+      '/login/',
+      passport.authenticate('local', passportRedirect),
+      this.login,
+    );
     this.router.post('/register/', this.register);
     this.router.get('/', this.loggedin);
   }

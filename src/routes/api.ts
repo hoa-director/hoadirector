@@ -4,13 +4,7 @@ import * as path from 'path';
 
 import { createTransport, Transporter } from 'nodemailer';
 import { Emailer } from '../classes/emailer';
-import {
-  Association,
-  Document,
-  Objection,
-  User,
-  Vote,
-} from '../schema/schemas';
+import { Association, Document, Objection, Vote } from '../schema/schemas';
 import { Unit } from '../schema/unit';
 
 export class ApiRouter {

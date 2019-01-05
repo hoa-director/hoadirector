@@ -1,12 +1,11 @@
-import { Transporter, SendMailOptions } from 'nodemailer';
+import { SendMailOptions, Transporter } from 'nodemailer';
 
 export class Emailer {
-
   transporter: Transporter;
 
   constructor(transporter: Transporter) {
     console.log('testing transport');
-    transporter.verify(function(error, success) {
+    transporter.verify((error) => {
       if (error) {
         console.log(error);
         throw new Error('transporter failed');
@@ -18,6 +17,6 @@ export class Emailer {
   }
 
   sendMail(options: SendMailOptions) {
-    this.transporter.sendMail(options)
+    this.transporter.sendMail(options);
   }
 }
