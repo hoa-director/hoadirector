@@ -141,8 +141,6 @@ VoteSchema.belongsTo(ObjectionSchema, {
   foreignKey: 'objection_id',
 });
 
-// connection.sync();
-
 export const Association = AssociationSchema;
 export const Document = DocumentSchema;
 export const Objection = ObjectionSchema;

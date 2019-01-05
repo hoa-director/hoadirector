@@ -1,4 +1,5 @@
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 import * as http from 'http';
 
 import App from './app';
@@ -11,16 +12,16 @@ server.listen(port);
 server.on('listening', onListening);
 
 function normalizePort(val: number | string): number | string | false {
-    const port: number = (typeof val === 'string') ? parseInt(val, 10) : val;
-    if (isNaN(port)) {
-        return val;
-    } else if (port >= 0) {
-        return port;
-    } else {
-        return false;
-    }
+  const parsedPort: number = typeof val === 'string' ? parseInt(val, 10) : val;
+  if (isNaN(parsedPort)) {
+    return val;
+  } else if (parsedPort >= 0) {
+    return parsedPort;
+  } else {
+    return false;
+  }
 }
 
 function onListening(): void {
-    console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 }
