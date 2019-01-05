@@ -1,20 +1,20 @@
 <table class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Submitted By</th>
-            <th scope="col">Submitted Against</th>
-            <th scope="col">Submitted On</th>
-            <th scope="col">Objection</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let objection of objections">
-            <td>{{objection.submittedBy.firstName + ' ' + objection.submittedBy.lastName}}</td>
-            <td>{{objection.submittedAgainst.firstName + ' ' + objection.submittedAgainst.lastName}}</td>
-            <td>
-                {{objection.createdAt | date:'short'}}
-            </td>
-            <td>{{objection.comment}}</td>
-        </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Submitted By</th>
+      <th scope="col">Submitted Against</th>
+      <th scope="col">Submitted On</th>
+      <th scope="col">Objection</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let objection of objections">
+      <td>{{objection.submittedBy.addressLineOne}}</td>
+      <td>{{objection.submittedAgainst.addressLineOne}}</td>
+      <td>
+        {{objection.createdAt | date:'short'}}
+      </td>
+      <td>{{objection.comment}}</td>
+    </tr>
+  </tbody>
 </table>
