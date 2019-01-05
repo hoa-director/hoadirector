@@ -8,9 +8,8 @@ describe('DirectoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DirectoryComponent ]
-    })
-    .compileComponents();
+      declarations: [DirectoryComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

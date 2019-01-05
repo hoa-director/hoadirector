@@ -1,12 +1,12 @@
 import {
+  ChangeDetectorRef,
   Component,
-  OnDestroy,
   ContentChild,
   ElementRef,
-  TemplateRef,
-  ChangeDetectorRef,
-  Input,
   HostListener,
+  Input,
+  OnDestroy,
+  TemplateRef,
 } from '@angular/core';
 
 @Component({
@@ -25,8 +25,8 @@ export class ModalComponent implements OnDestroy {
 
   constructor(
     private elementRef: ElementRef,
-    private changeDetectorRef: ChangeDetectorRef
-  ) { }
+    private changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
   ngOnDestroy() {
     // Prevent modal from not executing its closing actions if the user navigated away (for example,
@@ -55,7 +55,11 @@ export class ModalComponent implements OnDestroy {
 
   @HostListener('click', ['$event'])
   onContainerClicked(event: MouseEvent): void {
-    if ((<HTMLElement>event.target).classList.contains('modal') && this.isTopMost() && this.closeOnOutsideClick) {
+    if (
+      (event.target as HTMLElement).classList.contains('modal') &&
+      this.isTopMost() &&
+      this.closeOnOutsideClick
+    ) {
       this.close();
     }
   }
@@ -72,6 +76,8 @@ export class ModalComponent implements OnDestroy {
    * Returns true if this modal is the top most modal.
    */
   isTopMost(): boolean {
-    return !this.elementRef.nativeElement.querySelector(':scope modal > .modal');
+    return !this.elementRef.nativeElement.querySelector(
+      ':scope modal > .modal',
+    );
   }
 }

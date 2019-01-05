@@ -8,9 +8,8 @@ describe('OutboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OutboxComponent ]
-    })
-    .compileComponents();
+      declarations: [OutboxComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

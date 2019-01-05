@@ -1,21 +1,21 @@
 form.form-control {
-    background-color: transparent;
-    border: none;
+  background-color: transparent;
+  border: none;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .call-home {
-    max-width: 50%;
+  max-width: 50%;
 }
 
 .welcome-images {
-    text-align: center;
-    margin-top: -30px;
+  text-align: center;
+  margin-top: -30px;
 }
 
 .incorrect {
-    color: #af0c26;
+  color: #af0c26;
 }

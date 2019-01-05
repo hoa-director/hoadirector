@@ -1,27 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 import { ModalModule } from 'angular-custom-modal';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 
 import { AppRoutingModule } from './app-routing.module';
-import { UiModule } from './ui/ui.module';
 import { ResolutionCenterModule } from './resolution-center/resolution-center.module';
+import { UiModule } from './ui/ui.module';
 
-import { HomeComponent } from './home/home.component';
+import { BoardComponent } from './app/board/board.component';
 import { DirectoryComponent } from './app/directory/directory.component';
-import { RulesComponent } from './app/rules/rules.component';
-import { FinancialsComponent } from './app/financials/financials.component';
 import { DocumentsComponent } from './app/documents/documents.component';
 import { ExteriorComponent } from './app/exterior/exterior.component';
+import { FinancialsComponent } from './app/financials/financials.component';
 import { InteriorComponent } from './app/interior/interior.component';
-import { BoardComponent } from './app/board/board.component';
+import { MessageComponent } from './app/message/message.component';
 import { NotesComponent } from './app/notes/notes.component';
 import { ProfileComponent } from './app/profile/profile.component';
-import { MessageComponent } from './app/message/message.component';
+import { RulesComponent } from './app/rules/rules.component';
+import { HomeComponent } from './home/home.component';
 // import { ModalComponent } from './app/modal/modal.component';
 
 @NgModule({
@@ -48,9 +48,9 @@ import { MessageComponent } from './app/message/message.component';
     HttpClientModule,
     ModalModule,
     ResolutionCenterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

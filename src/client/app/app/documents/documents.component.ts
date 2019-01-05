@@ -4,20 +4,16 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
-  styleUrls: ['./documents.component.css']
+  styleUrls: ['./documents.component.css'],
 })
 export class DocumentsComponent implements OnInit {
+  documents: Array<{ name: string; id: number }>;
 
-  documents: {name: string, id: number}[];
-
-  constructor(
-    private dataService: DataService,
-  ) { }
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
     this.dataService.getDocuments().subscribe((response: any) => {
       this.documents = response;
     });
   }
-
 }

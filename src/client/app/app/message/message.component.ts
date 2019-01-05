@@ -3,20 +3,18 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
-  styleUrls: ['./message.component.css']
+  styleUrls: ['./message.component.css'],
 })
 export class MessageComponent implements OnInit {
+  complaint: { against: string; message: string };
 
-  complaint: { against: string; message: string; };
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.complaint = {against: '', message: ''};
+    this.complaint = { against: '', message: '' };
   }
 
   public submit() {
     return false;
   }
-
 }

@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthGuardService } from '../services/auth-guard.service';
+import { CreateObjectionComponent } from './create-objection/create-objection.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { ObjectionComponent } from './objection/objection.component';
-import { CreateObjectionComponent } from './create-objection/create-objection.component';
-import { ResolutionCenterComponent } from './resolution-center.component';
-import { AuthGuardService } from '../services/auth-guard.service';
 import { OutboxComponent } from './outbox/outbox.component';
+import { ResolutionCenterComponent } from './resolution-center.component';
 
 const routes: Routes = [
-  { path: 'resolution-center',
+  {
+    path: 'resolution-center',
     component: ResolutionCenterComponent,
     canActivate: [AuthGuardService],
     children: [
@@ -17,12 +18,12 @@ const routes: Routes = [
       { path: 'outbox', component: OutboxComponent },
       { path: 'objection/view/:id', component: ObjectionComponent },
       { path: 'objection/create', component: CreateObjectionComponent },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ResolutionCenterRoutingModule { }
+export class ResolutionCenterRoutingModule {}

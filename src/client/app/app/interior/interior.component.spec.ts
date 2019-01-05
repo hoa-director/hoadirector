@@ -8,9 +8,8 @@ describe('InteriorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InteriorComponent ]
-    })
-    .compileComponents();
+      declarations: [InteriorComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

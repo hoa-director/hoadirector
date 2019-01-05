@@ -8,9 +8,8 @@ describe('ResolutionCenterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResolutionCenterComponent ]
-    })
-    .compileComponents();
+      declarations: [ResolutionCenterComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

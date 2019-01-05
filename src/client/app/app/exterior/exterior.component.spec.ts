@@ -8,9 +8,8 @@ describe('ExteriorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExteriorComponent ]
-    })
-    .compileComponents();
+      declarations: [ExteriorComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -4,11 +4,10 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-
-  links: { path: string, label: string }[] = [
+  links: Array<{ path: string; label: string }> = [
     {
       path: 'directory',
       label: 'Neighborhood Directory',
@@ -49,13 +48,9 @@ export class SidebarComponent implements OnInit {
       path: 'profile',
       label: 'Edit Profile',
     },
-  ]
+  ];
 
-  constructor(
-    public userService: UserService,
-  ) { }
+  constructor(public userService: UserService) {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
