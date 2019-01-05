@@ -94,11 +94,6 @@
       "avoid-escape"
     ],
     "radix": false,
-    "semicolon": [
-      true,
-      "always",
-      "ignore-bound-class-methods"
-    ],
     "triple-equals": [
       true,
       "allow-null-check"

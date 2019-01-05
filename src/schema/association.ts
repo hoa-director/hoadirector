@@ -1,19 +1,19 @@
+import * as Bluebird from 'bluebird';
+import * as moment from 'moment';
 import {
-  Model,
   DataTypes,
   HasManyAddAssociationMixin,
+  HasManyCreateAssociationMixin,
   HasManyGetAssociationsMixin,
+  Model,
   Op,
-  HasManyCreateAssociationMixin
 } from 'sequelize';
-import * as moment from 'moment';
-import * as Bluebird from 'bluebird';
 
+import { Objection } from './objection';
+import { Rule } from './rule';
+import { RuleList } from './rule-list';
 import { Unit } from './unit';
 import { User } from './user';
-import { RuleList } from './rule-list';
-import { Rule } from './rule';
-import { Objection } from './objection';
 
 export class Association extends Model {
   id: number;
@@ -31,6 +31,7 @@ export class Association extends Model {
   createObjection: HasManyCreateAssociationMixin<Objection>;
 
   units: Unit[];
+  users: User[];
 
   public static getDirectoryByAssociationId(associationId: number) {
     return new Promise((resolve, reject) => {
@@ -46,28 +47,56 @@ export class Association extends Model {
               'addressLineTwo',
               'city',
               'state',
-              'zip'
+              'zip',
             ],
             include: [
               {
                 model: User,
                 as: 'user',
-                attributes: ['firstName', 'lastName', 'email', 'number']
-              }
-            ]
-          }
-        ]
+                attributes: ['firstName', 'lastName', 'email', 'number'],
+              },
+            ],
+          },
+        ],
       })
-        .then(association => {
+        .then((association) => {
           resolve(association);
         })
-        .catch(error => {
+        .catch((error) => {
           reject(error);
         });
     });
   }
 
-  public static getUsersByAssociationId(associationId: number): Bluebird<User[]> {
+  public static findAllWithUserEmails(): Bluebird<Association[]> {
+    return Association.findAll({
+      include: [
+        {
+          model: Unit,
+          as: 'units',
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['email'],
+            },
+          ],
+        },
+      ],
+    }).then((associations) => {
+      associations.map((association) => {
+        const users = association.units.map((unit) => {
+          return unit.user;
+        });
+        association.users = users;
+      });
+      return associations;
+    });
+  }
+
+  public static getUsersByAssociationId(
+    associationId: number,
+  ): Bluebird<User[]> {
     return Association.find({
       where: { id: associationId },
       include: [
@@ -78,18 +107,17 @@ export class Association extends Model {
             {
               model: User,
               as: 'user',
-              attributes: ['email']
-            }
-          ]
-        }
-      ]
-    })
-    .then(association => {
-      const users = association.units.map(unit => {
+              attributes: ['email'],
+            },
+          ],
+        },
+      ],
+    }).then((association) => {
+      const users = association.units.map((unit) => {
         return unit.user;
-      })
+      });
       return users;
-    })
+    });
   }
 
   public static getRuleListsByAssociationId(associationId: number) {
@@ -106,18 +134,18 @@ export class Association extends Model {
               {
                 model: Rule,
                 as: 'rules',
-                attributes: ['description']
-              }
-            ]
-          }
-        ]
+                attributes: ['description'],
+              },
+            ],
+          },
+        ],
       })
-      .then(association => {
-        resolve(association.ruleLists);
-      })
-      .catch(error => {
-        reject(error);
-      });
+        .then((association) => {
+          resolve(association.ruleLists);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 
@@ -129,18 +157,18 @@ export class Association extends Model {
           primaryKey: true,
           unique: true,
           autoIncrement: true,
-          field: 'id'
+          field: 'id',
         },
         name: {
           type: DataTypes.STRING(45),
-          field: 'name'
+          field: 'name',
         },
         objectionVoteTime: {
           type: DataTypes.INTEGER({ length: 15 }),
-          field: 'objection_vote_time'
-        }
+          field: 'objection_vote_time',
+        },
       },
-      { sequelize, tableName: 'associations' }
+      { sequelize, tableName: 'associations' },
     );
   }
 
@@ -160,15 +188,15 @@ export class Association extends Model {
         {
           model: User,
           as: 'submittedBy',
-          attributes: ['firstName', 'lastName']
+          attributes: ['firstName', 'lastName'],
         },
         {
           model: User,
           as: 'submittedAgainst',
-          attributes: ['firstName', 'lastName']
-        }
-      ]
-    }).then(active => {
+          attributes: ['firstName', 'lastName'],
+        },
+      ],
+    }).then((active) => {
       console.log(active);
       return active;
     });
@@ -184,47 +212,17 @@ export class Association extends Model {
       where: { createdAt: { [Op.gt]: createdAfter } },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
-        // {
-        //   model: User,
-        //   as: 'submittedBy',
-        //   attributes: ['firstName', 'lastName'],
-        //   where: {
-        //     id: { [Op.not]: userId }
-        //   },
-        //   include: [
-        //     {
-        //       model: Unit,
-        //       attributes: ['addressLineOne'],
-        //       as: 'units',
-        //     },
-        //   ]
-        // },
-        // {
-        //   model: User,
-        //   as: 'submittedAgainst',
-        //   attributes: ['firstName', 'lastName'],
-        //   include: [
-        //     {
-        //       model: Unit,
-        //       attributes: ['addressLineOne'],
-        //       as: 'units',
-        //     },
-        //   ],
-        // },
         {
-          model: Unit,
-          attributes: ['addressLineOne'],
+          model: User,
+          attributes: ['firstName', 'lastName'],
           as: 'submittedBy',
         },
         {
-          model: Unit,
-          attributes: ['addressLineOne'],
+          model: User,
+          attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
         },
-      ]
-    }).then(active => {
-      console.log(active);
-      return active;
+      ],
     });
   }
   /**
@@ -234,47 +232,17 @@ export class Association extends Model {
     return this.getObjections({
       attributes: ['id', 'comment', 'createdAt'],
       include: [
-        // {
-        //   model: User,
-        //   as: 'submittedBy',
-        //   attributes: ['firstName', 'lastName'],
-        //   where: {
-        //     id: userId
-        //   },
-        //   include: [
-        //     {
-        //       model: Unit,
-        //       attributes: ['addressLineOne'],
-        //       as: 'units',
-        //     },
-        //   ]
-        // },
-        // {
-        //   model: User,
-        //   as: 'submittedAgainst',
-        //   attributes: ['firstName', 'lastName'],
-        //   include: [
-        //     {
-        //       model: Unit,
-        //       attributes: ['addressLineOne'],
-        //       as: 'units',
-        //     },
-        //   ]
-        // }
         {
-          model: Unit,
-          attributes: ['addressLineOne'],
+          model: User,
+          attributes: ['firstName', 'lastName'],
           as: 'submittedBy',
         },
         {
-          model: Unit,
-          attributes: ['addressLineOne'],
+          model: User,
+          attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
         },
-      ]
-    }).then(active => {
-      console.log(active);
-      return active;
+      ],
     });
   }
 
@@ -291,18 +259,39 @@ export class Association extends Model {
       include: [
         {
           model: User,
+          attributes: ['firstName', 'lastName'],
           as: 'submittedBy',
-          attributes: ['firstName', 'lastName']
         },
         {
           model: User,
+          attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
-          attributes: ['firstName', 'lastName']
-        }
-      ]
-    }).then(expired => {
-      console.log(expired);
-      return expired;
+        },
+      ],
+    });
+  }
+
+  public getUsers(): Bluebird<User[]> {
+    return Association.find({
+      where: { id: this.id },
+      include: [
+        {
+          model: Unit,
+          as: 'units',
+          include: [
+            {
+              model: User,
+              as: 'user',
+              attributes: ['email'],
+            },
+          ],
+        },
+      ],
+    }).then((association) => {
+      const users = association.units.map((unit) => {
+        return unit.user;
+      });
+      return users;
     });
   }
 }

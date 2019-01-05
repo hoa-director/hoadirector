@@ -2,8 +2,8 @@ import { connection } from '../config/database';
 import { AssociationSchema } from './association';
 import { DocumentSchema } from './document';
 import { ObjectionSchema } from './objection';
-import { RuleListSchema } from './rule-list';
 import { RuleSchema } from './rule';
+import { RuleListSchema } from './rule-list';
 import { UnitSchema } from './unit';
 import { UserSchema } from './user';
 import { VoteSchema } from './vote';
@@ -17,129 +17,128 @@ UnitSchema.init(connection);
 UserSchema.init(connection);
 VoteSchema.init(connection);
 
-
 AssociationSchema.hasMany(UnitSchema, {
-    as: 'units',
-    foreignKey: 'association_id',
+  as: 'units',
+  foreignKey: 'association_id',
 });
 
 AssociationSchema.hasMany(DocumentSchema, {
-    as: 'documents',
-    foreignKey: 'association_id',
+  as: 'documents',
+  foreignKey: 'association_id',
 });
 
 AssociationSchema.hasMany(RuleListSchema, {
-    as: 'ruleLists',
-    foreignKey: 'association_id',
+  as: 'ruleLists',
+  foreignKey: 'association_id',
 });
 
 AssociationSchema.hasMany(ObjectionSchema, {
-    as: 'objections',
-    foreignKey: 'association_id',
+  as: 'objections',
+  foreignKey: 'association_id',
 });
 
 DocumentSchema.belongsTo(AssociationSchema, {
-    as: 'association',
-    foreignKey: 'association_id',
-    targetKey: 'id',
+  as: 'association',
+  foreignKey: 'association_id',
+  targetKey: 'id',
 });
 
-// ObjectionSchema.belongsTo(UserSchema, {
+ObjectionSchema.belongsTo(UserSchema, {
+  as: 'submittedBy',
+  foreignKey: 'submitted_by_user_id',
+  targetKey: 'id',
+});
+
+ObjectionSchema.belongsTo(UserSchema, {
+  as: 'submittedAgainst',
+  foreignKey: 'submitted_against_user_id',
+  targetKey: 'id',
+});
+
+// ObjectionSchema.belongsTo(UnitSchema, {
 //     as: 'submittedBy',
-//     foreignKey: 'submitted_by_user_id',
+//     // through: UserSchema,
+//     foreignKey: 'submitted_by_unit_id',
 //     targetKey: 'id',
 // });
 
-// ObjectionSchema.belongsTo(UserSchema, {
+// ObjectionSchema.belongsTo(UnitSchema, {
 //     as: 'submittedAgainst',
-//     foreignKey: 'submitted_against_user_id',
+//     // through: UserSchema,
+//     foreignKey: 'submitted_against_unit_id',
 //     targetKey: 'id',
 // });
-
-ObjectionSchema.belongsTo(UnitSchema, {
-    as: 'submittedBy',
-    // through: UserSchema,
-    foreignKey: 'submitted_by_unit_id',
-    targetKey: 'id',
-});
-
-ObjectionSchema.belongsTo(UnitSchema, {
-    as: 'submittedAgainst',
-    // through: UserSchema,
-    foreignKey: 'submitted_against_unit_id',
-    targetKey: 'id',
-});
 
 ObjectionSchema.belongsTo(AssociationSchema, {
-    as: 'association',
-    foreignKey: 'association_id',
-    targetKey: 'id',
+  as: 'association',
+  foreignKey: 'association_id',
+  targetKey: 'id',
 });
 
 ObjectionSchema.hasMany(VoteSchema, {
-    as: 'votes',
-    foreignKey: 'objection_id',
+  as: 'votes',
+  foreignKey: 'objection_id',
 });
 
 RuleListSchema.hasMany(RuleSchema, {
-    as: 'rules',
-    foreignKey: 'rule_list_id',
+  as: 'rules',
+  foreignKey: 'rule_list_id',
 });
 
 RuleListSchema.belongsTo(AssociationSchema, {
-    as: 'association',
-    foreignKey: 'association_id',
+  as: 'association',
+  foreignKey: 'association_id',
 });
 
 RuleSchema.belongsTo(RuleListSchema, {
-    as: 'ruleList',
-    foreignKey: 'ruleListId',
-    targetKey: 'id',
+  as: 'ruleList',
+  foreignKey: 'ruleListId',
+  targetKey: 'id',
 });
 
 UnitSchema.belongsTo(UserSchema, {
-    foreignKey: 'user_id',
-    as: 'user',
+  foreignKey: 'user_id',
+  as: 'user',
 });
 
 UnitSchema.belongsTo(AssociationSchema, {
-    foreignKey: 'association_id',
-    targetKey: 'id',
+  foreignKey: 'association_id',
+  targetKey: 'id',
 });
 
 UserSchema.hasMany(UnitSchema, {
-    as: 'units',
-    foreignKey: 'user_id',
+  as: 'units',
+  foreignKey: 'user_id',
 });
 
 UserSchema.hasMany(VoteSchema, {
-    as: 'votes',
-    foreignKey: 'user_id',
+  as: 'votes',
+  foreignKey: 'user_id',
 });
 
 UserSchema.hasMany(ObjectionSchema, {
-    as: 'objetionsSubmitted',
-    foreignKey: 'submitted_by_user_id',
+  as: 'objetionsSubmitted',
+  foreignKey: 'submitted_by_user_id',
 });
 
 UserSchema.hasMany(ObjectionSchema, {
-    as: 'objectionsAgainst',
-    foreignKey: 'submitted_against_user_id',
+  as: 'objectionsAgainst',
+  foreignKey: 'submitted_against_user_id',
 });
 
 UserSchema.belongsToMany(AssociationSchema, {
-    through: UnitSchema,
-    as: 'associations',
+  through: UnitSchema,
+  as: 'associations',
 });
 
 VoteSchema.belongsTo(UserSchema, {
-    as: 'user',
-    foreignKey: 'user_id',
+  as: 'user',
+  foreignKey: 'user_id',
 });
 
 VoteSchema.belongsTo(ObjectionSchema, {
-    as: 'objection',
-    foreignKey: 'objection_id',
+  as: 'objection',
+  foreignKey: 'objection_id',
 });
 
 // connection.sync();
