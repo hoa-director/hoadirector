@@ -7,6 +7,10 @@ import { Emailer } from '../classes/emailer';
 import { Association, Document, Objection, Vote } from '../schema/schemas';
 import { Unit } from '../schema/unit';
 
+import { DocumentsRouter } from './api/documents';
+
+const documentsRoutes = new DocumentsRouter();
+
 export class ApiRouter {
   router: Router;
 
@@ -16,8 +20,7 @@ export class ApiRouter {
   }
 
   init() {
-    this.router.get('/documents', this.getDocumnets);
-    this.router.get('/documents/:id', this.viewDocument);
+    this.router.get(documentsRoutes.routePrefix, documentsRoutes.router);
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
     this.router.get('/units', this.getUnits);
@@ -33,39 +36,11 @@ export class ApiRouter {
     });
   }
 
-  private getDocumnets = (req: Request, res: Response, next: NextFunction) => {
-    const associationId = req.session.associationId;
-    Document.getDocumentsByAssociation(associationId)
-      .then((documents) => {
-        res.send(documents);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.sendStatus(500);
-      });
-  }
   private getDirectory = (req: Request, res: Response, next: NextFunction) => {
     const associationId = req.session.associationId;
     Association.getDirectoryByAssociationId(associationId)
       .then((directory) => {
         res.send(directory);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.sendStatus(500);
-      });
-  }
-  private viewDocument = (req: Request, res: Response, next: NextFunction) => {
-    const associationId = req.session.associationId || 1;
-    const documentId = req.params.id;
-    Document.getDocumentByAssociationAndId(associationId, documentId)
-      .then((document: any) => {
-        const data = fs.readFileSync(
-          path.join(__dirname, '..', document.dataValues.path),
-        );
-        res.contentType('application/pdf');
-        res.header('Content-Disposition', 'inline; name=' + document.name);
-        res.send(data);
       })
       .catch((error) => {
         console.error(error);
@@ -95,6 +70,7 @@ export class ApiRouter {
     })
       .then((filedObjection) => {
         res.sendStatus(200);
+        // TODO: move this to a factory
         const transporter: Transporter = createTransport({
           host: process.env.SMTP_HOST,
           port: parseInt(process.env.SMTP_PORT, 10),
