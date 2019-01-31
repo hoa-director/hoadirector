@@ -10,9 +10,12 @@
     <div class="row">
       <div class="col-sm col-md-6 col-lg-4 d-flex" *ngFor="let unit of units">
         <div class="person">
-          <h5>
+          <h5 *ngIf="unit.user">
             {{unit.user.firstName + ' ' + unit.user.lastName}}
           </h5>
+          <h5 *ngIf="!unit.user">
+              Unoccupied
+            </h5>
           <div class="person-content">
             <div class="address-line-1">
               {{unit.addressLineOne}}
@@ -20,10 +23,10 @@
             <div class="address-line-2">
               {{unit.city}}, {{unit.state}} {{unit.zip}}
             </div>
-            <div class="email">
+            <div *ngIf="unit.user" class="email">
               {{unit.user.email}}
             </div>
-            <div class="phone">
+            <div *ngIf="unit.user" class="phone">
               {{unit.user.number}}
             </div>
           </div>

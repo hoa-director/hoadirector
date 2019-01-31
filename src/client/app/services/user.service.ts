@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, tap } from 'rxjs/operators';
+import { Injectable, EventEmitter } from '@angular/core';
+import { tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -8,8 +8,15 @@ import { Observable, of } from 'rxjs';
 })
 export class UserService {
   user;
+  currentAssociation;
+  currentAssociationUpdated: EventEmitter<string> = new EventEmitter();
 
   constructor(private http: HttpClient) {}
+
+  setCurrentAssociation(id) {
+    this.currentAssociation = id;
+    this.currentAssociationUpdated.emit(this.currentAssociation);
+  }
 
   login(user): Observable<string> {
     return this.http.post('/user/login', user).pipe(
@@ -51,6 +58,19 @@ export class UserService {
         return of({});
       }
       return this.http.get('/user/associations');
+    });
+  }
+
+  selectAssociation(associationId) : Observable<any> {
+    return this.getUser().pipe(user => {
+      if (!user) {
+        return of({});
+      }
+      return this.http.post('/user/associations/', {associationId}).pipe(
+        tap(({currentAssociation}) => {
+          this.setCurrentAssociation(currentAssociation);
+        })
+      )
     });
   }
 }

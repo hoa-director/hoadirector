@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResolutionCenterService } from '../resolution-center.service';
+import { UserService } from 'client/app/services/user.service';
 
 @Component({
   selector: 'app-create-objection',
@@ -13,9 +14,16 @@ export class CreateObjectionComponent implements OnInit {
   };
   units: any[];
 
-  constructor(private resolutionCenterService: ResolutionCenterService) {}
+  constructor(private resolutionCenterService: ResolutionCenterService, private userService: UserService) {}
 
   ngOnInit() {
+    this.init();
+    this.userService.currentAssociationUpdated.subscribe(() => {
+      this.init();
+    });
+  }
+
+  private init () {
     this.objection = {
       against: 0,
       comment: '',

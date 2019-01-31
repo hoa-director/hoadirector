@@ -56,21 +56,20 @@ export class UserRouter {
   }
 
   private getUserAssociations(req: Request, res: Response, next: NextFunction) {
-    console.log(req.user);
-    if (req.user.role === roles.ADMIN) {
-      console.log('USER IS AN ADMIN');
-      return Association.findAll({
-        attributes: [
-          'id',
-          'name'
-        ]
-      }).then(associations => {
-        console.log('USER IS AN ADMIN');
-        res.send({associations, currentAssociation: req.session.associationId});
-      });
-    }
-    console.log('USER IS NOT AN ADMIN');
     req.user.getAvailableAssociations().then((associations) => {
+      res.send({associations, currentAssociation: req.session.associationId});
+    });
+  }
+
+  private setCurrentAssociation(req: Request, res: Response, next: NextFunction) {
+    const associationId: number = parseInt(req.body.associationId, 10);
+    console.log(associationId);
+    req.user.getAvailableAssociations().then((associations) => {
+      console.log(associations);
+      if (!associations.some(association => association.id === associationId)) {
+        return res.sendStatus(403);
+      }
+      req.session.associationId = associationId
       res.send({associations, currentAssociation: req.session.associationId});
     });
   }
@@ -83,6 +82,7 @@ export class UserRouter {
     );
     this.router.post('/register/', this.register);
     this.router.get('/associations', this.getUserAssociations);
+    this.router.post('/associations', this.setCurrentAssociation);
     this.router.get('/', this.loggedin);
   }
 }

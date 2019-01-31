@@ -15,45 +15,81 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full',
+    runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'login',
+    component: LoginComponent ,
+    runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
+  },
   {
     path: 'directory',
     component: DirectoryComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
-  { path: 'rules', component: RulesComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'rules',
+    component: RulesComponent,
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
+  },
   {
     path: 'messages',
     component: MessageComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'financials',
     component: FinancialsComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'documents',
     component: DocumentsComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'exterior',
     component: ExteriorComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
   {
     path: 'interior',
     component: InteriorComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
-  { path: 'board', component: BoardComponent, canActivate: [AuthGuardService] },
-  { path: 'notes', component: NotesComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'board',
+    component: BoardComponent,
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
+  },
+  {
+    path: 'notes',
+    component: NotesComponent,
+    canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
+  },
   {
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardService],
+    runGuardsAndResolvers: 'always',
   },
 ];

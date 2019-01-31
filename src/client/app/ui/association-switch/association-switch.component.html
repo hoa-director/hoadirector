@@ -1,6 +1,6 @@
 <div class="form-group">
   <label class="align-self-center" for="association-switch">Switch Assoication</label>
-  <select (change)="selectAssociation($event.target.value)" class="form-control" name="association-switch" id="association-switch">
+  <select [(ngModel)]="currentAssociation" (change)="selectAssociation($event.target.value)" class="form-control" name="association-switch" id="association-switch">
     <option *ngFor="let association of associations" value="{{association.id}}">{{association.name}}</option>
   </select>
 </div>

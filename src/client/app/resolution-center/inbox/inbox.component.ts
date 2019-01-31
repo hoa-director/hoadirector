@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResolutionCenterService } from '../resolution-center.service';
+import { UserService } from 'client/app/services/user.service';
 
 @Component({
   selector: 'app-inbox',
@@ -11,9 +12,16 @@ export class InboxComponent implements OnInit {
 
   public currentObjection;
 
-  constructor(private resolutionCenterService: ResolutionCenterService) {}
+  constructor(private resolutionCenterService: ResolutionCenterService, private userService: UserService) {}
 
   ngOnInit() {
+    this.init();
+    this.userService.currentAssociationUpdated.subscribe(() => {
+      this.init();
+    });
+  }
+
+  private init () {
     this.resolutionCenterService.getInbox().subscribe((response) => {
       this.objections = response.objections;
     });

@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt';
 import * as Bluebird from 'bluebird';
 import { DataTypes, HasManyGetAssociationsMixin, Model } from 'sequelize';
 import { Association } from './association';
+import { roles } from '../config/roles';
 
 const saltWorkFactor = 10;
 
@@ -30,11 +31,17 @@ export class User extends Model {
   }
 
   public getAvailableAssociations(): Bluebird<Association[]> {
+    const includedAttributes = [
+      'id',
+      'name'
+    ]
+    if (this.role === roles.ADMIN) {
+      return Association.findAll({
+        attributes: includedAttributes
+      })
+    }
     return this.getAssociations({
-      attributes: [
-        'id',
-        'name'
-      ]
+      attributes: includedAttributes
     });
   }
 

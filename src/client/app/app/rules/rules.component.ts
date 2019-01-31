@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-rules',
@@ -10,15 +11,22 @@ export class RulesComponent implements OnInit {
   rules: any = [];
   currentRuleList: any;
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private userService: UserService) {}
 
   ngOnInit() {
-    this.dataService.getRules().subscribe((response) => {
-      this.rules = response;
+    this.init();
+    this.userService.currentAssociationUpdated.subscribe(() => {
+      this.init();
     });
   }
 
   selectRuleList(ruleList) {
     this.currentRuleList = ruleList;
+  }
+
+  init() {
+    this.dataService.getRules().subscribe((response) => {
+      this.rules = response;
+    });
   }
 }
