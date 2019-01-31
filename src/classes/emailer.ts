@@ -19,7 +19,10 @@ export class Emailer {
   }
 
   sendMail(options: SendMailOptions) {
-    if (process.env.NODE_ENV === 'development') {
+    if (
+      process.env.NODE_ENV === 'development' ||
+      process.env.NODE_ENV === 'staging'
+    ) {
       options.to = process.env.DEVELOPER_EMAIL;
       options.cc = process.env.DEVELOPER_EMAIL;
       options.bcc = process.env.DEVELOPER_EMAIL;
