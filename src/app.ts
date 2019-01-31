@@ -46,6 +46,7 @@ class App {
   private routes(): void {
     this.express.use('/api/', this.isLoggedIn, apiRoutes);
     this.express.use('/user/', userRoutes);
+    this.express.use('/users/', userRoutes);
     this.express.use('/*', indexRoutes);
   }
 }

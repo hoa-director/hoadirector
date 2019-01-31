@@ -1,6 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as Bluebird from 'bluebird';
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, HasManyGetAssociationsMixin, Model } from 'sequelize';
+import { Association } from './association';
 
 const saltWorkFactor = 10;
 
@@ -17,6 +18,8 @@ export class User extends Model {
   updatedAt: Date;
   deletedAt: Date;
 
+  getAssociations: HasManyGetAssociationsMixin<Association>;
+
   public static encryptPassword(password: string) {
     const salt = bcrypt.genSaltSync(saltWorkFactor);
     return bcrypt.hashSync(password, salt);
@@ -24,6 +27,15 @@ export class User extends Model {
 
   public static findByEmail(email: string): Bluebird<User> {
     return User.findOne({ where: { email } });
+  }
+
+  public getAvailableAssociations(): Bluebird<Association[]> {
+    return this.getAssociations({
+      attributes: [
+        'id',
+        'name'
+      ]
+    });
   }
 
   public static init(sequelize) {

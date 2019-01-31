@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as passport from 'passport';
 import { UserSchema } from '../schema/user';
+import { roles } from '../config/roles';
+import { Association } from '../schema/schemas';
 
 const passportRedirect: passport.AuthenticateOptions = {};
 
@@ -13,8 +15,20 @@ export class UserRouter {
   }
 
   public login(req: Request, res: Response, next: NextFunction) {
-    req.user.getAssociations().then((associations) => {
-      req.session.associationId = associations[0].dataValues.id;
+    if (req.user.role === roles.ADMIN) {
+      console.log('USER IS AN ADMIN');
+      return Association.findAll({
+        attributes: [
+          'id',
+          'name'
+        ]
+      }).then(associations => {
+        req.session.associationId = associations[0].id;
+        res.send(req.user);
+      });
+    }
+    req.user.getAvailableAssociations().then((associations) => {
+      req.session.associationId = associations[0].id;
       res.send(req.user);
     });
   }
@@ -41,6 +55,26 @@ export class UserRouter {
       });
   }
 
+  private getUserAssociations(req: Request, res: Response, next: NextFunction) {
+    console.log(req.user);
+    if (req.user.role === roles.ADMIN) {
+      console.log('USER IS AN ADMIN');
+      return Association.findAll({
+        attributes: [
+          'id',
+          'name'
+        ]
+      }).then(associations => {
+        console.log('USER IS AN ADMIN');
+        res.send({associations, currentAssociation: req.session.associationId});
+      });
+    }
+    console.log('USER IS NOT AN ADMIN');
+    req.user.getAvailableAssociations().then((associations) => {
+      res.send({associations, currentAssociation: req.session.associationId});
+    });
+  }
+
   init() {
     this.router.post(
       '/login/',
@@ -48,6 +82,7 @@ export class UserRouter {
       this.login,
     );
     this.router.post('/register/', this.register);
+    this.router.get('/associations', this.getUserAssociations);
     this.router.get('/', this.loggedin);
   }
 }
