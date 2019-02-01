@@ -6,6 +6,10 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { UserService } from './user.service';
+import { Observable, of } from 'rxjs';
+import { first, map, catchError, tap } from 'rxjs/operators';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/first';
 
 @Injectable({
   providedIn: 'root',
@@ -14,15 +18,12 @@ export class AuthGuardService implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    // TODO: Put this back in
-    if (this.userService.isLoggedIn()) {
-      console.log('user is logged in');
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      console.log('user is not logged in');
-      return false;
-    }
-    // return true
+    return this.userService.isLoggedIn().pipe(
+      tap(isLoggedIn => {
+        if (!isLoggedIn) {
+          this.router.navigate(['/login']);
+        }
+      })
+    );
   }
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
-import { tap } from 'rxjs/operators';
+import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -27,29 +27,27 @@ export class UserService {
     ) as Observable<string>;
   }
 
-  getUser(): Observable<{}> {
+  getUser() {
     if (!this.user) {
       return this.http.get('/user').pipe(
-        tap(
-          (user) => {
-            this.user = user;
-            return this.user;
-          }
-        ),
-      );
+        catchError((error) => {
+          console.log('error getting user: ', error);
+          return of(false);
+        })
+      )
     } else {
       return of(this.user);
     }
   }
 
   isLoggedIn(): Observable<boolean> {
-    return this.getUser().pipe(
-      tap(
-        user => {
-          return !!user;
-        }
-      )
-    ) as Observable<boolean>;
+    return this.getUser()
+    .pipe(
+      map((user) => {
+        console.log('user', user);
+        return !!user;
+      })
+    );
   }
 
   getUserAssociations(): Observable<any> {
