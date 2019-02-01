@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { UserService } from '../../services/user.service';
 
@@ -7,8 +7,9 @@ import { UserService } from '../../services/user.service';
   templateUrl: './association-switch.component.html',
   styleUrls: ['./association-switch.component.css']
 })
-export class AssociationSwitchComponent implements OnInit {
+export class AssociationSwitchComponent implements OnInit, OnDestroy {
 
+  subscriptions = [];
   associations: {}[];
   currentAssociation: number;
 
@@ -19,8 +20,19 @@ export class AssociationSwitchComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.userService.currentAssociationUpdated.subscribe(() => {
+    const associationSubscription = this.userService.currentAssociationUpdated.subscribe(() => {
       this.init();
+    });
+    const userSubscription = this.userService.userUpdated.subscribe(() => {
+      this.init();
+    });
+    this.subscriptions.push(associationSubscription, userSubscription);
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscriptions.map(subscription => {
+      subscription.unsubscribe();
     });
   }
 

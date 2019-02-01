@@ -8,8 +8,10 @@ import { Observable, of } from 'rxjs';
 })
 export class UserService {
   user;
+  userUpdated: EventEmitter<string> = new EventEmitter();
   currentAssociation;
   currentAssociationUpdated: EventEmitter<string> = new EventEmitter();
+
 
   constructor(private http: HttpClient) {}
 
@@ -18,10 +20,15 @@ export class UserService {
     this.currentAssociationUpdated.emit(this.currentAssociation);
   }
 
+  setUser(user) {
+    this.user = user;
+    this.userUpdated.emit(user);
+  }
+
   login(user): Observable<string> {
     return this.http.post('/user/login', user).pipe(
       tap((userData) => {
-        this.user = userData;
+        this.setUser(userData);
         return 'success';
       }),
     ) as Observable<string>;
@@ -30,8 +37,10 @@ export class UserService {
   getUser() {
     if (!this.user) {
       return this.http.get('/user').pipe(
+        tap(user => {
+          this.setUser(user);
+        }),
         catchError((error) => {
-          console.log('error getting user: ', error);
           return of(false);
         })
       )
@@ -44,7 +53,6 @@ export class UserService {
     return this.getUser()
     .pipe(
       map((user) => {
-        console.log('user', user);
         return !!user;
       })
     );
