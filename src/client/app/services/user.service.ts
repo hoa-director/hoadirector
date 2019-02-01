@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, EventEmitter } from '@angular/core';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class UserService {
   currentAssociationUpdated: EventEmitter<string> = new EventEmitter();
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   setCurrentAssociation(id) {
     this.currentAssociation = id;
@@ -32,6 +33,15 @@ export class UserService {
         return 'success';
       }),
     ) as Observable<string>;
+  }
+
+  logout() {
+    return this.http.get('/users/logout').pipe(
+      tap(() => {
+        this.setUser(undefined);
+        this.router.navigate(['/login']);
+      }),
+    );
   }
 
   getUser() {

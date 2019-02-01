@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
 export class AssociationSwitchComponent implements OnInit, OnDestroy {
 
   subscriptions = [];
-  associations: {}[];
+  associations: {}[] = [];
   currentAssociation: number;
 
   constructor(
@@ -37,19 +37,26 @@ export class AssociationSwitchComponent implements OnInit, OnDestroy {
   }
 
   private init() {
-    this.userService.getUserAssociations().subscribe(({associations, currentAssociation}: any) => {
-      this.associations = associations;
-      this.currentAssociation = currentAssociation;
-    });
+    this.userService.getUserAssociations().subscribe(
+      ({associations, currentAssociation}: any) => {
+        this.associations = associations;
+        this.currentAssociation = currentAssociation;
+      },
+      () => {
+        this.associations = [];
+      }
+    );
   }
 
   selectAssociation(associationId) {
-    this.userService.selectAssociation(associationId).subscribe(({associations, currentAssociation}: any) => {
-      this.associations = associations;
-      this.currentAssociation = currentAssociation;
-      const url = this.location.path();
-      this.location.go(url);
-    });
+    this.userService.selectAssociation(associationId).subscribe(
+      ({associations, currentAssociation}: any) => {
+        this.associations = associations;
+        this.currentAssociation = currentAssociation;
+        const url = this.location.path();
+        this.location.go(url);
+      }
+    );
   }
 
 }

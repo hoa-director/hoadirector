@@ -53,4 +53,9 @@ export class SidebarComponent implements OnInit {
   constructor(public userService: UserService) {}
 
   ngOnInit() {}
+
+  logout() {
+    console.log('logout clicked');
+    this.userService.logout().subscribe();
+  }
 }

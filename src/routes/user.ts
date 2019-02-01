@@ -16,7 +16,6 @@ export class UserRouter {
 
   public login(req: Request, res: Response, next: NextFunction) {
     if (req.user.role === roles.ADMIN) {
-      console.log('USER IS AN ADMIN');
       return Association.findAll({
         attributes: [
           'id',
@@ -33,6 +32,11 @@ export class UserRouter {
     });
   }
 
+  private logout(req: Request, res: Response, next: NextFunction) {
+    req.logOut();
+    res.send({});
+  }
+
   public loggedin(req: Request, res: Response, next: NextFunction) {
     if (req.isAuthenticated()) {
       res.send(req.user);
@@ -46,11 +50,9 @@ export class UserRouter {
     newUser
       .save()
       .then((data) => {
-        console.log(data);
         res.send(newUser);
       })
       .catch((error) => {
-        console.log(error);
         res.sendStatus(500);
       });
   }
@@ -63,9 +65,7 @@ export class UserRouter {
 
   private setCurrentAssociation(req: Request, res: Response, next: NextFunction) {
     const associationId: number = parseInt(req.body.associationId, 10);
-    console.log(associationId);
     req.user.getAvailableAssociations().then((associations) => {
-      console.log(associations);
       if (!associations.some(association => association.id === associationId)) {
         return res.sendStatus(403);
       }
@@ -74,15 +74,23 @@ export class UserRouter {
     });
   }
 
+  private isLoggedIn(req: Request, res: Response, next: NextFunction) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.sendStatus(403);
+  }
+
   init() {
     this.router.post(
       '/login/',
       passport.authenticate('local', passportRedirect),
       this.login,
     );
+    this.router.get('/logout', this.logout);
     this.router.post('/register/', this.register);
-    this.router.get('/associations', this.getUserAssociations);
-    this.router.post('/associations', this.setCurrentAssociation);
+    this.router.get('/associations', this.isLoggedIn, this.getUserAssociations);
+    this.router.post('/associations', this.isLoggedIn, this.setCurrentAssociation);
     this.router.get('/', this.loggedin);
   }
 }
