@@ -1,5 +1,6 @@
 import { connection } from '../config/database';
 import { AssociationSchema } from './association';
+import { ForgottenPasswordTokenSchema } from './forgotten-password-tokens';
 import { DocumentSchema } from './document';
 import { ObjectionSchema } from './objection';
 import { RuleSchema } from './rule';
@@ -10,6 +11,7 @@ import { VoteSchema } from './vote';
 
 AssociationSchema.init(connection);
 DocumentSchema.init(connection);
+ForgottenPasswordTokenSchema.init(connection);
 ObjectionSchema.init(connection);
 RuleListSchema.init(connection);
 RuleSchema.init(connection);
@@ -40,6 +42,12 @@ AssociationSchema.hasMany(ObjectionSchema, {
 DocumentSchema.belongsTo(AssociationSchema, {
   as: 'association',
   foreignKey: 'association_id',
+  targetKey: 'id',
+});
+
+ForgottenPasswordTokenSchema.belongsTo(UserSchema, {
+  as: 'user',
+  foreignKey: 'user_id',
   targetKey: 'id',
 });
 
@@ -143,6 +151,7 @@ VoteSchema.belongsTo(ObjectionSchema, {
 
 export const Association = AssociationSchema;
 export const Document = DocumentSchema;
+export const ForgottenPasswordToken = ForgottenPasswordTokenSchema;
 export const Objection = ObjectionSchema;
 export const RuleList = RuleListSchema;
 export const Rule = RuleSchema;

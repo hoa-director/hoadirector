@@ -1,8 +1,6 @@
 import { NextFunction, Request, Response, Router } from 'express';
-import * as fs from 'fs';
-import * as path from 'path';
-
 import { createTransport, Transporter } from 'nodemailer';
+
 import { Emailer } from '../classes/emailer';
 import { Association, Document, Objection, Vote } from '../schema/schemas';
 import { Unit } from '../schema/unit';

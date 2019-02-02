@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as passport from 'passport';
-import { UserSchema } from '../schema/user';
+
+import { EmailerFactory } from '../factories/emailer-factory';
+import User, { UserSchema } from '../schema/user';
 import { roles } from '../config/roles';
-import { Association } from '../schema/schemas';
+import { Association, ForgottenPasswordToken } from '../schema/schemas';
 
 const passportRedirect: passport.AuthenticateOptions = {};
 
@@ -81,6 +83,40 @@ export class UserRouter {
     res.sendStatus(403);
   }
 
+  private forgotten(req: Request, res: Response, next: NextFunction) {
+    const email = req.query.email;
+    User.find({
+      where: {email}
+    }).then(user => {
+      // console.log(user);
+      const token = new ForgottenPasswordToken({userId: user.id});
+      console.log(token);
+      return token.save();
+    }).then(token => {
+      const emailer = EmailerFactory.createEmailer();
+      const emailOptions = {
+        from: process.env.EMAIL_FROM,
+        to: email,
+        subject: 'Reset Password',
+        text: `
+        A new password has been requested for ${email}.
+        To reset your password use the following link: hoadirector.com/forgotten-password/${token.token}
+        `,
+        html: `
+        <p>A new password has been requested for ${email}.</p>
+        <p>To reset your password <a href="hoadirector.com/forgotten-password/${token.token}">here</a></p>
+        <p>or use the following link: hoadirector.com/forgotten-password/${token.token}</p>
+        `,
+      }
+      return emailer.sendMail(emailOptions);
+    }).then(email => {
+      res.sendStatus(200);
+    }).catch(error => {
+      console.error(error);
+      res.sendStatus(500);
+    })
+  }
+
   init() {
     this.router.post(
       '/login/',
@@ -89,6 +125,7 @@ export class UserRouter {
     );
     this.router.get('/logout', this.logout);
     this.router.post('/register/', this.register);
+    this.router.get('/forgotten/', this.forgotten);
     this.router.get('/associations', this.isLoggedIn, this.getUserAssociations);
     this.router.post('/associations', this.isLoggedIn, this.setCurrentAssociation);
     this.router.get('/', this.loggedin);
