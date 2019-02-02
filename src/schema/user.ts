@@ -3,6 +3,7 @@ import * as Bluebird from 'bluebird';
 import { DataTypes, HasManyGetAssociationsMixin, Model } from 'sequelize';
 import { Association } from './association';
 import { roles } from '../config/roles';
+import { ForgottenPasswordToken } from './forgotten-password-tokens';
 
 const saltWorkFactor = 10;
 
@@ -18,6 +19,8 @@ export class User extends Model {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+
+  tokens: ForgottenPasswordToken[];
 
   getAssociations: HasManyGetAssociationsMixin<Association>;
 
@@ -117,6 +120,11 @@ export class User extends Model {
 
   public comparePassword(password: string) {
     return bcrypt.compareSync(password, this.password);
+  }
+
+  public changePassword(password) {
+    this.password = User.encryptPassword(password);
+    return this.save();
   }
 }
 

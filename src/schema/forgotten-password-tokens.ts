@@ -24,8 +24,8 @@ export class ForgottenPasswordToken extends Model {
           field: 'user_id',
         },
         token: {
-          type: DataTypes.STRING(11),
-          field: 'user_id',
+          type: DataTypes.STRING(100),
+          field: 'token',
         },
         createdAt: {
           type: DataTypes.DATE,

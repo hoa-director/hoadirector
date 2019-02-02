@@ -139,6 +139,11 @@ UserSchema.belongsToMany(AssociationSchema, {
   as: 'associations',
 });
 
+UserSchema.hasMany(ForgottenPasswordTokenSchema, {
+  as: 'tokens',
+  foreignKey: 'user_id',
+})
+
 VoteSchema.belongsTo(UserSchema, {
   as: 'user',
   foreignKey: 'user_id',
