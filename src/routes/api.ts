@@ -23,7 +23,7 @@ export class ApiRouter {
     this.router.get('/rules', this.getRules);
     this.router.get('/units', this.getUnits);
     this.router.get('/objections', this.getObjections);
-    this.router.get('/objections/expired', this.getExpiredObjections);
+    this.router.get('/objections/past', this.getPastObjections);
     this.router.get('/objections/:id', this.getObjection);
     this.router.get('/inbox', this.getInbox);
     this.router.get('/outbox', this.getOutbox);
@@ -89,15 +89,15 @@ export class ApiRouter {
               subject: 'A new objection has been submitted on HOA director',
               text: `
               A new objection has been submitted by ${req.user.name}
-              To view the objection please use the following link: hoadirector.com/objection/view/${
-                filedObjection.id
-              }
+              To view the objection please use the following link: hoadirector.com/resolution-center/objection/view/${filedObjection.id}
             `,
               html: `
               <p>A new objection has been submitted by ${req.user.name}</p>
               <p>To view the objection click <a href="hoadirector.com/objection/view/${
                 filedObjection.id
               }">here</a></p>
+              <p>Or copy and paste the following link into your web browser:</p>
+              <p>hoadirector.com/resolution-center/objection/view/${filedObjection.id}</p>
             `,
             });
           },
@@ -204,7 +204,7 @@ export class ApiRouter {
    * @param {Response} res
    * @param {NextFunction} next
    */
-  private getExpiredObjections = (
+  private getPastObjections = (
     req: Request,
     res: Response,
     next: NextFunction,
@@ -212,7 +212,7 @@ export class ApiRouter {
     const associationId: number = parseInt(req.session.associationId);
     Association.findById(associationId).then((association) => {
       association
-        .getExpiredObjections()
+        .getPastObjections()
         .then((objections) => {
           res.send({ objections });
         })

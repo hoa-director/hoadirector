@@ -271,6 +271,33 @@ export class Association extends Model {
   /**
    * @returns {Bluebird<Objection[]>}
    */
+  public getPastObjections(): Bluebird<Objection[]> {
+    return this.getObjections({
+      where: {
+        closedAt: { [Op.ne]: null },
+      },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+      attributes: ['id', 'comment', 'createdAt'],
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName'],
+          as: 'submittedBy',
+        },
+        {
+          model: User,
+          attributes: ['firstName', 'lastName'],
+          as: 'submittedAgainst',
+        },
+      ],
+    });
+  }
+
+  /**
+   * @returns {Bluebird<Objection[]>}
+   */
   public getExpiredObjections(): Bluebird<Objection[]> {
     const createdBefore: number = moment()
       .subtract({ milliseconds: this.objectionVoteTime })

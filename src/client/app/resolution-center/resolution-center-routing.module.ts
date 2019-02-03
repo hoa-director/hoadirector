@@ -6,6 +6,7 @@ import { InboxComponent } from './inbox/inbox.component';
 import { ObjectionComponent } from './objection/objection.component';
 import { OutboxComponent } from './outbox/outbox.component';
 import { ResolutionCenterComponent } from './resolution-center.component';
+import { PastObjectionsComponent } from './past-objections/past-objections.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: '', redirectTo: '/resolution-center/inbox', pathMatch: 'full' },
       { path: 'inbox', component: InboxComponent },
       { path: 'outbox', component: OutboxComponent },
+      { path: 'past', component: PastObjectionsComponent },
       { path: 'objection/create', component: CreateObjectionComponent },
       { path: 'objection/view/:id', component: ObjectionComponent },
       { path: 'objection/:id', component: ObjectionComponent },

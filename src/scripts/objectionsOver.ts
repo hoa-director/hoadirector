@@ -10,6 +10,7 @@ Association.findAllWithUserEmails().then((associations) => {
     const emailList = emails.join(', ');
     association.getExpiredObjections().then((objections) => {
       objections.map(async (objection) => {
+        const link = `hoadirector.com/resolution-center/objection/view/${objection.id}`
         emailer.sendMail({
           from: process.env.EMAIL_FROM,
           to: emailList,
@@ -17,13 +18,13 @@ Association.findAllWithUserEmails().then((associations) => {
           text: `
           An objection in your asscoation has reached the end of the voting period.
           To view the results please use the following link:
-          hoadirector.com/objection/view/${objection.id}
+          ${link}
           `,
           html: `
           <p>An objection in your asscoation has reached the end of the voting period.</p>
-          <p>To view the results click <a href="hoadirector.com/objection/view/${objection.id}">here</a></p>
+          <p>To view the results click <a href="${link}">here</a></p>
           <p>or use the following link:</p>
-          <p>hoadirector.com/objection/view/${objection.id}</p>
+          <p>${link}</p>
           `,
         });
         objection.closedAt = new Date();

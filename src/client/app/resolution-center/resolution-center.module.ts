@@ -12,6 +12,7 @@ import { ResolutionCenterComponent } from './resolution-center.component';
 import { OutboxComponent } from './outbox/outbox.component';
 import { ResolutionCenterRoutingModule } from './resolution-center-routing.module';
 import { ResolutionCenterService } from './resolution-center.service';
+import { PastObjectionsComponent } from './past-objections/past-objections.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ResolutionCenterService } from './resolution-center.service';
     CreateObjectionComponent,
     ModalComponent,
     OutboxComponent,
+    PastObjectionsComponent,
   ],
   providers: [ResolutionCenterService],
   exports: [ModalComponent],
