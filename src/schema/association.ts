@@ -270,7 +270,10 @@ export class Association extends Model {
       .subtract({ milliseconds: this.objectionVoteTime })
       .valueOf();
     return this.getObjections({
-      where: { createdAt: { [Op.lt]: createdBefore } },
+      where: {
+        createdAt: { [Op.lt]: createdBefore } ,
+        closedAt: null,
+      },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {

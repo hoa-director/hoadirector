@@ -20,6 +20,7 @@ export class Objection extends Model {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;
+  closedAt: Date;
 
   // mixins for association (optional)
   submittedById: number;
@@ -27,6 +28,12 @@ export class Objection extends Model {
   getSubmittedBy: BelongsToGetAssociationMixin<User>;
   setSubmittedBy: BelongsToSetAssociationMixin<User, number>;
   createSubmittedBy: BelongsToCreateAssociationMixin<User>;
+
+  submittedAgainstId: number;
+  submittedAgainst: User;
+  getSubmittedAgainst: BelongsToGetAssociationMixin<User>;
+  setSubmittedAgainst: BelongsToSetAssociationMixin<User, number>;
+  createSubmittedAgainst: BelongsToCreateAssociationMixin<User>;
 
   getVotes: HasManyGetAssociationsMixin<Vote>;
 
@@ -56,8 +63,9 @@ export class Objection extends Model {
           type: DataTypes.INTEGER({ length: 10 }),
           field: 'submitted_against_user_id',
         },
-        closed: {
-          type: DataTypes.BOOLEAN,
+        closedAt: {
+          type: DataTypes.DATE,
+          field: 'closed_at',
         },
         createdAt: {
           type: DataTypes.DATE,
@@ -100,8 +108,20 @@ export class Objection extends Model {
 
   public getResults() {
     return this.getVotes().then((votes) => {
-      console.log('Results: ', votes);
-      return votes;
+      let votesFor = 0;
+      let votesAgainst = 0;
+      votes.map(vote => {
+        if (vote.approved) {
+          votesFor += 1;
+        } else {
+          votesAgainst += 1;
+        }
+      });
+      return {
+        passed: votesFor > votesAgainst,
+        votesFor,
+        votesAgainst,
+      };
     });
   }
 }
