@@ -221,22 +221,29 @@ export class Association extends Model {
       include: [
         {
           model: User,
-          attributes: ['firstName', 'lastName'],
           as: 'submittedBy',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId: this.id },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
         },
         {
           model: User,
-          attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
-        },
-        {
-          model: Vote,
-          where: {
-            userId,
-          },
-          as: 'votes',
-          attributes: ['approved'],
-          required: false,
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId: this.id },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
         },
       ],
     });
@@ -256,13 +263,29 @@ export class Association extends Model {
       include: [
         {
           model: User,
-          attributes: ['firstName', 'lastName'],
           as: 'submittedBy',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId: this.id },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
         },
         {
           model: User,
-          attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId: this.id },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
         },
       ],
     });
@@ -283,13 +306,29 @@ export class Association extends Model {
       include: [
         {
           model: User,
-          attributes: ['firstName', 'lastName'],
           as: 'submittedBy',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId: this.id },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
         },
         {
           model: User,
-          attributes: ['firstName', 'lastName'],
           as: 'submittedAgainst',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId: this.id },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
         },
       ],
     });
