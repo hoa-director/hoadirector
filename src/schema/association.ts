@@ -214,6 +214,9 @@ export class Association extends Model {
         createdAt: { [Op.gt]: createdAfter },
         submittedByUserId: { [Op.ne]: userId },
       },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
@@ -246,6 +249,9 @@ export class Association extends Model {
       where: {
         submittedByUserId: userId,
       },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
