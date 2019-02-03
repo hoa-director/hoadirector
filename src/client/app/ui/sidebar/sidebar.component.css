@@ -3,6 +3,7 @@
 }
 
 #sidebar {
+  min-height: 90vh;
   background-color: #3A617E;
   height: 100%;
   color: #fff;
