@@ -4,7 +4,7 @@
       <th scope="col">Submitted By</th>
       <th scope="col">Submitted Against</th>
       <th scope="col">Submitted On</th>
-      <th scope="col">Objection</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -14,7 +14,9 @@
       <td>
         {{objection.createdAt | date:'short'}}
       </td>
-      <td>{{objection.comment}}</td>
+      <td>
+        <a routerLink="../objection/{{objection.id}}">View</a>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -1,3 +1,43 @@
-<p>
-  objection works!
-</p>
+<div class="row" *ngIf="message">
+  <div class="col">
+    <p>
+      {{message}}
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col" *ngIf="objection">
+    <p>
+      <strong>Submitted By: </strong>
+      {{objection.submittedBy.units[0].addressLineOne}}
+    </p>
+    <p>
+      <strong>Submitted Against: </strong>
+      {{objection.submittedAgainst.units[0].addressLineOne}}
+    </p>
+    <p>
+      <strong>Objection: </strong>
+      {{objection.comment}}
+    </p>
+    <p *ngIf="canVote">
+      <strong>Vote: </strong>
+      <button class="btn btn-danger" (click)="vote(0)">Disapprove</button>
+      <button class="btn btn-success" (click)="vote(1)">Approve</button>
+    </p>
+    <div *ngIf="results">
+      <p>
+        <strong>Results: </strong>
+        {{results.passed}}
+      </p>
+      <p>
+        <strong>Votes For: </strong>
+        {{results.votesFor}}
+      </p>
+      <p>
+        <strong>Votes Against: </strong>
+        {{results.votesAgainst}}
+      </p>
+    </div>
+  </div>
+</div>

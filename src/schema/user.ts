@@ -126,6 +126,16 @@ export class User extends Model {
     this.password = User.encryptPassword(password);
     return this.save();
   }
+
+  public isInAssociation(associationId): Bluebird<boolean> {
+    return this.getAssociations({
+      where: {
+        id: associationId,
+      }
+    }).then(associations => {
+      return !!associations.length;
+    });
+  }
 }
 
 export const UserSchema = User;

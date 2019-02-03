@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { createTransport, Transporter } from 'nodemailer';
 
 import { Emailer } from '../classes/emailer';
-import { Association, Document, Objection, Vote } from '../schema/schemas';
+import { Association, Document, Objection, Vote, User } from '../schema/schemas';
 import { Unit } from '../schema/unit';
 
 import { DocumentsRouter } from './api/documents';
@@ -67,7 +67,7 @@ export class ApiRouter {
       submittedAgainstUserId: objection.against,
     })
       .then((filedObjection) => {
-        res.sendStatus(200);
+        res.status(200).send({success: true});
         // TODO: move this to a factory
         const transporter: Transporter = createTransport({
           host: process.env.SMTP_HOST,
@@ -109,6 +109,8 @@ export class ApiRouter {
       });
   }
   private submitVote = (req: Request, res: Response, next: NextFunction) => {
+    // TODO: confirm user is in association
+    // TODO: user more consise + type conversion
     const objectionId: number = parseInt(req.body.vote.objectionId);
     const approved: number = parseInt(req.body.vote.approved);
     const annonymous: number = req.body.annonymous
@@ -230,12 +232,55 @@ export class ApiRouter {
   private getObjection(req: Request, res: Response, next: NextFunction) {
     const associationId: number = parseInt(req.session.associationId);
     const objectionId: number = parseInt(req.params.id);
-    Objection.findById(objectionId)
-      .then((objection) => {
-        res.send({ objection });
+    Objection.findById(objectionId, {
+      where: {
+        associationId,
+      },
+      attributes: [
+        'comment',
+        'closedAt',
+      ],
+      include: [
+        {
+          model: User,
+          as: 'submittedBy',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
+        },
+        {
+          model: User,
+          as: 'submittedAgainst',
+          attributes: [ 'id' ],
+          include: [
+            {
+              model: Unit,
+              as: 'units',
+              where: { associationId },
+              attributes: [ 'addressLineOne' ]
+            },
+          ],
+        },
+      ],
+    })
+      .then(async (objection) => {
+        const canVote = await objection.userCanVote(req.user);
+        let results;
+        if (objection.closedAt) {
+          results = await objection.getResults();
+        }
+        res.send({ objection, canVote, results });
       })
       .catch((error) => {
-        res.sendStatus(500);
+        console.log(error);
+        // res.sendStatus(500);
+        res.status(500).send({error});
       });
   }
 

@@ -16,8 +16,9 @@ const routes: Routes = [
       { path: '', redirectTo: '/resolution-center/inbox', pathMatch: 'full' },
       { path: 'inbox', component: InboxComponent },
       { path: 'outbox', component: OutboxComponent },
-      { path: 'objection/view/:id', component: ObjectionComponent },
       { path: 'objection/create', component: CreateObjectionComponent },
+      { path: 'objection/view/:id', component: ObjectionComponent },
+      { path: 'objection/:id', component: ObjectionComponent },
     ],
   },
 ];

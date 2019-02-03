@@ -82,7 +82,6 @@ export class Objection extends Model {
       },
       { sequelize, tableName: 'objections' },
     );
-    return this;
   }
 
   public static asscociate(model) {}
@@ -122,6 +121,24 @@ export class Objection extends Model {
         votesFor,
         votesAgainst,
       };
+    });
+  }
+
+  public userCanVote(user: User): Bluebird<boolean> {
+    // If the objection is closed then it can no longer be voted on
+    if (this.closedAt) {
+      return Bluebird.resolve(false);
+    }
+    return this.getVotes({
+      where: {
+        userId: user.id,
+      }
+    }).then(votes => {
+      return !!votes.length;
+    }).then(hasVoted => {
+      if(hasVoted) return hasVoted;
+
+      return user.isInAssociation(this.associationId);
     });
   }
 }
