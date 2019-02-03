@@ -24,7 +24,8 @@
           <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
             Password is required
           </div>
-          <button class="btn btn-primary" type="submit" [disabled]="!loginForm.form.valid">Login</button>
+          <a routerLink="/forgotten-password">Reset Password</a>
+          <button class="btn btn-primary float-right" type="submit" [disabled]="!loginForm.form.valid">Login</button>
         </form>
       </div>
       <div class="col">

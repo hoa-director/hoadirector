@@ -22,6 +22,8 @@ import { NotesComponent } from './app/notes/notes.component';
 import { ProfileComponent } from './app/profile/profile.component';
 import { RulesComponent } from './app/rules/rules.component';
 import { HomeComponent } from './home/home.component';
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { RequestPasswordChangeComponent } from './request-password-change/request-password-change.component';
 // import { ModalComponent } from './app/modal/modal.component';
 
 @NgModule({
@@ -39,6 +41,8 @@ import { HomeComponent } from './home/home.component';
     NotesComponent,
     ProfileComponent,
     MessageComponent,
+    ForgottenPasswordComponent,
+    RequestPasswordChangeComponent,
     // ModalComponent,
   ],
   imports: [

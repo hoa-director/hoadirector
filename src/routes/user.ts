@@ -109,10 +109,10 @@ export class UserRouter {
       }
       return emailer.sendMail(emailOptions);
     }).then(email => {
-      res.sendStatus(200);
+      res.send({sucess: true});
     }).catch(error => {
       console.error(error);
-      res.sendStatus(500);
+      res.status(500).send({success: false});
     });
   }
 
@@ -137,7 +137,7 @@ export class UserRouter {
       res.send({sucess: true});
     }).catch(error => {
       console.error(error);
-      res.status(500).send({success: false})
+      res.status(500).send({success: false});
     })
   }
 

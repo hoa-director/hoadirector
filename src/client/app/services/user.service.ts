@@ -89,4 +89,16 @@ export class UserService {
       )
     });
   }
+
+  requestToken(email) {
+    return this.http.get('/users/forgotten', {
+      params: {
+        email
+      }
+    });
+  }
+
+  changeForgottenPassword({password, token}) {
+    return this.http.post('/users/forgotten', {password, token});
+  }
 }
