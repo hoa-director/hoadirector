@@ -8,6 +8,7 @@ import { UserService } from '../services/user.service';
 })
 export class RequestPasswordChangeComponent implements OnInit {
 
+  email: string = '';
   message: string = '';
 
   constructor(
