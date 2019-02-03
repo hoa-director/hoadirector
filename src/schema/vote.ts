@@ -6,6 +6,7 @@ export class Vote extends Model {
   userId: number;
   objectionId: number;
   annonymous: boolean;
+  approved: boolean;
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date;

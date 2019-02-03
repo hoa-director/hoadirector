@@ -30,4 +30,12 @@ export class ResolutionCenterService {
   public getOutbox(): Observable<{ objections: any[] }> {
     return this.http.get<{ objections: any[] }>('/api/outbox');
   }
+
+  public getObjection(id) {
+    return this.http.get('/api/objections/' + id);
+  }
+
+  public getPastObjections(): Observable<{ objections: any[] }>  {
+    return this.http.get<{ objections: any[] }>('/api/objections/past');
+  }
 }

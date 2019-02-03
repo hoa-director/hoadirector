@@ -4,7 +4,6 @@
       <th scope="col">Submitted By</th>
       <th scope="col">Submitted Against</th>
       <th scope="col">Submitted On</th>
-      <th scope="col">Objection</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -15,17 +14,19 @@
       <td>
         {{objection.createdAt | date:'short'}}
       </td>
-      <td>{{objection.comment}}</td>
-      <td (click)="selectObjection(objection); htmlInsideModal.open()">
+      <td>
+        <a routerLink="../objection/{{objection.id}}">View</a>
+      </td>
+      <!-- <td (click)="selectObjection(objection); htmlInsideModal.open()">
         <button class="btn">
           Vote
         </button>
-      </td>
+      </td> -->
     </tr>
   </tbody>
 </table>
 
-<app-modal #htmlInsideModal>
+<!-- <app-modal #htmlInsideModal>
   <ng-template #modalBody>
     <div class="row">
       <div class="col">
@@ -53,4 +54,4 @@
       </div>
     </div>
   </ng-template>
-</app-modal>
+</app-modal> -->

@@ -39,6 +39,12 @@ AssociationSchema.hasMany(ObjectionSchema, {
   foreignKey: 'association_id',
 });
 
+AssociationSchema.belongsToMany(UserSchema, {
+  through: UnitSchema,
+  as: 'users',
+
+})
+
 DocumentSchema.belongsTo(AssociationSchema, {
   as: 'association',
   foreignKey: 'association_id',

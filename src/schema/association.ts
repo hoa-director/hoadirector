@@ -214,6 +214,9 @@ export class Association extends Model {
         createdAt: { [Op.gt]: createdAfter },
         submittedByUserId: { [Op.ne]: userId },
       },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
@@ -246,6 +249,36 @@ export class Association extends Model {
       where: {
         submittedByUserId: userId,
       },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+      attributes: ['id', 'comment', 'createdAt'],
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName'],
+          as: 'submittedBy',
+        },
+        {
+          model: User,
+          attributes: ['firstName', 'lastName'],
+          as: 'submittedAgainst',
+        },
+      ],
+    });
+  }
+
+  /**
+   * @returns {Bluebird<Objection[]>}
+   */
+  public getPastObjections(): Bluebird<Objection[]> {
+    return this.getObjections({
+      where: {
+        closedAt: { [Op.ne]: null },
+      },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
@@ -270,7 +303,10 @@ export class Association extends Model {
       .subtract({ milliseconds: this.objectionVoteTime })
       .valueOf();
     return this.getObjections({
-      where: { createdAt: { [Op.lt]: createdBefore } },
+      where: {
+        createdAt: { [Op.lt]: createdBefore } ,
+        closedAt: null,
+      },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
