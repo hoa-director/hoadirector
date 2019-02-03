@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -6,7 +6,11 @@ import { UserService } from '../../services/user.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
+
+  userIsLoggedIn: boolean = false;
+  subscriptions = [];
+
   links: Array<{ path: string; label: string }> = [
     {
       path: 'directory',
@@ -52,7 +56,27 @@ export class SidebarComponent implements OnInit {
 
   constructor(public userService: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.init();
+    const associationSubscription = this.userService.currentAssociationUpdated.subscribe(() => {
+      this.init();
+    });
+    const userSubscription = this.userService.userUpdated.subscribe(() => {
+      this.init();
+    });
+    this.subscriptions.push(associationSubscription, userSubscription);
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscriptions.map(subscription => {
+      subscription.unsubscribe();
+    });
+  }
+
+  init() {
+    this.userIsLoggedIn = this.userService.user;
+  }
 
   logout() {
     console.log('logout clicked');

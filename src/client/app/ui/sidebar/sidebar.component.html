@@ -1,12 +1,12 @@
-<div id="sidebar" class="row">
+<div id="sidebar" class="row sidebar">
   <div class="col">
-    <div class="home-info" *ngIf="!userService.isLoggedIn">
+    <div class="home-info" *ngIf="!userIsLoggedIn">
       <p>Everyday in your association will be pleasant.</p>
       <p>Timely answers to questions and concerns.</p>
       <p>You have problem resolution at your fingertips.</p>
     </div>
     <!-- <div *ngIf="userService.user" class="nav flex-column nav-pills"> -->
-    <ul *ngIf="userService.isLoggedIn" class="nav flex-column nav-pills">
+    <ul *ngIf="userIsLoggedIn" class="nav flex-column nav-pills">
       <app-association-switch class="align-content-center"></app-association-switch>
       <div class="menu-title">
         <h3>
