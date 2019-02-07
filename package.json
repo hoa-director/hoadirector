@@ -1,6 +1,7 @@
 {
   "name": "hoadirector",
   "version": "0.0.0",
+  "author": "Dexter St Pierre <dexter.stpierre.dev@gmail.com>",
   "scripts": {
     "build-server": "tsc -p tsconfig.server.json",
     "build-server-watch": "tsc-watch -p tsconfig.server.json --onSuccess \"npm run copy-static-assets\"",
@@ -21,6 +22,7 @@
     "start": "npm run serve",
     "postinstall": "npm run build"
   },
+  "main": "dist/server.js",
   "engines": {
     "node": "10.5.0"
   },
