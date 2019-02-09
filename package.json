@@ -1,26 +1,28 @@
 {
   "name": "hoadirector",
   "version": "0.0.0",
+  "author": "Dexter St Pierre <dexter.stpierre.dev@gmail.com>",
   "scripts": {
-    "build-server": "tsc -p tsconfig.server.json",
-    "build-server-watch": "tsc-watch -p tsconfig.server.json --onSuccess \"npm run copy-static-assets\"",
-    "build-client": "ng build --prod",
     "build-client-dev": "ng build",
     "build-client-watch": "ng build --watch",
+    "build-client": "ng build --prod",
     "build-dev": "npm run clean && npm run build-server && npm run build-client-dev",
+    "build-server-watch": "tsc-watch -p tsconfig.server.json --onSuccess \"npm run copy-static-assets\"",
+    "build-server": "tsc -p tsconfig.server.json",
     "build": "npm run clean && npm run build-server && npm run build-client && npm run copy-static-assets",
     "clean": "rm -fR dist/",
     "copy-static-assets": "npx ts-node copyStaticAssets.ts",
-    "lint-server": "npx tslint -c tslint.json -p tsconfig.server.json",
+    "dev": "npm run build-dev && npm run watch",
     "lint-client": "npx tslint -c tslint.json -p src/client/tsconfig.app.json",
+    "lint-server": "npx tslint -c tslint.json -p tsconfig.server.json",
     "lint": "npm run lint-server && npm run lint-client",
+    "postinstall": "npm run build",
     "serve-watch": "npx nodemon dist/server.js",
     "serve": "node dist/server.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node,Angular\" \"npm:serve-watch\" \"npm:build-server-watch\" \"npm:build-client-watch\"",
-    "dev": "npm run build-dev && npm run watch",
     "start": "npm run serve",
-    "postinstall": "npm run build"
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node,Angular\" \"npm:serve-watch\" \"npm:build-server-watch\" \"npm:build-client-watch\""
   },
+  "main": "dist/server.js",
   "engines": {
     "node": "10.5.0"
   },
