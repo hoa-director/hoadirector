@@ -2,10 +2,18 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { createTransport, Transporter } from 'nodemailer';
 
 import { Emailer } from '../classes/emailer';
-import { Association, Document, Objection, User, Vote } from '../schema/schemas';
+import {
+  Association,
+  Document,
+  Objection,
+  User,
+  Vote,
+} from '../schema/schemas';
 import { Unit } from '../schema/unit';
 
 import { DocumentsRouter } from './api/documents';
+
+import { bugsnagClient } from '../config/bugsnag';
 
 const documentsRoutes = new DocumentsRouter();
 
@@ -52,7 +60,7 @@ export class ApiRouter {
         res.send(ruleLists);
       })
       .catch((error) => {
-        console.error(error);
+        bugsnagClient.notify(error);
         res.sendStatus(500);
       });
   }
@@ -67,7 +75,7 @@ export class ApiRouter {
       submittedAgainstUserId: objection.against,
     })
       .then((filedObjection) => {
-        res.status(200).send({success: true});
+        res.status(200).send({ success: true });
         // TODO: move this to a factory
         const transporter: Transporter = createTransport({
           host: process.env.SMTP_HOST,
@@ -89,7 +97,9 @@ export class ApiRouter {
               subject: 'A new objection has been submitted on HOA director',
               text: `
               A new objection has been submitted by ${req.user.name}
-              To view the objection please use the following link: hoadirector.com/resolution-center/objection/view/${filedObjection.id}
+              To view the objection please use the following link: hoadirector.com/resolution-center/objection/view/${
+                filedObjection.id
+              }
             `,
               html: `
               <p>A new objection has been submitted by ${req.user.name}</p>
@@ -97,14 +107,16 @@ export class ApiRouter {
                 filedObjection.id
               }">here</a></p>
               <p>Or copy and paste the following link into your web browser:</p>
-              <p>hoadirector.com/resolution-center/objection/view/${filedObjection.id}</p>
+              <p>hoadirector.com/resolution-center/objection/view/${
+                filedObjection.id
+              }</p>
             `,
             });
           },
         );
       })
       .catch((error) => {
-        console.log(error);
+        bugsnagClient.notify(error);
         res.sendStatus(500);
       });
   }
@@ -127,11 +139,11 @@ export class ApiRouter {
         res.sendStatus(200);
       })
       .catch((error) => {
+        bugsnagClient.notify(error);
         if (error.id === 100) {
           res.status(400).send({ message: error.message });
           return;
         }
-        console.error(error);
         res.sendStatus(500);
       });
   }
@@ -150,7 +162,7 @@ export class ApiRouter {
           res.send({ objections });
         })
         .catch((error) => {
-          console.log(error);
+          bugsnagClient.notify(error);
           res.sendStatus(500);
         });
     });
@@ -171,7 +183,7 @@ export class ApiRouter {
           res.send({ objections });
         })
         .catch((error) => {
-          console.log(error);
+          bugsnagClient.notify(error);
           res.sendStatus(500);
         });
     });
@@ -192,7 +204,7 @@ export class ApiRouter {
           res.send({ objections });
         })
         .catch((error) => {
-          console.log(error);
+          bugsnagClient.notify(error);
           res.sendStatus(500);
         });
     });
@@ -217,7 +229,7 @@ export class ApiRouter {
           res.send({ objections });
         })
         .catch((error) => {
-          console.log(error);
+          bugsnagClient.notify(error);
           res.sendStatus(500);
         });
     });
@@ -236,34 +248,31 @@ export class ApiRouter {
       where: {
         associationId,
       },
-      attributes: [
-        'comment',
-        'closedAt',
-      ],
+      attributes: ['comment', 'closedAt'],
       include: [
         {
           model: User,
           as: 'submittedBy',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
         {
           model: User,
           as: 'submittedAgainst',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
@@ -278,9 +287,8 @@ export class ApiRouter {
         res.send({ objection, canVote, results });
       })
       .catch((error) => {
-        console.log(error);
-        // res.sendStatus(500);
-        res.status(500).send({error});
+        bugsnagClient.notify(error);
+        res.status(500).send({ error });
       });
   }
 
@@ -306,7 +314,7 @@ export class ApiRouter {
         res.send({ units: association.units });
       })
       .catch((error) => {
-        console.error(error);
+        bugsnagClient.notify(error);
         res.sendStatus(500);
       });
   }

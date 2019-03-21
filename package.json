@@ -37,6 +37,8 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@bugsnag/js": "^6.0.0",
+    "@bugsnag/plugin-express": "^6.0.0",
     "angular-custom-modal": "^1.2.0",
     "bcrypt": "^2.0.1",
     "bootstrap": "^4.1.2",
