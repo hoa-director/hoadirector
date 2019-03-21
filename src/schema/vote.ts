@@ -1,4 +1,4 @@
-gimport { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { DuplicateError } from '../classes/duplicate-error';
 
 export class Vote extends Model {
