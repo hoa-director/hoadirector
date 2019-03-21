@@ -228,7 +228,7 @@ export class Association extends Model {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -241,7 +241,7 @@ export class Association extends Model {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -270,7 +270,7 @@ export class Association extends Model {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -283,7 +283,7 @@ export class Association extends Model {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -297,7 +297,7 @@ export class Association extends Model {
   public getPastObjections(): Bluebird<Objection[]> {
     return this.getObjections({
       where: {
-        closedAt: { [Op.ne]: null },
+        closedAt: { [Op.ne]: undefined },
       },
       order: [
         ['createdAt', 'DESC'],
@@ -313,7 +313,7 @@ export class Association extends Model {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -326,7 +326,7 @@ export class Association extends Model {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -344,7 +344,7 @@ export class Association extends Model {
     return this.getObjections({
       where: {
         createdAt: { [Op.lt]: createdBefore } ,
-        closedAt: null,
+        closedAt: undefined,
       },
       attributes: ['id', 'comment', 'createdAt'],
       include: [

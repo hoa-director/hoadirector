@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-import { Association } from '../schema/schemas';
 import { EmailerFactory } from '../factories/emailer-factory';
+import { Association } from '../schema/schemas';
 
 const emailer = EmailerFactory.createEmailer();
 Association.findAllWithUserEmails().then((associations) => {
@@ -10,7 +10,7 @@ Association.findAllWithUserEmails().then((associations) => {
     const emailList = emails.join(', ');
     association.getExpiredObjections().then((objections) => {
       objections.map(async (objection) => {
-        const link = `hoadirector.com/resolution-center/objection/view/${objection.id}`
+        const link = `hoadirector.com/resolution-center/objection/view/${objection.id}`;
         emailer.sendMail({
           from: process.env.EMAIL_FROM,
           to: emailList,

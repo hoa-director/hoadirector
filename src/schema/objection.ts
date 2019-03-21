@@ -109,7 +109,7 @@ export class Objection extends Model {
     return this.getVotes().then((votes) => {
       let votesFor = 0;
       let votesAgainst = 0;
-      votes.map(vote => {
+      votes.map((vote) => {
         if (vote.approved) {
           votesFor += 1;
         } else {
@@ -132,11 +132,11 @@ export class Objection extends Model {
     return this.getVotes({
       where: {
         userId: user.id,
-      }
-    }).then(votes => {
+      },
+    }).then((votes) => {
       return !!votes.length;
-    }).then(hasVoted => {
-      if(hasVoted) return hasVoted;
+    }).then((hasVoted) => {
+      if (hasVoted) { return hasVoted; }
 
       return user.isInAssociation(this.associationId);
     });
