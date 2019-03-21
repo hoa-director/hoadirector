@@ -5,7 +5,7 @@ import * as path from 'path';
 import { Document } from '../../schema/schemas';
 
 export class DocumentsRouter {
-  public routePrefix: string = 'directory';
+  public routePrefix = 'directory';
 
   router: Router;
 

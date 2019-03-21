@@ -3,7 +3,9 @@ import { SendMailOptions, Transporter } from 'nodemailer';
 export class Emailer {
   transporter: Transporter;
 
-  developmentModeMessage = 'This message was sent from a development or staging server and should not have been sent to any users. If you have recieved this message please send an email to ' + process.env.DEVELOPER_EMAIL;
+  developmentModeMessage = `
+    This message was sent from a development or staging server and should not have been sent to any users.
+    If you have recieved this message please send an email to ${process.env.DEVELOPER_EMAIL}`;
 
   constructor(transporter: Transporter) {
     console.log('testing transport');

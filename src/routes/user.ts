@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response, Router } from 'express';
 import * as passport from 'passport';
 
-import { EmailerFactory } from '../factories/emailer-factory';
-import User, { UserSchema } from '../schema/user';
-import { roles } from '../config/roles';
-import { Association, ForgottenPasswordToken } from '../schema/schemas';
 import { urlencoded } from 'body-parser';
+import { roles } from '../config/roles';
+import { EmailerFactory } from '../factories/emailer-factory';
+import { Association, ForgottenPasswordToken } from '../schema/schemas';
+import User, { UserSchema } from '../schema/user';
 
 const passportRedirect: passport.AuthenticateOptions = {};
 
@@ -22,9 +22,9 @@ export class UserRouter {
       return Association.findAll({
         attributes: [
           'id',
-          'name'
-        ]
-      }).then(associations => {
+          'name',
+        ],
+      }).then((associations) => {
         req.session.associationId = associations[0].id;
         res.send(req.user);
       });
@@ -69,10 +69,10 @@ export class UserRouter {
   private setCurrentAssociation(req: Request, res: Response, next: NextFunction) {
     const associationId: number = parseInt(req.body.associationId, 10);
     req.user.getAvailableAssociations().then((associations) => {
-      if (!associations.some(association => association.id === associationId)) {
+      if (!associations.some((association) => association.id === associationId)) {
         return res.sendStatus(403);
       }
-      req.session.associationId = associationId
+      req.session.associationId = associationId;
       res.send({associations, currentAssociation: req.session.associationId});
     });
   }
@@ -87,11 +87,11 @@ export class UserRouter {
   private forgotten(req: Request, res: Response, next: NextFunction) {
     const email = req.query.email;
     User.find({
-      where: {email}
-    }).then(user => {
+      where: {email},
+    }).then((user) => {
       const token = new ForgottenPasswordToken({userId: user.id});
       return token.save();
-    }).then(token => {
+    }).then((token) => {
       const emailer = EmailerFactory.createEmailer();
       const emailOptions = {
         from: process.env.EMAIL_FROM,
@@ -106,11 +106,11 @@ export class UserRouter {
         <p>To reset your password click <a href="hoadirector.com/forgotten-password/${token.token}">here</a></p>
         <p>or use the following link: hoadirector.com/forgotten-password/${token.token}</p>
         `,
-      }
+      };
       return emailer.sendMail(emailOptions);
-    }).then(email => {
+    }).then(() => {
       res.send({sucess: true});
-    }).catch(error => {
+    }).catch((error) => {
       console.error(error);
       res.status(500).send({success: false});
     });
@@ -125,20 +125,20 @@ export class UserRouter {
           model: ForgottenPasswordToken,
           as: 'tokens',
           where: {
-            token: token,
-          }
-        }
-      ]
-    }).then(user => {
+            token,
+          },
+        },
+      ],
+    }).then((user) => {
       return user.changePassword(password);
-    }).then(user => {
+    }).then((user) => {
       return user.tokens[0].destroy();
     }).then(() => {
       res.send({sucess: true});
-    }).catch(error => {
+    }).catch((error) => {
       console.error(error);
       res.status(500).send({success: false});
-    })
+    });
   }
 
   init() {

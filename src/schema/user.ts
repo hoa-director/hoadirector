@@ -1,8 +1,8 @@
 import * as bcrypt from 'bcrypt';
 import * as Bluebird from 'bluebird';
 import { DataTypes, HasManyGetAssociationsMixin, Model } from 'sequelize';
-import { Association } from './association';
 import { roles } from '../config/roles';
+import { Association } from './association';
 import { ForgottenPasswordToken } from './forgotten-password-tokens';
 
 const saltWorkFactor = 10;
@@ -31,21 +31,6 @@ export class User extends Model {
 
   public static findByEmail(email: string): Bluebird<User> {
     return User.findOne({ where: { email } });
-  }
-
-  public getAvailableAssociations(): Bluebird<Association[]> {
-    const includedAttributes = [
-      'id',
-      'name'
-    ]
-    if (this.role === roles.ADMIN) {
-      return Association.findAll({
-        attributes: includedAttributes
-      })
-    }
-    return this.getAssociations({
-      attributes: includedAttributes
-    });
   }
 
   public static init(sequelize) {
@@ -118,6 +103,21 @@ export class User extends Model {
 
   public static asscociate(model) {}
 
+  public getAvailableAssociations(): Bluebird<Association[]> {
+    const includedAttributes = [
+      'id',
+      'name',
+    ];
+    if (this.role === roles.ADMIN) {
+      return Association.findAll({
+        attributes: includedAttributes,
+      });
+    }
+    return this.getAssociations({
+      attributes: includedAttributes,
+    });
+  }
+
   public comparePassword(password: string) {
     return bcrypt.compareSync(password, this.password);
   }
@@ -131,8 +131,8 @@ export class User extends Model {
     return this.getAssociations({
       where: {
         id: associationId,
-      }
-    }).then(associations => {
+      },
+    }).then((associations) => {
       return !!associations.length;
     });
   }

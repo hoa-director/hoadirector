@@ -1,7 +1,7 @@
 import { connection } from '../config/database';
 import { AssociationSchema } from './association';
-import { ForgottenPasswordTokenSchema } from './forgotten-password-tokens';
 import { DocumentSchema } from './document';
+import { ForgottenPasswordTokenSchema } from './forgotten-password-tokens';
 import { ObjectionSchema } from './objection';
 import { RuleSchema } from './rule';
 import { RuleListSchema } from './rule-list';
@@ -43,7 +43,7 @@ AssociationSchema.belongsToMany(UserSchema, {
   through: UnitSchema,
   as: 'users',
 
-})
+});
 
 DocumentSchema.belongsTo(AssociationSchema, {
   as: 'association',
@@ -148,7 +148,7 @@ UserSchema.belongsToMany(AssociationSchema, {
 UserSchema.hasMany(ForgottenPasswordTokenSchema, {
   as: 'tokens',
   foreignKey: 'user_id',
-})
+});
 
 VoteSchema.belongsTo(UserSchema, {
   as: 'user',

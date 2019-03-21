@@ -2,7 +2,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { createTransport, Transporter } from 'nodemailer';
 
 import { Emailer } from '../classes/emailer';
-import { Association, Document, Objection, Vote, User } from '../schema/schemas';
+import { Association, Document, Objection, User, Vote } from '../schema/schemas';
 import { Unit } from '../schema/unit';
 
 import { DocumentsRouter } from './api/documents';
@@ -250,7 +250,7 @@ export class ApiRouter {
               model: Unit,
               as: 'units',
               where: { associationId },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
@@ -263,7 +263,7 @@ export class ApiRouter {
               model: Unit,
               as: 'units',
               where: { associationId },
-              attributes: [ 'addressLineOne' ]
+              attributes: [ 'addressLineOne' ],
             },
           ],
         },
