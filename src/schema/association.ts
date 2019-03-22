@@ -214,34 +214,32 @@ export class Association extends Model {
         createdAt: { [Op.gt]: createdAfter },
         submittedByUserId: { [Op.ne]: userId },
       },
-      order: [
-        ['createdAt', 'DESC'],
-      ],
+      order: [['createdAt', 'DESC']],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
           model: User,
           as: 'submittedBy',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
         {
           model: User,
           as: 'submittedAgainst',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
@@ -256,34 +254,32 @@ export class Association extends Model {
       where: {
         submittedByUserId: userId,
       },
-      order: [
-        ['createdAt', 'DESC'],
-      ],
+      order: [['createdAt', 'DESC']],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
           model: User,
           as: 'submittedBy',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
         {
           model: User,
           as: 'submittedAgainst',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
@@ -297,36 +293,35 @@ export class Association extends Model {
   public getPastObjections(): Bluebird<Objection[]> {
     return this.getObjections({
       where: {
-        closedAt: { [Op.ne]: undefined },
+        /* tslint:disable-next-line:no-null-keyword */
+        closedAt: { [Op.ne]: null },
       },
-      order: [
-        ['createdAt', 'DESC'],
-      ],
+      order: [['createdAt', 'DESC']],
       attributes: ['id', 'comment', 'createdAt'],
       include: [
         {
           model: User,
           as: 'submittedBy',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
         {
           model: User,
           as: 'submittedAgainst',
-          attributes: [ 'id' ],
+          attributes: ['id'],
           include: [
             {
               model: Unit,
               as: 'units',
               where: { associationId: this.id },
-              attributes: [ 'addressLineOne' ],
+              attributes: ['addressLineOne'],
             },
           ],
         },
@@ -343,8 +338,9 @@ export class Association extends Model {
       .valueOf();
     return this.getObjections({
       where: {
-        createdAt: { [Op.lt]: createdBefore } ,
-        closedAt: undefined,
+        createdAt: { [Op.lt]: createdBefore },
+        /* tslint:disable-next-line:no-null-keyword */
+        closedAt: null,
       },
       attributes: ['id', 'comment', 'createdAt'],
       include: [
