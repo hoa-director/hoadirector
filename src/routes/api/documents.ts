@@ -4,8 +4,10 @@ import * as path from 'path';
 
 import { Document } from '../../schema/schemas';
 
+import { bugsnagClient } from '../../config/bugsnag';
+
 export class DocumentsRouter {
-  public routePrefix = 'directory';
+  public routePrefix = '/documents/';
 
   router: Router;
 
@@ -26,7 +28,8 @@ export class DocumentsRouter {
         res.send(documents);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+        bugsnagClient.notify(error);
         res.sendStatus(500);
       });
   }
@@ -37,14 +40,15 @@ export class DocumentsRouter {
     Document.getDocumentByAssociationAndId(associationId, documentId)
       .then((document: any) => {
         const data = fs.readFileSync(
-          path.join(__dirname, '..', document.dataValues.path),
+          path.join(__dirname, '..', '..', document.path),
         );
         res.contentType('application/pdf');
         res.header('Content-Disposition', 'inline; name=' + document.name);
         res.send(data);
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error);
+        bugsnagClient.notify(error);
         res.sendStatus(500);
       });
   }

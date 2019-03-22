@@ -26,7 +26,7 @@ export class ApiRouter {
   }
 
   init() {
-    this.router.get(documentsRoutes.routePrefix, documentsRoutes.router);
+    this.router.use(documentsRoutes.routePrefix, documentsRoutes.router);
     this.router.get('/directory', this.getDirectory);
     this.router.get('/rules', this.getRules);
     this.router.get('/units', this.getUnits);
@@ -49,7 +49,7 @@ export class ApiRouter {
         res.send(directory);
       })
       .catch((error) => {
-        console.error(error);
+        bugsnagClient.notify(error);
         res.sendStatus(500);
       });
   }

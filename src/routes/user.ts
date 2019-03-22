@@ -30,12 +30,19 @@ export class UserRouter {
         })
         .catch((error) => {
           bugsnagClient.notify(error);
+          res.sendStatus(500);
         });
     }
-    req.user.getAvailableAssociations().then((associations) => {
-      req.session.associationId = associations[0].id;
-      res.send(req.user);
-    });
+    req.user
+      .getAvailableAssociations()
+      .then((associations) => {
+        req.session.associationId = associations[0].id;
+        res.send(req.user);
+      })
+      .catch((error) => {
+        bugsnagClient.notify(error);
+        res.sendStatus(500);
+      });
   }
 
   private logout(req: Request, res: Response, next: NextFunction) {
