@@ -3,10 +3,13 @@ import * as express from 'express';
 import { NextFunction, Request, Response } from 'express';
 import * as session from 'express-session';
 import * as path from 'path';
+import { bugsnagClient } from './config/bugsnag';
 import passport from './config/passport';
 import indexRoutes from './routes';
 import apiRoutes from './routes/api';
 import userRoutes from './routes/user';
+
+const bugsnagExpress = bugsnagClient.getPlugin('express');
 
 class App {
   public express: express.Application;
@@ -16,9 +19,11 @@ class App {
     this.staticContent();
     this.middleware();
     this.routes();
+    this.errorHandlers();
   }
 
   private middleware(): void {
+    this.express.use(bugsnagExpress.requestHandler);
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(bodyParser.json());
     this.express.use(
@@ -26,6 +31,10 @@ class App {
     );
     this.express.use(passport.initialize());
     this.express.use(passport.session());
+  }
+
+  private errorHandlers(): void {
+    this.express.use(bugsnagExpress.errorHandler);
   }
 
   private staticContent(): void {
