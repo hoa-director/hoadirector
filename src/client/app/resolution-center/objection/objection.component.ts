@@ -9,11 +9,10 @@ import { ResolutionCenterService } from '../resolution-center.service';
   styleUrls: ['./objection.component.css'],
 })
 export class ObjectionComponent implements OnInit {
-
-  message: string = '';
+  message = '';
   objectionId: number;
   objection: {};
-  canVote: boolean = false;
+  canVote = false;
   results: {};
 
   constructor(
@@ -31,12 +30,16 @@ export class ObjectionComponent implements OnInit {
 
   init() {
     this.objectionId = +this.route.snapshot.paramMap.get('id');
-    this.resolutionCenterService.getObjection(this.objectionId).subscribe((response: {objection:string, canVote: boolean, results: {}}) => {
-      console.log(response);
-      this.objection = response.objection;
-      this.canVote = response.canVote;
-      this.results = response.results;
-    });
+    this.resolutionCenterService
+      .getObjection(this.objectionId)
+      .subscribe(
+        (response: { objection: string; canVote: boolean; results: {} }) => {
+          console.log(response);
+          this.objection = response.objection;
+          this.canVote = response.canVote;
+          this.results = response.results;
+        },
+      );
   }
 
   vote(approved) {
@@ -51,8 +54,9 @@ export class ObjectionComponent implements OnInit {
           this.message = 'Your vote has been recorded. Thank you for voting';
         },
         (error) => {
+          console.log(error);
           this.message = 'A server error has occured. Please try again later';
-        }
+        },
       );
   }
 }
