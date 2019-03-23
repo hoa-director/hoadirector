@@ -136,7 +136,7 @@ export class ApiRouter {
       userId,
     })
       .then((vote) => {
-        res.sendStatus(200);
+        res.status(200).send({});
       })
       .catch((error) => {
         bugsnagClient.notify(error);
@@ -248,7 +248,7 @@ export class ApiRouter {
       where: {
         associationId,
       },
-      attributes: ['comment', 'closedAt'],
+      attributes: ['comment', 'closedAt', 'associationId', 'id'],
       include: [
         {
           model: User,

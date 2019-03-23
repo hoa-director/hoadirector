@@ -125,6 +125,7 @@ export class Objection extends Model {
   }
 
   public userCanVote(user: User): Bluebird<boolean> {
+    console.log(this);
     // If the objection is closed then it can no longer be voted on
     if (this.closedAt) {
       return Bluebird.resolve(false);
@@ -133,13 +134,17 @@ export class Objection extends Model {
       where: {
         userId: user.id,
       },
-    }).then((votes) => {
-      return !!votes.length;
-    }).then((hasVoted) => {
-      if (hasVoted) { return hasVoted; }
+    })
+      .then((votes) => {
+        return !!votes.length;
+      })
+      .then((hasVoted) => {
+        if (hasVoted) {
+          return false;
+        }
 
-      return user.isInAssociation(this.associationId);
-    });
+        return user.isInAssociation(this.associationId);
+      });
   }
 }
 
