@@ -1,4 +1,58 @@
-.header-logo {
+/* .header-logo {
   max-height: 300px;
   max-width: 100%;
+} */
+
+.header {
+  /* 95% of the viewport height */
+  height: 95vh;
+
+  /* background image */
+  /* always specify background gradients using background-image */
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    /* url(../img/hero.jpg); */
+
+  /* cover trys to fit the element in the box no matter the width of the view port of element */
+  background-size: cover;
+
+  /* ensures that the top of the image always stays at the top of the container, bottom or center */
+  background-position: top;
+
+  /* This makes it so the child div has a starting origin for the absolute positioning */
+  position: relative;
+
+  /* create the wedge look at the bottom of the header: x and y (epsilon) */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  /* Using absolute allows you to decide exactly where you want the div */
+  /* However, the starting point is based off the parents location, need to make parent position relative */
+  &__logo-box {
+    position: absolute;
+    /* top: 40px;
+        left: 40px; */
+    top: 4rem;
+    left: 4rem;
+  }
+
+  /* to scale the picture, don't set the width, the browser with scale for you */
+  &__logo {
+    /* height: 35px; */
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    /* these 50% are no longer in relation to the parent element but rather the element itself */
+    transform: translate(-50%, -50%);
+
+    /* because the button in the header is text and treated as inline, it can be 
+      centered by adding text align center in this div */
+    text-align: center;
+  }
 }
