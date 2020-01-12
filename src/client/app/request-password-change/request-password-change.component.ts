@@ -4,7 +4,7 @@ import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-request-password-change',
   templateUrl: './request-password-change.component.html',
-  styleUrls: ['./request-password-change.component.css']
+  styleUrls: ['./request-password-change.component.scss']
 })
 export class RequestPasswordChangeComponent implements OnInit {
 

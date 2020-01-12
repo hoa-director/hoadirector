@@ -5,7 +5,7 @@ import { UserService } from 'client/app/services/user.service';
 @Component({
   selector: 'app-create-objection',
   templateUrl: './create-objection.component.html',
-  styleUrls: ['./create-objection.component.css'],
+  styleUrls: ['./create-objection.component.scss'],
 })
 export class CreateObjectionComponent implements OnInit {
   objection: {

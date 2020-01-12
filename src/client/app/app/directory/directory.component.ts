@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-directory',
   templateUrl: './directory.component.html',
-  styleUrls: ['./directory.component.css'],
+  styleUrls: ['./directory.component.scss'],
 })
 export class DirectoryComponent implements OnInit {
   units: Array<{

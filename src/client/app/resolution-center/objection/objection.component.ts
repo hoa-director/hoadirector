@@ -6,7 +6,7 @@ import { ResolutionCenterService } from '../resolution-center.service';
 @Component({
   selector: 'app-objection',
   templateUrl: './objection.component.html',
-  styleUrls: ['./objection.component.css'],
+  styleUrls: ['./objection.component.scss'],
 })
 export class ObjectionComponent implements OnInit {
   message = '';

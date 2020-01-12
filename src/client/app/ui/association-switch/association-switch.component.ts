@@ -5,7 +5,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-association-switch',
   templateUrl: './association-switch.component.html',
-  styleUrls: ['./association-switch.component.css']
+  styleUrls: ['./association-switch.component.scss']
 })
 export class AssociationSwitchComponent implements OnInit, OnDestroy {
 

@@ -6,7 +6,7 @@ import { UserService } from 'client/app/services/user.service';
 @Component({
   selector: 'app-past-objections',
   templateUrl: './past-objections.component.html',
-  styleUrls: ['./past-objections.component.css']
+  styleUrls: ['./past-objections.component.scss']
 })
 export class PastObjectionsComponent implements OnInit {
   public objections;
