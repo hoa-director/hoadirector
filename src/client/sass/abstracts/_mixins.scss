@@ -1,0 +1,8 @@
+// 7-1 pattern (abstracts _mixins)
+@mixin clearfix {
+    &::after {
+        content: ""; // want it empty because we do not want to see this element on the page.
+        display: table; // standard to use table here
+        clear: both; // works if we use float left or float right
+    }
+  }

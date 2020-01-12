@@ -1,0 +1,40 @@
+// 7-1 pattern (base _base)
+/* Basic reset to make every browser render in the same way */
+/* Universal selector will select each element on the page an apply these declarations */
+/* using this allows you to start clean without any added margin or padding from the web browser */
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+
+  /* when possible, we should inherit so move box-sizing boarder-box to body */
+  box-sizing: inherit;
+}
+
+/* the global font size is set in the html element */
+/* if we convert all our font size to rem, it will be based of the root font */
+/* this is very helpful for making response sites, for example, when a a break point for mobile
+need a way to decrease all the sizes with one font setting  */
+/* why set the font-size to 10 instead of default 16px. So that we know that one rem is exactly 10px */
+html {
+    // this defines what one rem is
+  /* font-size: 10px; */
+  /* if we keep 10px here, it does not allow the user to make the default browser font size bigger
+    so we set the font size to 62.5% of 16px, which is the default browser size, and end up with 10px here.
+    now if the user changes the font size in the browser, the page will still be responsive */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16; */
+  /* Means that the line height is 1.7 times bigger than the pre defined line height */
+  line-height: 1.7;
+  color: $color-grey-dark;
+
+  /* to put a nice white boarder around the entire page, add padding to the body */
+  /* padding: 30px; */
+  padding: 3rem;
+}

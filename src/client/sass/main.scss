@@ -1,6 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
+// /* You can add global styles to this file, and also import other style files */
+// @import "~bootstrap/dist/css/bootstrap.css";
 
-.clickable {
-  cursor: pointer;
-}
+// already here
+// .clickable {
+//   cursor: pointer;
+// }
+
+// abstracts
+@import 'abstracts/mixins';
+@import 'abstracts/variables';
+
+
+// base
+@import 'base/animations';
+@import 'base/base';
+@import 'base/typography';
+@import 'base/utilities';
+
+// layout
+@import 'layout/grid';
+
+
