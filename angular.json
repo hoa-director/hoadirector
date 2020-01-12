@@ -23,7 +23,7 @@
               "src/client/assets"
             ],
             "styles": [
-              "src/client/styles.css"
+              "src/client/styles.scss"
             ],
             "scripts": []
           },
@@ -72,7 +72,7 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": [],
             "assets": [
@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "hoadirector"
+  "defaultProject": "hoadirector",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
