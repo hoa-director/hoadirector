@@ -77,7 +77,6 @@
     "@types/passport-local": "^1.0.33",
     "@types/sequelize": "github:types/sequelize",
     "@types/uuid": "^3.4.4",
-    "codelyzer": "~4.2.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",
