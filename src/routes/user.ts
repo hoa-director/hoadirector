@@ -20,6 +20,7 @@ export class UserRouter {
   }
 
   public login(req: Request, res: Response, next: NextFunction) {
+    console.log("Login route hit");
     if (req.user.role === roles.ADMIN) {
       return Association.findAll({
         attributes: ['id', 'name'],
