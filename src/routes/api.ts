@@ -155,7 +155,7 @@ export class ApiRouter {
    */
   private getObjections = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
-    Association.findById(associationId).then((association) => {
+    Association.findByPk(associationId).then((association) => {
       association
         .getActiveObjections()
         .then((objections) => {
@@ -176,7 +176,7 @@ export class ApiRouter {
   private getInbox = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
     const userId: number = parseInt(req.user.id);
-    Association.findById(associationId).then((association) => {
+    Association.findByPk(associationId).then((association) => {
       association
         .getUserInbox(userId)
         .then((objections) => {
@@ -197,7 +197,7 @@ export class ApiRouter {
   private getOutbox = (req: Request, res: Response, next: NextFunction) => {
     const associationId: number = parseInt(req.session.associationId);
     const userId: number = parseInt(req.user.id);
-    Association.findById(associationId).then((association) => {
+    Association.findByPk(associationId).then((association) => {
       association
         .getUserOutbox(userId)
         .then((objections) => {
@@ -222,7 +222,7 @@ export class ApiRouter {
     next: NextFunction,
   ) => {
     const associationId: number = parseInt(req.session.associationId);
-    Association.findById(associationId).then((association) => {
+    Association.findByPk(associationId).then((association) => {
       association
         .getPastObjections()
         .then((objections) => {
@@ -244,7 +244,7 @@ export class ApiRouter {
   private getObjection(req: Request, res: Response, next: NextFunction) {
     const associationId: number = parseInt(req.session.associationId);
     const objectionId: number = parseInt(req.params.id);
-    Objection.findById(objectionId, {
+    Objection.findByPk(objectionId, {
       where: {
         associationId,
       },
@@ -300,7 +300,7 @@ export class ApiRouter {
    */
   private getUnits(req: Request, res: Response, next: NextFunction) {
     const associationId: number = parseInt(req.session.associationId);
-    Association.findById(associationId, {
+    Association.findByPk(associationId, {
       attributes: [],
       include: [
         {

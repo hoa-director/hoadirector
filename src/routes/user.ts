@@ -122,7 +122,7 @@ export class UserRouter {
 
   private forgotten(req: Request, res: Response, next: NextFunction) {
     const email = req.query.email;
-    User.find({
+    User.findOne({
       where: { email },
     })
       .then((user) => {
@@ -169,7 +169,7 @@ export class UserRouter {
   ) {
     const password = req.body.password;
     const token = req.body.token;
-    User.find({
+    User.findOne({
       include: [
         {
           model: ForgottenPasswordToken,
