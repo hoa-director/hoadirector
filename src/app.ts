@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 import * as express from 'express';
 import { NextFunction, Request, Response } from 'express';
-import * as session from 'express-session';
+// import * as session from 'express-session';
 import * as path from 'path';
 import { bugsnagClient } from './config/bugsnag';
 import passport from './config/passport';

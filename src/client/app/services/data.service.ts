@@ -11,11 +11,12 @@ export class DataService {
     return this.http.get('/api/directory');
   }
 
+  //
   public getDocuments() {
-    return this.http.get('api/documents');
+    return this.http.get('/api/documents');
   }
-
+ //
   public getRules() {
-    return this.http.get('api/rules');
+    return this.http.get('/api/rules');
   }
 }
