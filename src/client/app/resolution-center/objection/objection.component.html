@@ -28,7 +28,8 @@
     <div *ngIf="results">
       <p>
         <strong>Results: </strong>
-        {{results.passed}}
+        <span *ngIf="results.passed">Approved</span>
+        <span *ngIf="!results.passed">Disapproved</span>
       </p>
       <p>
         <strong>Votes For: </strong>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ResolutionCenterService } from '../resolution-center.service';
 import { UserService } from 'client/app/services/user.service';
+import { ResolutionCenterService } from '../resolution-center.service';
 
 @Component({
   selector: 'app-create-objection',
@@ -13,6 +13,7 @@ export class CreateObjectionComponent implements OnInit {
     comment: string;
   };
   units: any[];
+  feeback = '';
 
   constructor(private resolutionCenterService: ResolutionCenterService, private userService: UserService) {}
 
@@ -23,7 +24,7 @@ export class CreateObjectionComponent implements OnInit {
     });
   }
 
-  private init () {
+  private init() {
     this.objection = {
       against: 0,
       comment: '',
@@ -40,6 +41,7 @@ export class CreateObjectionComponent implements OnInit {
       .submitObjection(objection)
       .subscribe((response) => {
         console.log(response);
+        this.feeback = 'Your objection has been submitted.';
       });
   }
 }
