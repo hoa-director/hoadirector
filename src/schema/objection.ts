@@ -87,7 +87,7 @@ export class Objection extends Model {
   public static asscociate(model) {}
 
   public static getOpenByAssociationId(associationId): Bluebird<Objection[]> {
-    return Association.findById(associationId).then((association) => {
+    return Association.findByPk(associationId).then((association) => {
       return Objection.findAll({
         where: {
           associationId,

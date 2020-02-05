@@ -1,9 +1,10 @@
-import * as Sequelize from 'sequelize';
+import { Sequelize, Options } from 'sequelize';
 
 const logging = process.env.NODE_ENV === 'development' ? console.log : false;
 
-const connectionOptions: Sequelize.Options = {
+const connectionOptions: Options = {
   host: process.env.DATABASE_HOST,
+  // host: 'localhost',
   dialect: 'mysql',
   pool: {
     max: 10,
@@ -17,17 +18,21 @@ const connectionOptions: Sequelize.Options = {
   logging,
 };
 
-class DatabaseConnection {
-  sequelize: Sequelize.Sequelize;
 
+
+class DatabaseConnection {
+  sequelize: Sequelize;
+  
   constructor() {
-    this.sequelize = new Sequelize.Sequelize(
+    this.sequelize = new Sequelize(
       process.env.DATABASE_DB,
       process.env.DATABASE_USER,
       process.env.DATABASE_PASSWORD,
+      // 'hoa_director',
+      // 'root',
+      // 'tacotaco',
       connectionOptions,
     );
-    this.testConnection();
   }
 
   testConnection() {

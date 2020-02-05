@@ -14,10 +14,13 @@ import {
   templateUrl: 'modal.component.html',
   styleUrls: ['modal.component.css'],
 })
+
+// Upgrading to Angular 8 requires a static flag in @ContentChild and @ViewChild
+// Added static flag an set to true
 export class ModalComponent implements OnDestroy {
-  @ContentChild('modalHeader') header: TemplateRef<any>;
-  @ContentChild('modalBody') body: TemplateRef<any>;
-  @ContentChild('modalFooter') footer: TemplateRef<any>;
+  @ContentChild('modalHeader', {static: true}) header: TemplateRef<any>;
+  @ContentChild('modalBody', {static: true}) body: TemplateRef<any>;
+  @ContentChild('modalFooter', {static: true}) footer: TemplateRef<any>;
   @Input() closeOnOutsideClick = true;
 
   visible = false;

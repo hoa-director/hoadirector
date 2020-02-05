@@ -7,7 +7,7 @@ passport.serializeUser((user: any, done) => {
 });
 
 passport.deserializeUser((id: string, done) => {
-  return User.findById(id)
+  return User.findByPk(id)
     .then((user) => {
       done(undefined, user);
     })

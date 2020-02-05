@@ -36,7 +36,7 @@ export class Association extends Model {
 
   public static getDirectoryByAssociationId(associationId: number) {
     return new Promise((resolve, reject) => {
-      Association.find({
+      Association.findOne({
         where: { id: associationId },
         attributes: ['name'],
         include: [
@@ -98,7 +98,7 @@ export class Association extends Model {
   public static getUsersByAssociationId(
     associationId: number,
   ): Bluebird<User[]> {
-    return Association.find({
+    return Association.findOne({
       where: { id: associationId },
       include: [
         {
@@ -123,7 +123,7 @@ export class Association extends Model {
 
   public static getRuleListsByAssociationId(associationId: number) {
     return new Promise((resolve, reject) => {
-      Association.find({
+      Association.findOne({
         where: { id: associationId },
         attributes: ['name'],
         include: [
@@ -359,7 +359,7 @@ export class Association extends Model {
   }
 
   public getUsers(): Bluebird<User[]> {
-    return Association.find({
+    return Association.findOne({
       where: { id: this.id },
       include: [
         {

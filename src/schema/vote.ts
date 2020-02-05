@@ -41,7 +41,7 @@ export class Vote extends Model {
       { sequelize, tableName: 'votes' },
     );
     Vote.beforeValidate(async (vote, options) => {
-      return await Objection.find({
+      return await Objection.findOne({
         where: { id: vote.objectionId },
         include: [{ model: Association, as: 'association' }],
       }).then(async (objection) => {

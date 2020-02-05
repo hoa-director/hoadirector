@@ -20,6 +20,7 @@ export class UserRouter {
   }
 
   public login(req: Request, res: Response, next: NextFunction) {
+    console.log("Login route hit");
     if (req.user.role === roles.ADMIN) {
       return Association.findAll({
         attributes: ['id', 'name'],
@@ -121,7 +122,7 @@ export class UserRouter {
 
   private forgotten(req: Request, res: Response, next: NextFunction) {
     const email = req.query.email;
-    User.find({
+    User.findOne({
       where: { email },
     })
       .then((user) => {
@@ -168,7 +169,7 @@ export class UserRouter {
   ) {
     const password = req.body.password;
     const token = req.body.token;
-    User.find({
+    User.findOne({
       include: [
         {
           model: ForgottenPasswordToken,
