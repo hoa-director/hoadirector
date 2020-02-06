@@ -1,7 +1,7 @@
 ARG SOURCE_PATH=/home/node/app
 
 # Build out the application
-FROM node:10 as builder
+FROM node:12 as builder
 
 ARG SOURCE_PATH
 
@@ -22,7 +22,7 @@ RUN npm run build
 USER node
 
 # Install the production dependincies in a seperate instance to be imported
-FROM node:10 as build-prod-deps
+FROM node:12 as build-prod-deps
 
 ARG SOURCE_PATH
 
@@ -35,7 +35,7 @@ COPY package*.json ./
 RUN npm install --only=production
 
 # This is the final instance that will be used to run our server
-FROM node:10-alpine as release
+FROM node:12-alpine as release
 
 ARG SOURCE_PATH
 
@@ -55,6 +55,6 @@ COPY --from=build-prod-deps ${SOURCE_PATH}/node_modules ./node_modules
 
 RUN ls
 
-EXPOSE 3000
+EXPOSE 5000
 
 CMD [ "npm", "start" ]
