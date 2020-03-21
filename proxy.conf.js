@@ -48,7 +48,7 @@ const PROXY_CONFIG = [
         "/api/documents",
         "/api/rules",
       ],
-      target: "http://localhost:5000",
+      target: "http://localhost:3000",
       secure: false,
       logLevel: "debug"
   }
