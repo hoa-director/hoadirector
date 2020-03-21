@@ -26,7 +26,6 @@
     "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node,Angular\" \"npm:serve-watch\" \"npm:build-server-watch\" \"npm:build-client-watch\""
   },
   "main": "dist/server.js",
-
   "dependencies": {
     "@angular/animations": "^8.2.14",
     "@angular/common": "^8.2.14",
