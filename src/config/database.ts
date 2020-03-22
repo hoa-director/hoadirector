@@ -14,7 +14,7 @@ const connectionOptions: Options = {
     underscored: true,
     paranoid: true,
   },
-  operatorsAliases: false,
+  // operatorsAliases: false,
   logging,
 };
 
@@ -28,9 +28,6 @@ class DatabaseConnection {
       process.env.DATABASE_DB,
       process.env.DATABASE_USER,
       process.env.DATABASE_PASSWORD,
-      // 'hoa_director',
-      // 'root',
-      // 'tacotaco',
       connectionOptions,
     );
   }
