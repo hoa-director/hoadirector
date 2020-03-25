@@ -4,7 +4,7 @@ import * as http from 'http';
 
 import App from './app';
 
-const port = normalizePort(process.env.PORT || 5000);
+const port = normalizePort(process.env.PORT || 3000);
 App.set('port', port);
 
 const server = http.createServer(App);
@@ -23,5 +23,5 @@ function normalizePort(val: number | string): number | string | false {
 }
 
 function onListening(): void {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port} - process environment ${process.env.NODE_ENV}`);
 }

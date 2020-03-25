@@ -16,8 +16,8 @@ export class Unit extends Sequelize.Model {
 
   user: User;
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    Unit.init(
       {
         id: {
           type: Sequelize.INTEGER({ length: 10 }),

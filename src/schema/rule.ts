@@ -8,8 +8,8 @@ export class Rule extends Sequelize.Model {
   updatedAt: Date;
   deletedAt: Date;
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    Rule.init(
       {
         id: {
           type: Sequelize.INTEGER({ length: 10 }),

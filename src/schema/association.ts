@@ -150,8 +150,8 @@ export class Association extends Model {
     });
   }
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    Association.init(
       {
         id: {
           type: DataTypes.INTEGER({ length: 10 }),
