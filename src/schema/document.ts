@@ -33,8 +33,8 @@ export class Document extends Sequelize.Model {
     });
   }
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    Document.init(
       {
         id: {
           type: Sequelize.INTEGER({ length: 10 }),

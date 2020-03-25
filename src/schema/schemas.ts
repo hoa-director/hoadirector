@@ -9,15 +9,15 @@ import { UnitSchema } from './unit';
 import { UserSchema } from './user';
 import { VoteSchema } from './vote';
 
-AssociationSchema.init(connection);
-DocumentSchema.init(connection);
-ForgottenPasswordTokenSchema.init(connection);
-ObjectionSchema.init(connection);
-RuleListSchema.init(connection);
-RuleSchema.init(connection);
-UnitSchema.init(connection);
-UserSchema.init(connection);
-VoteSchema.init(connection);
+AssociationSchema.initialize(connection);
+DocumentSchema.initialize(connection);
+ForgottenPasswordTokenSchema.initialize(connection);
+ObjectionSchema.initialize(connection);
+RuleListSchema.initialize(connection);
+RuleSchema.initialize(connection);
+UnitSchema.initialize(connection);
+UserSchema.initialize(connection);
+VoteSchema.initialize(connection);
 
 AssociationSchema.hasMany(UnitSchema, {
   as: 'units',

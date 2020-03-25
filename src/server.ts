@@ -23,5 +23,5 @@ function normalizePort(val: number | string): number | string | false {
 }
 
 function onListening(): void {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port} - process environment ${process.env.NODE_ENV}`);
 }

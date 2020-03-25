@@ -37,8 +37,8 @@ export class Objection extends Model {
 
   getVotes: HasManyGetAssociationsMixin<Vote>;
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    Objection.init(
       {
         id: {
           type: DataTypes.INTEGER({ length: 10 }),

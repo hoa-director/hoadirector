@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import { DuplicateError } from '../classes/duplicate-error';
+import { DataTypes, Model } from "sequelize";
+import { DuplicateError } from "../classes/duplicate-error";
 
 export class Vote extends Model {
   id: number;
@@ -11,44 +11,44 @@ export class Vote extends Model {
   updatedAt: Date;
   deletedAt: Date;
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    Vote.init(
       {
         id: {
           type: DataTypes.INTEGER({ length: 10 }),
           primaryKey: true,
           unique: true,
           autoIncrement: true,
-          field: 'id',
+          field: "id"
         },
         userId: {
           type: DataTypes.INTEGER({ length: 10 }),
-          field: 'user_id',
+          field: "user_id"
         },
         objectionId: {
           type: DataTypes.INTEGER({ length: 10 }),
-          field: 'objection_id',
+          field: "objection_id"
         },
         annonymous: {
           type: DataTypes.BOOLEAN,
-          field: 'annonymous',
+          field: "annonymous"
         },
         approved: {
           type: DataTypes.BOOLEAN,
-          field: 'approved',
-        },
+          field: "approved"
+        }
       },
-      { sequelize, tableName: 'votes' },
+      { sequelize, tableName: "votes" }
     );
     Vote.beforeValidate(async (vote, options) => {
       return await Objection.findOne({
         where: { id: vote.objectionId },
-        include: [{ model: Association, as: 'association' }],
-      }).then(async (objection) => {
-        await objection.getVotes().then(async (votes) => {
+        include: [{ model: Association, as: "association" }]
+      }).then(async objection => {
+        await objection.getVotes().then(async votes => {
           // User has already voted. Cancel creation
           if (votes.length) {
-            return Promise.reject(new DuplicateError('Duplicate entry'));
+            return Promise.reject(new DuplicateError("Duplicate entry"));
           }
         });
       });
@@ -58,8 +58,8 @@ export class Vote extends Model {
   public static asscociate(model) {}
 }
 
-import { Association } from './association';
-import { Objection } from './objection';
+import { Association } from "./association";
+import { Objection } from "./objection";
 
 export const VoteSchema = Vote;
 export default VoteSchema;

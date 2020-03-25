@@ -2,11 +2,8 @@ import { Sequelize, Options, OperatorsAliases } from 'sequelize';
 
 const logging = process.env.NODE_ENV === 'development' ? console.log : false;
 
-
-
 const connectionOptions: Options = {
   host: process.env.DATABASE_HOST,
-  // host: 'localhost',
   dialect: 'mysql',
   pool: {
     max: 10,
@@ -17,6 +14,7 @@ const connectionOptions: Options = {
     paranoid: true,
   },
   logging,
+  operatorsAliases: false,
 };
 
 

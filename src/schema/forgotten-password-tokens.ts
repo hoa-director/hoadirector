@@ -9,8 +9,8 @@ export class ForgottenPasswordToken extends Model {
   updatedAt: Date;
   deletedAt: Date;
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    ForgottenPasswordToken.init(
       {
         id: {
           type: DataTypes.INTEGER({ length: 10 }),

@@ -9,8 +9,8 @@ export class RuleList extends Sequelize.Model {
   updatedAt: Date;
   deletedAt: Date;
 
-  public static init(sequelize) {
-    super.init(
+  public static initialize(sequelize) {
+    RuleList.init(
       {
         id: {
           type: Sequelize.INTEGER({ length: 10 }),
