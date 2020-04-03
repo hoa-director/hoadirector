@@ -1,16 +1,27 @@
-# Build out the application
+## STAGE 1:
 FROM node:12 as builder
 
+# Create a directory where our app will be placed
+RUN mkdir -p /app
+
+# Change directory so that our commands run inside this new directory
 WORKDIR /app
 
-COPY package.json ./
+# Copy dependency definitions
+COPY package*.json /app/
 
+# Install dependecies
 RUN npm install
 
-COPY . .
+# Get all the code needed to run the app
+COPY . /app/
 
 RUN npm run build
 
-EXPOSE 3000
+## STAGE 2:
+FROM nginx
 
-CMD [ "npm", "start" ]
+COPY --from=builder /app/dist/* usr/share/nginx/html/
+
+# Expose the port the app runs in
+EXPOSE 80
