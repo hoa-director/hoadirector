@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "source",
+    "baseUrl": "src",
     "paths": {
       "schemas": ["schema/schemas"]
     },
