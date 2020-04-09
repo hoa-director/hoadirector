@@ -5,7 +5,7 @@
   "projects": {
     "hoadirector": {
       "root": "",
-      "sourceRoot": "src/client",
+      "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -14,16 +14,16 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/public",
-            "index": "src/client/index.html",
-            "main": "src/client/main.ts",
-            "polyfills": "src/client/polyfills.ts",
-            "tsConfig": "src/client/tsconfig.app.json",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/client/favicon.ico",
-              "src/client/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
-              "src/client/styles.css"
+              "src/styles.css"
             ],
             "scripts": []
           },
@@ -31,8 +31,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "src/client/environments/environment.ts",
-                  "with": "src/client/environments/environment.prod.ts"
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
