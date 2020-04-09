@@ -11,7 +11,7 @@
     "client": "ng serve",
     "build-dev": "npm run clean && npm run build-server && npm run build-client-dev",
     "build-server-watch": "tsc-watch -p tsconfig.server.json --onSuccess \"npm run copy-static-assets\"",
-    "build-server": "tsc -p server/tsconfig.server.json",
+    "build-server": "tsc -p tsconfig.server.json",
     "build": "npm run clean && npm run build-server && npm run build-client && npm run copy-static-assets",
     "clean": "rm -fR dist/",
     "copy-static-assets": "npx ts-node copyStaticAssets.ts",
