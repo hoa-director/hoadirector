@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'client/app/services/user.service';
+import { UserService } from '../../services/user.service';
 import { ResolutionCenterService } from '../resolution-center.service';
 
 @Component({

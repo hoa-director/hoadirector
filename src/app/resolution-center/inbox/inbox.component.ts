@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ResolutionCenterService } from '../resolution-center.service';
-import { UserService } from 'client/app/services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-inbox',

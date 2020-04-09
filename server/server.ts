@@ -1,6 +1,7 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
 import * as http from 'http';
+import { connection } from './config/database';
 
 import App from './app';
 
