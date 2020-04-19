@@ -8,6 +8,10 @@ import { Association, ForgottenPasswordToken } from '../schema/schemas';
 import User, { UserSchema } from '../schema/user';
 
 import { bugsnagClient } from '../config/bugsnag';
+import Mail = require('nodemailer/lib/mailer');
+
+import { SendMailOptions } from 'nodemailer';
+import * as nodemailer from 'nodemailer'; 
 
 const passportRedirect: passport.AuthenticateOptions = {};
 
@@ -131,9 +135,9 @@ export class UserRouter {
       })
       .then((token) => {
         const emailer = EmailerFactory.createEmailer();
-        const emailOptions = {
+        const mailOptions : nodemailer.SendMailOptions = {
           from: process.env.EMAIL_FROM,
-          to: email,
+          to: 'gellertjm@gmail.com',// email,
           subject: 'Reset Password',
           text: `
         A new password has been requested for ${email}.
@@ -151,7 +155,7 @@ export class UserRouter {
         }</p>
         `,
         };
-        return emailer.sendMail(emailOptions);
+        return emailer.sendMail(mailOptions);
       })
       .then(() => {
         res.send({ sucess: true });

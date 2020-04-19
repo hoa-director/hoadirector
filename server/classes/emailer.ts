@@ -20,6 +20,7 @@ export class Emailer {
     this.transporter = transporter;
   }
 
+  // options should be of type SendMailOptions
   sendMail(options: SendMailOptions) {
     if (
       process.env.NODE_ENV === 'development' ||
