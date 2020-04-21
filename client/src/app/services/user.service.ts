@@ -3,6 +3,9 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from "../../environments/environment";
+
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +30,7 @@ export class UserService {
   }
 
   login(user): Observable<string> {
-    return this.http.post('/user/login', user).pipe(
+    return this.http.post(BACKEND_URL + '/user/login', user).pipe(
       tap((userData) => {
         this.setUser(userData);
         return 'success';
@@ -36,7 +39,7 @@ export class UserService {
   }
 
   logout() {
-    return this.http.get('/users/logout').pipe(
+    return this.http.get(BACKEND_URL + '/users/logout').pipe(
       tap(() => {
         this.setUser(undefined);
         this.router.navigate(['/login']);
@@ -46,7 +49,7 @@ export class UserService {
 
   getUser() {
     if (!this.user) {
-      return this.http.get('/user').pipe(
+      return this.http.get(BACKEND_URL + '/user').pipe(
         tap(user => {
           this.setUser(user);
         }),
@@ -73,7 +76,7 @@ export class UserService {
       if (!user) {
         return of({});
       }
-      return this.http.get('/user/associations');
+      return this.http.get(BACKEND_URL + '/user/associations');
     });
   }
 
@@ -82,7 +85,7 @@ export class UserService {
       if (!user) {
         return of({});
       }
-      return this.http.post('/user/associations/', {associationId}).pipe(
+      return this.http.post(BACKEND_URL + '/user/associations/', {associationId}).pipe(
         tap(({currentAssociation}) => {
           this.setCurrentAssociation(currentAssociation);
         })
@@ -91,7 +94,7 @@ export class UserService {
   }
 
   requestToken(email) {
-    return this.http.get('/users/forgotten', {
+    return this.http.get(BACKEND_URL + '/users/forgotten', {
       params: {
         email
       }
@@ -99,6 +102,6 @@ export class UserService {
   }
 
   changeForgottenPassword({password, token}) {
-    return this.http.post('/users/forgotten', {password, token});
+    return this.http.post(BACKEND_URL + '/users/forgotten', {password, token});
   }
 }

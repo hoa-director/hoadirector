@@ -36,22 +36,22 @@
 // module.exports = PROXY_CONFIG;
 
 
-const PROXY_CONFIG = [
-  {
-      context: [
-        "/user/login",
-        "/users/logout",
-        "/user",
-        "/user/associations",
-        "/users/forgotten",
-        "/api/directory",
-        "/api/documents",
-        "/api/rules",
-      ],
-      target: "http://localhost:3000",
-      secure: false,
-      logLevel: "debug"
-  }
-]
+// const PROXY_CONFIG = [
+//   {
+//       context: [
+//         "/user/login",
+//         "/users/logout",
+//         "/user",
+//         "/user/associations",
+//         "/users/forgotten",
+//         "/api/directory",
+//         "/api/documents",
+//         "/api/rules",
+//       ],
+//       target: "http://localhost:3000",
+//       secure: false,
+//       logLevel: "debug"
+//   }
+// ]
 
-module.exports = PROXY_CONFIG;
+// module.exports = PROXY_CONFIG;
