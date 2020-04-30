@@ -43,7 +43,8 @@ export class ApiRouter {
   }
 
   private getDirectory = (req: Request, res: Response, next: NextFunction) => {
-    const associationId = req.session.associationId;
+    // TODO: remove the hard coded 2
+    const associationId = req.session.associationId || 2;
     Association.getDirectoryByAssociationId(associationId)
       .then((directory) => {
         res.send(directory);
@@ -54,7 +55,9 @@ export class ApiRouter {
       });
   }
   private getRules = (req: Request, res: Response, next: NextFunction) => {
-    const associationId = req.session.associationId;
+    // TODO: remove the hard coded 2
+    console.log(req.session.associationId);
+    const associationId = req.session.associationId || 2;
     Association.getRuleListsByAssociationId(associationId)
       .then((ruleLists) => {
         res.send(ruleLists);
@@ -65,7 +68,8 @@ export class ApiRouter {
       });
   }
   private fileObjection = (req: Request, res: Response, next: NextFunction) => {
-    const associationId = req.session.associationId;
+    // TODO: remove the hard coded 2
+    const associationId = req.session.associationId || 2;
     const objection = req.body.objection;
     const byId = req.user.id;
     Objection.create({

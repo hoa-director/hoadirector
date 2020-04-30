@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login(user): void {
-    this.userService.login(user).subscribe(
+    this.userService.loginUser(user)
+    .subscribe(
       (response) => {
         this.router.navigateByUrl('/directory');
       },

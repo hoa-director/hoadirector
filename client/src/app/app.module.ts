@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +24,7 @@ import { RulesComponent } from './app/rules/rules.component';
 import { HomeComponent } from './home/home.component';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
 import { RequestPasswordChangeComponent } from './request-password-change/request-password-change.component';
+import { AuthInterceptor } from './services/auth-interceptor';
 // import { ModalComponent } from './app/modal/modal.component';
 
 @NgModule({
@@ -54,7 +55,10 @@ import { RequestPasswordChangeComponent } from './request-password-change/reques
     ResolutionCenterModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    // provides the interceptor
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

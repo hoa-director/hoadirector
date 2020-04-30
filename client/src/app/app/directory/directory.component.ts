@@ -30,6 +30,7 @@ export class DirectoryComponent implements OnInit {
     this.userService.currentAssociationUpdated.subscribe(() => {
       this.init();
     });
+    
   }
 
   init() {
@@ -37,5 +38,6 @@ export class DirectoryComponent implements OnInit {
     this.dataService.getDirectory().subscribe((response: any) => {
       this.units = response.units;
     });
+
   }
 }

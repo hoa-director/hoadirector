@@ -11,6 +11,8 @@ import indexRoutes from "./routes";
 import apiRoutes from "./routes/api";
 import userRoutes from "./routes/user";
 
+const checkAuth = require("./middleware/check-auth");
+
 const bugsnagExpress = bugsnagClient.getPlugin("express");
 
 const serverSessionSecret = process.env.SESSION_SECRET;
@@ -20,7 +22,7 @@ class App {
 
   constructor() {
     this.express = express();
-    this.express.use(cors())
+    this.express.use(cors());
     // this.staticContent();
     this.middleware();
     this.routes();
@@ -28,19 +30,18 @@ class App {
   }
 
   private middleware(): void {
-    // this.express.use((req: Request, res: Response, next: NextFunction) => {
-    //   res.setHeader("Access-Control-Allow-Credentials", "true");
-    //   res.setHeader("Access-Control-Allow-Origin", "*");
-    //   res.setHeader(
-    //     "Access-Control-Allow-Headers",
-    //     "Origin, X-Requested-With, Content-Type, Accept"
-    //   );
-    //   res.setHeader(
-    //     "Access-Control-Allow-Methods",
-    //     "GET, POST, DELETE, PUT, OPTIONS"
-    //   );
-    //   next();
-    // });
+    this.express.use((req: Request, res: Response, next: NextFunction) => {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      );
+      res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, DELETE, PUT, OPTIONS"
+      );
+      next();
+    });
     this.express.use(bugsnagExpress.requestHandler);
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(bodyParser.json());
@@ -49,18 +50,6 @@ class App {
     );
     this.express.use(passport.initialize());
     this.express.use(passport.session());
-    
-    // this.express.use((req: Request, res: Response, next: NextFunction) => {
-    //   res.header('Access-Control-Allow-Credentials', "true");
-    //   res.header('Access-Control-Allow-Origin', "*");
-    //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    //   res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-    //   if ('OPTIONS' == req.method) {
-    //        res.send(200);
-    //    } else {
-    //        next();
-    //    }
-    //   });
   }
 
   private errorHandlers(): void {
@@ -83,7 +72,8 @@ class App {
   }
 
   private routes(): void {
-    this.express.use("/api/", this.isLoggedIn, apiRoutes);
+    this.express.use("/api/", checkAuth, apiRoutes);
+    // this.express.use("/api/", apiRoutes);
     this.express.use("/user/", userRoutes);
     this.express.use("/users/", userRoutes);
     this.express.use("/*", indexRoutes);

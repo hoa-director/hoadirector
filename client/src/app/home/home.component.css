@@ -1,1 +1,429 @@
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    /* transform: translateX(-100px); */
+    transform: translateX(-10rem);
+  }
+  80% {
+    /* transform: translateX(10px); */
+    transform: translateX(1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    /* transform: translateX(100px); */
+    transform: translateX(10rem);
+  }
+  80% {
+    /* transform: translateX(-10px); */
+    transform: translateX(-1rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    /* transform: translateY(30px); */
+    transform: translateY(3rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+/* Basic reset to make every browser render in the same way */
+/* Universal selector will select each element on the page an apply these declarations */
+/* using this allows you to start clean without any added margin or padding from the web browser */
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+  /* when possible, we should inherit so move box-sizing boarder-box to body */
+  box-sizing: inherit;
+}
+
+/* the global font size is set in the html element */
+/* if we convert all our font size to rem, it will be based of the root font */
+/* this is very helpful for making response sites, for example, when a a break point for mobile
+  need a way to decrease all the sizes with one font setting  */
+/* why set the font-size to 10 instead of default 16px. So that we know that one rem is exactly 10px */
+html {
+  /* font-size: 10px; */
+  /* if we keep 10px here, it does not allow the user to make the default browser font size bigger
+      so we set the font size to 62.5% of 16px, which is the default browser size, and end up with 10px here.
+      now if the user changes the font size in the browser, the page will still be responsive */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16; */
+  /* Means that the line height is 1.7 times bigger than the pre defined line height */
+  line-height: 1.7;
+  color: #777;
+  /* to put a nice white boarder around the entire page, add padding to the body */
+  /* padding: 30px; */
+  padding: 3rem;
+}
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  /* fixes the issue where the animation text shacks and moves up after animation */
+  backface-visibility: hidden;
+  /* to add some white space between the heading and the button add some margin */
+  /* margin-bottom: 60px; */
+  margin-bottom: 6rem;
+  /* span elements by default are inline elements like text */
+  /* to get each part of the heading on separate lines we can display block */
+  /* block elements span the entire width and use a line break before and after */
+}
+.heading-primary--main {
+  display: block;
+  /* font-size: 60px; */
+  font-size: 6rem;
+  font-weight: 400;
+  /* letter-spacing: 35px; */
+  letter-spacing: 3.5rem;
+  animation-name: moveInLeft;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  /* animation-iteration-count: 3; */
+  /* animation-delay: 3s; */
+}
+.heading-primary--sub {
+  display: block;
+  /* font-size: 20px; */
+  font-size: 2rem;
+  font-weight: 700;
+  /* letter-spacing: 17.4px; */
+  letter-spacing: 1.75rem;
+  animation: moveInRight 1s ease-out;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  /* font-size: 16; */
+  /* Means that the line height is 1.7 times bigger than the pre defined line height */
+  line-height: 1.7;
+  color: #777;
+  /* to put a nice white boarder around the entire page, add padding to the body */
+  /* padding: 30px; */
+  padding: 3rem;
+}
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: inline-block;
+  background-image: linear-gradient(to right, rgba(211, 211, 211, 0.8),
+  rgba(43, 44, 86, 0.8));
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: 0.2rem;
+  transition: all, 0.2s;
+}
+.heading-secondary:hover {
+  transform: skewY(2deg) skewX(15deg) scale(1.1);
+  text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.paragraph {
+  font-size: 1.6rem;
+}
+.paragraph:not(:last-child) {
+  margin-bottom: 3rem;
+}
+
+.u-center-text {
+  text-align: center;
+}
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem;
+}
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem;
+}
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem;
+}
+
+.btn {
+  /* because the button is a anchor we can use the pseudo class link */
+  /* pseudo class is a special state of the selector. Style elements under special condition */
+  /* after pseudo element is treated like a child of the button so if we specify height 
+      100%, it means 100% of the button */
+}
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  /* because the button is text, it is displayed inline */
+  /* to add some padding to the element, display inline-block */
+  display: inline-block;
+  border-radius: 10rem;
+  /* this will add animation without specifying using @keyframes
+        all we have to use is transition and specify the properties we want to animate
+        and in this case we are selecting all properties and .2 seconds */
+  transition: all 0.2s;
+  /* need to set this to relative so that the absolute positioning of btn::after
+        can use this as a reference point. */
+  position: relative;
+  font-size: 1.6rem;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  /* first value is shadow in the x direction, we want 0 */
+  /* second value is shadow in the y direction,  */
+  /* third value is the blur, more blur makes it look further away from page */
+  /* fourth value is the color */
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+.btn:hover::after {
+  /* use scale to make bigger */
+  /* transform: scale(1.5); */
+  transform: scaleX(1.4) scaleY(1.6);
+  /* this is the trick to fading something out */
+  opacity: 0;
+}
+.btn:active {
+  transform: translateY(-1px);
+  /* decrease the shadow and blur to make it look like the button is closer to
+          the page and getting pushed down */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+}
+.btn--white {
+  background-color: #fff;
+  color: #777;
+}
+.btn--white::after {
+  background-color: #fff;
+}
+.btn::after {
+  /* always have to define content */
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 10rem;
+  /* based of relative position of button above */
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* want to place this behind so add a z index of -1 */
+  z-index: -1;
+  transition: all 0.4s;
+}
+.btn--animated {
+  /* last value is animation delay */
+  animation: moveInBottom 0.5s ease-out 0.75s;
+  /* apply the animation style of the 0% before the animation starts */
+  animation-fill-mode: backwards;
+}
+
+.btn-text:link,
+.btn-text:visited {
+  font-size: 1.6rem;
+  color: rgba(138, 186, 39, 1);
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(138, 186, 39, 1);
+  padding: 3px;
+  transition: all 0.2s;
+}
+
+.btn-text:hover {
+  background-color: rgba(138, 186, 39, 1);
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-text:active {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0);
+}
+
+.composition {
+  position: relative;
+}
+.composition__photo {
+  width: 55%;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+  position: absolute;
+  z-index: 10;
+  transition: all 0.2s;
+  outline-offset: 2rem;
+}
+.composition__photo--p1 {
+  left: 0;
+  top: -2rem;
+}
+.composition__photo--p2 {
+  right: 0;
+  top: 2rem;
+}
+.composition__photo--p3 {
+  left: 20%;
+  top: 10rem;
+}
+.composition__photo:hover {
+  outline: 1.5rem solid rgba(138, 186, 39, 1);
+  transform: scale(1.05) translateY(-0.5rem);
+  box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+  z-index: 20;
+}
+.composition:hover .composition__photo:not(:hover) {
+  transform: scale(0.95);
+}
+
+.feature-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  padding: 2.5rem;
+  text-align: center;
+  border-radius: 3px;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s;
+}
+.feature-box__icon {
+  font-size: 6rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  background-image: linear-gradient(to right, #7ed56f, #28b485);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.feature-box:hover {
+  transform: translateY(-1.5rem) scale(1.03);
+}
+
+.row {
+  max-width: 114rem;
+  margin: 0 auto;
+}
+.row:not(:last-child) {
+  margin-bottom: 8rem;
+}
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.row [class^="col-"] {
+  float: left;
+}
+.row [class^="col-"]:not(:last-child) {
+  margin-right: 6rem;
+}
+.row .col-1-of-2 {
+  width: calc((100% - 6rem) / 2);
+}
+.row .col-1-of-3 {
+  width: calc((100% - (2 * 6rem)) / 3);
+}
+.row .col-2-of-3 {
+  width: calc(2 * ((100% - (2 * 6rem)) / 3) + 6rem);
+}
+.row .col-1-of-4 {
+  width: calc((100% - (3 * 6rem)) / 4);
+}
+.row .col-2-of-4 {
+  width: calc(2 * ((100% - (3 * 6rem)) / 4) + 6rem);
+}
+.row .col-3-of-4 {
+  width: calc(3 * ((100% - (3 * 6rem)) / 4) + (2 * 6rem));
+}
+
+.header {
+  /* 95% of the viewport height */
+  height: 95vh;
+  /* background image */
+  /* always specify background gradients using background-image */
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(211, 211, 211, 0.8),
+      rgba(43, 44, 86, 0.8)
+    ),
+    url(../../assets/images/hoa-icon-white-back-full-corners.svg);
+  /* cover trys to fit the element in the box no matter the width of the view port of element */
+  background-size: cover;
+  /* ensures that the top of the image always stays at the top of the container, bottom or center */
+  background-position: top;
+  /* This makes it so the child div has a starting origin for the absolute positioning */
+  position: relative;
+  /* create the wedge look at the bottom of the header: x and y (epsilon) */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  /* Using absolute allows you to decide exactly where you want the div */
+  /* However, the starting point is based off the parents location, need to make parent position relative */
+  /* to scale the picture, don't set the width, the browser with scale for you */
+}
+.header__logo-box {
+  position: absolute;
+  /* top: 40px;
+          left: 40px; */
+  top: 4rem;
+  left: 4rem;
+}
+.header__logo {
+  /* height: 35px; */
+  height: 3.5rem;
+}
+.header__text-box {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  /* these 50% are no longer in relation to the parent element but rather the element itself */
+  transform: translate(-50%, -50%);
+  /* because the button in the header is text and treated as inline, it can be 
+        centered by adding text align center in this div */
+  text-align: center;
+}
+
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem 0;
+  margin-top: -20rem;
+}
+
+.section-features {
+  padding: 20rem 0;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(211, 211, 211, 0.8),
+      rgba(43, 44, 86, 0.8)
+    ),
+    url(../../assets/images/hoa-icon-white-back-full-corners.svg);
+  background-size: cover;
+  margin-top: -10rem;
+  transform: skewY(-7deg);
+}
+.section-features > * {
+  transform: skewY(7deg);
+}

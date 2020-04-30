@@ -4,6 +4,7 @@ import { tap, catchError, map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment";
+import { response } from 'express';
 
 const BACKEND_URL = environment.apiUrl;
 
@@ -16,6 +17,8 @@ export class UserService {
   currentAssociation;
   currentAssociationUpdated: EventEmitter<string> = new EventEmitter();
 
+  private token: string;
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -27,15 +30,26 @@ export class UserService {
   setUser(user) {
     this.user = user;
     this.userUpdated.emit(user);
-  }
+  } 
 
-  login(user): Observable<string> {
-    return this.http.post(BACKEND_URL + '/user/login', user).pipe(
-      tap((userData) => {
-        this.setUser(userData);
+  loginUser(user): Observable<any> {
+    return this.http.post<{token: string, user: any}>(BACKEND_URL + '/user/login', user)
+    .pipe(
+      tap((loginResponse) => {
+        this.setUser(loginResponse.user);
+        console.log(loginResponse.user);
+        console.log(loginResponse.token);
+        const token = loginResponse.token;
+        this.token = token;
         return 'success';
       }),
-    ) as Observable<string>;
+    );
+    // this.http.post(BACKEND_URL + '/user/login', user).subscribe(response => {
+    // })
+  }
+
+  getToken() {
+    return this.token;
   }
 
   logout() {
@@ -76,7 +90,7 @@ export class UserService {
       if (!user) {
         return of({});
       }
-      return this.http.get(BACKEND_URL + '/user/associations');
+      return this.http.get(BACKEND_URL + `/user/associations/?userId=${this.user.id}`);
     });
   }
 
