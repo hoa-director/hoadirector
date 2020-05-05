@@ -1,0 +1,17 @@
+version: '3' # specify docker-compose version
+
+services: # Define the services/containers to be run
+
+    hoa-ui: # name of the first service
+        build: ./client # specify the directory of the Dockerfile
+        container_name: hoa-ui
+        ports:
+            - 4200:80 # specify port forwarding
+        links:
+            - hoa-app
+
+    hoa-app: # name of the second service
+        build: ./server # specify the directory of the Dockerfile
+        container_name: hoa-app
+        ports:
+            - 3000:3000 # specify ports forwarding
