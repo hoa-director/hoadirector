@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+
+.clickable {
+  cursor: pointer;
+}
+
+html {
+  /* font-size: 10px; */
+  /* If we keep 10px here, it does not allow the user to make the default browser font size bigger
+    so we set the font size to 62.5% of 16px, which is the default browser size, and end up with 10px here.
+    now if the user changes the font size in the browser, the page will still be responsive */
+  font-size: 62.5%; }
