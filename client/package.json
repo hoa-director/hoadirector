@@ -27,7 +27,7 @@
     "@bugsnag/js": "^6.5.2",
     "@bugsnag/plugin-express": "^6.5.1",
     "angular-custom-modal": "^1.2.0",
-    "bcrypt": "^3.0.8",
+    "bcrypt": "^5.0.0",
     "bootstrap": "^4.4.1",
     "concurrently": "^3.6.1",
     "cookie-session": "^1.4.0",
